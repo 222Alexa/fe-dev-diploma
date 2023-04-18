@@ -18,13 +18,13 @@ const TrainsMenuCard = ({ departure, onClick }) => {
   const location = useLocation();
 const navigate = useNavigate();
   let screen =
-    location.pathname === "/Diploma-FFE-Train-Tickets/screening"
+    location.pathname === "/fe-dev-diploma/screening"
       ? "screen"
       : null;
     
   params.id = departure._id;
 
-  console.log(departure, "departure");
+  //console.log(departure, "departure");
   const dataTrain = {
     duration: departure.duration,
     statusWagons: [

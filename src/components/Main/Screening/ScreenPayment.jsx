@@ -22,7 +22,7 @@ const ScreenPayment = ({ data }) => {
                 text="Изменить"
                 type="screening"
                 onClick={() =>
-                  navigate("/Diploma-FFE-Train-Tickets/personal_information")
+                  navigate("/fe-dev-diploma/personal_information")
                 }
               ></Button>
             </div>

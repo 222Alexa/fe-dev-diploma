@@ -5,8 +5,8 @@ const ProgressBar = () => {
   const params = useParams();
  
   if (
-    location.pathname === "/Diploma-FFE-Train-Tickets" ||
-    location.pathname === "/Diploma-FFE-Train-Tickets/order-result"
+    location.pathname === "/fe-dev-diploma" ||
+    location.pathname === "/fe-dev-diploma/order-result"
   ) {
     return;
   }
@@ -18,15 +18,15 @@ const ProgressBar = () => {
   /** */
   let step=1;
 
-  if (location.pathname === "/Diploma-FFE-Train-Tickets/screening") {
+  if (location.pathname === "/fe-dev-diploma/screening") {
     step = 4;
   } else if (
-    location.pathname === "/Diploma-FFE-Train-Tickets/personal_information"
+    location.pathname === "/fe-dev-diploma/personal_information"
   ) {
     step = 3;
   } else if (
     location.pathname ===
-    `/Diploma-FFE-Train-Tickets/trains/${params.id}/passengers`
+    `/fe-dev-diploma/trains/${params.id}/passengers`
   ) {
     step = 2;
   }

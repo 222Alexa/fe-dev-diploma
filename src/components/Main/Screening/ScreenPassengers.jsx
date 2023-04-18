@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {useSelector} from "react-redux";
 import { CardTitle, Button, MySvgIcon } from "../../Atoms/Atoms";
 import Card from "../CardsBlock/Card";
@@ -10,9 +10,10 @@ import { format } from "date-fns";
 import { nanoid } from "nanoid";
 
 const ScreenPassengers = ({ data }) => {
-  console.log(data, "screening");
+  //console.log(data, "screening");
 const totalPrice=useSelector((state) => state.passengers.totalPrice)
   const navigate = useNavigate();
+const params = useParams();
 
   return (
     <React.Fragment>
@@ -93,7 +94,7 @@ const totalPrice=useSelector((state) => state.passengers.totalPrice)
                 type="screening"
                 onClick={() =>
                   navigate(
-                    "/Diploma-FFE-Train-Tickets/trains/63329d80591d1e00467e93dc/passengers"
+                    `/fe-dev-diploma/trains/${params.id}/passengers`
                   )
                 }
               ></Button>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Checkbox } from "@mui/material";
 const ControlledCheckbox = ({ id, value, onChange }) => {
   const [checked, setChecked] = useState(false);
-console.log(id, 444)
+//console.log(id, 444)
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };

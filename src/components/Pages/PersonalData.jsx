@@ -61,7 +61,7 @@ const PersonalData = () => {
     return id === value ? "#ffa800" : "inherit";
   };
   const isValidData = validateDataPassengers(state);
-  console.log(state, "isValidData ");
+
   return (
     <React.Fragment>
       <Banner className="banner banner-tickets" banner={banner3} />
@@ -103,7 +103,14 @@ const PersonalData = () => {
                       value={state.payment_method}
                       onChange={handleChange}
                     />
-                    <span className="payment-description" style={{color:styledColor("online", state.payment_method)}}>Онлайн</span>
+                    <span
+                      className="payment-description"
+                      style={{
+                        color: styledColor("online", state.payment_method),
+                      }}
+                    >
+                      Онлайн
+                    </span>
                   </div>
                   <div className="payment-options_block d-flex">
                     {optionsPayment.map((item) => {
@@ -125,7 +132,9 @@ const PersonalData = () => {
                     />
                     <span
                       className="payment-description"
-                      style={{color:styledColor("cash", state.payment_method)}}
+                      style={{
+                        color: styledColor("cash", state.payment_method),
+                      }}
                     >
                       Наличными
                     </span>
@@ -139,7 +148,6 @@ const PersonalData = () => {
                 type={!isValidData ? "next-block" : " disabled next-block"}
                 disabled={isValidData ? true : false}
                 onClick={() => {
-                  console.log("personal_information");
                   dispatch(setContributor({ data: state }));
                   navigate("/fe-dev-diploma/screening");
                 }}

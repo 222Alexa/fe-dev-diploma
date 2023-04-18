@@ -21,6 +21,9 @@ const OrderResult = () => {
   const { first_name, patronymic } = useSelector(
     (state) => state.passengers.contributor
   );
+  const totalPrice = useSelector(
+    (state) => state.passengers.totalPrice
+  );
   const amount = Array(5).fill().map((e, i) => i + 1);
   return (
     <React.Fragment>
@@ -41,7 +44,7 @@ const OrderResult = () => {
               </div>
               <div className="order-result_price-wrap">
                 <span className="price_text">{"cумма "}</span>
-                <span className="price total-price">7760</span>
+                <span className="price total-price">{totalPrice}</span>
                 <svg
                   className="order-result_price-currency"
                   width="20"

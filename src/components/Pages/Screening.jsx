@@ -23,7 +23,7 @@ const Screening = () => {
     console.log(passengers);
     return {};
   }, [passengers]);
-  console.log(progress, "progress");
+
   useEffect(() => {
     progress();
     progress.screening =
