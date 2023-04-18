@@ -16,15 +16,13 @@ import { nanoid } from "nanoid";
 const TrainsMenuCard = ({ departure, onClick }) => {
   const params = useParams();
   const location = useLocation();
-const navigate = useNavigate();
+  const navigate = useNavigate();
   let screen =
-    location.pathname === "/fe-dev-diploma/screening"
-      ? "screen"
-      : null;
-    
+    location.pathname === "/fe-dev-diploma/screening" ? "screen" : null;
+
   params.id = departure._id;
 
-  //console.log(departure, "departure");
+  console.log(departure, "departure");
   const dataTrain = {
     duration: departure.duration,
     statusWagons: [
@@ -56,22 +54,28 @@ const navigate = useNavigate();
   const dataWagons = filteredWagons.map((item) => {
     if (item.name === "fourth") {
       item.amount = departure.available_seats_info.fourth;
-      item.min_price = departure.price_info.fourth.bottom_price;
+      item.min_price = departure.min_price;
       item.type = "Сидячий";
     }
     if (item.name === "third") {
       item.amount = departure.available_seats_info.third;
-      item.min_price = departure.price_info.third.side_price;
+      item.min_price = departure.min_price;
+      item.bottom_price = departure.price_info.third.bottom_price;
+      item.side_price = departure.price_info.third.side_price;
+      item.top_price = departure.price_info.third.top_price;
       item.type = "Плацкарт";
     }
     if (item.name === "second") {
       item.amount = departure.available_seats_info.second;
-      item.min_price = departure.price_info.second.bottom_price;
+      item.min_price = departure.min_price;
+      item.bottom_price = departure.price_info.second.bottom_price;
+      item.top_price = departure.price_info.second.top_price;
+      
       item.type = "Купе";
     }
     if (item.name === "first") {
       item.amount = departure.available_seats_info.first;
-      item.min_price = departure.price_info.first.bottom_price;
+      item.min_price = departure.min_price;
       item.type = "Люкс";
     }
 
@@ -104,6 +108,7 @@ const navigate = useNavigate();
                 amount={item.amount}
                 type={item.type}
                 min_price={item.min_price}
+                item={item}
                 className="trains-menu_item"
               />
             ))}

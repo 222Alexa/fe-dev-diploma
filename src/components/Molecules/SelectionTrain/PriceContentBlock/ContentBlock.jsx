@@ -4,26 +4,27 @@ import GroupText from "./GroupText";
 import GroupPrice from "./GroupPrice";
 import { nanoid } from "nanoid";
 
-const ContentBlock = ({ className, data }) => {
+const ContentBlock = ({ className,template }) => {
+
 
   return (
     <React.Fragment>
       <div className={className + "_block"}>
-        {data &&
-          data.map((item) => {
+        {template.seats.length > 0 &&
+          template.seats.map((item) => {
             return (
               <ContentBlockItem key={nanoid()} className={className}>
                 <GroupText
                   key={nanoid()}
                   className={className}
                   name={item.name}
-                  amount={item.amount}
+                  amount={template.amount}
                 />
                 <GroupPrice
                   key={nanoid()}
                   className={className}
                   price={item.price}
-                />
+                />{" "}
               </ContentBlockItem>
             );
           })}
@@ -32,7 +33,5 @@ const ContentBlock = ({ className, data }) => {
   );
 };
 export default ContentBlock;
-
-
 
 

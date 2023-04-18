@@ -18,6 +18,7 @@ import { findWagon } from "../../utils/trainSelectionUtils";
 import { addSeats, clearDataSeats } from "../../features/passengersSlice";
 
 import { useGetTrainIdQuery } from "../../features/myApi";
+import { getDuration } from "../../utils/trainSelectionUtils";
 import "../Main/SelectionWagons/selectionWagons.css";
 
 const SelectionWagons = () => {
@@ -34,35 +35,31 @@ const SelectionWagons = () => {
 
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
   useEffect(() => {
-    
     dispatch(clearDataSeats());
   }, [selectedTypeWagon, dispatch]);
-
 
   const clickSelectedSeats = (event, selectedTypeTicket) => {
     selectedSeats.seats = Number(event.target.dataset.id);
 
-    dispatch(addSeats({ data: selectedSeats, price: event.target.dataset.price}));
+    dispatch(
+      addSeats({ data: selectedSeats, price: event.target.dataset.price })
+    );
     event.target.classList.toggle("utils-wagon_button_selected");
-
   };
 
-
-
   const details = {
-    duration: seletedTrain.duration,
+    duration: getDuration(seletedTrain.to.datetime, seletedTrain.from.datetime),
     from: {
       name: seletedTrain.from.city.name,
-      datetime: seletedTrain.from.datetime,
+      datetime: seletedTrain.from.datetime * 1000,
       railway_station_name: seletedTrain.from.railway_station_name,
     },
     to: {
       name: seletedTrain.to.city.name,
-      datetime: seletedTrain.to.datetime,
+      datetime: seletedTrain.to.datetime * 1000,
       railway_station_name: seletedTrain.to.railway_station_name,
     },
   };
-
 
   return (
     <React.Fragment>

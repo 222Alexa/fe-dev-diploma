@@ -413,11 +413,17 @@ img.trains-menu-reverse__icon {
 }
 
 .available-wagons_block-item {
+  position: relative;
   margin-bottom: 33px;
   position: relative;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
+  cursor: pointer;
+}
+.available-seats.wrap {
+  position: absolute;
+  visibility: hidden;
 }
 .available-seats_block {
   position: absolute;
