@@ -28,18 +28,18 @@ const PassengersForm = ({ id }) => {
   const dispatch = useDispatch();
   const { passengers } = useSelector((state) => state.passengers);
 
-  let passenger;
+  
   let isValidDocs;
   let basedStyledBackground;
   let errorDocs;
   useEffect(() => {
-    passenger = passengers.find((item) => item.info.id === id);
+    let passenger = passengers.find((item) => item.info.id === id);
 
     if (passenger) {
       setInfo(passenger.info);
       setDocs(passenger.docs);
     }
-  }, [passengers]);
+  }, []);// eslint-disable-next-line
   const isValidData =
     validateDataPassengers(info) || validateDataPassengers(docs.data_docs)
       ? false

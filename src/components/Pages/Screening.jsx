@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "../Atoms/Atoms";
@@ -19,9 +19,13 @@ const Screening = () => {
   const { passengers, contributor } = useSelector((state) => state.passengers);
   const navigate = useNavigate();
 
-  let progress = {};
-
+  let progress = useCallback(() => {
+    console.log(passengers);
+    return {};
+  }, [passengers]);
+  console.log(progress, "progress");
   useEffect(() => {
+    progress();
     progress.screening =
       passengers.length > 0 && !validateDataPassengers(contributor)
         ? true
@@ -47,9 +51,7 @@ const Screening = () => {
               <Button
                 text="Подтвердить"
                 type="next-block"
-                onClick={() =>
-                  navigate("/fe-dev-diploma/order-result")
-                }
+                onClick={() => navigate("/fe-dev-diploma/order-result")}
               ></Button>
             </div>
           </section>

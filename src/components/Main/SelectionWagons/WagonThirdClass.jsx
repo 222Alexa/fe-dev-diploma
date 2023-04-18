@@ -14,6 +14,12 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
     return  item ? "" : " occupied_seat";
   };
 
+  console.log(getDisabled(
+    2,
+    data.seats,
+    dataSeats,
+    selectedTypeTicket
+  ), '89898')
   return (
     <React.Fragment>
       <div className="wagon_item wagon-third_class">
