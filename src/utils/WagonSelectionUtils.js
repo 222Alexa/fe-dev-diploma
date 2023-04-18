@@ -41,8 +41,7 @@ export const getValidDataPass = (data) => {
 };
 export const getDataPassTemplate = (data) => {
   const arr = getValidDataPass(data);
-  let result = [];
-  arr.map((item) => {
+  let template = arr.map((item) => {
     let elem = {
       type: item.type,
       count: item.count,
@@ -54,8 +53,8 @@ export const getDataPassTemplate = (data) => {
       elem.text = elem.count > 1 ? "Детей" : "Ребёнок";
     }
 
-    result.push(elem);
-  
+    return elem;
   });
- return result;
+
+  return template;
 };

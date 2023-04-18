@@ -39,7 +39,7 @@ const PassengersForm = ({ id }) => {
       setInfo(passenger.info);
       setDocs(passenger.docs);
     }
-  }, []);// eslint-disable-next-line
+  }, [id, passengers]);// eslint-disable-next-line
   const isValidData =
     validateDataPassengers(info) || validateDataPassengers(docs.data_docs)
       ? false
