@@ -22,7 +22,7 @@ const TrainsMenuCard = ({ departure, onClick }) => {
 
   params.id = departure._id;
 
-  console.log(departure, "departure");
+  //console.log(departure, "departure");
   const dataTrain = {
     duration: departure.duration,
     statusWagons: [

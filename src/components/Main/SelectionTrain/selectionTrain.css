@@ -620,3 +620,9 @@ li.trains-menu-pagination__item:nth-child(2) > a {
   border-color: #ffa800;
   color: #ffa800;
 }
+
+.search-wrap-util {
+  height: 100%;
+  width: 79%;
+  display: flex;
+}

@@ -228,7 +228,7 @@ section.about {
   margin: auto;
   z-index: 9995;
   background: #fbfbfb;
-  
+
   border: 1px solid #c4c4c4;
   box-shadow: 0px 2px 2px rgb(0 0 0 / 25%);
 }
@@ -243,7 +243,6 @@ section.about {
   margin-top: 39px;
 }
 .modal_block-text {
-  
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
@@ -518,6 +517,52 @@ button.carousel__dot--selected {
   width: 100%;
 }
 
+/*Info*/
+.info_card {
+  width: 666px;
+  height: 418px;
+  visibility: hidden;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  background: #fbfbfb;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.info_card.active {
+  visibility: inherit;
+}
+.card-top.info_card-top {
+  width: 664.92px;
+  height: 107px;
+  background: rgba(255, 245, 0, 0.36);
+  border-bottom: 1px dashed #928f94;
+}
+
+.info_card-top-svgIcon-wrap {
+  margin: 38px;
+}
+
+.card-body.info_card-body {
+  padding: 0;
+  max-height: 205px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px dashed #928f94;
+}
+
+.card-bottom.info_card_bottom {
+  display: flex;
+  justify-content: center;
+}
+.error.info_card-top {background: rgba(255, 61, 0, 0.38);}
+
+.error.info_card {margin-top: 95px;margin-left: 86px;}
 /*Loader*/
 .loader_block {
   height: 774px;

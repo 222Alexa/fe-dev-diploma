@@ -3,9 +3,9 @@ import { CardTitle, MySvgIcon, Button } from "../Atoms/Atoms";
 import Timing from "./Timing";
 import TripDetails from "./TripDetails";
 import icon_arrow from "../../img/sidebar/icon_arrow.svg";
-const SideBlock = ({ type, data, children, parent}) => {
+const SideBlock = ({ type, data, children, parent, onChange }) => {
   const [showTiming, setShowTiming] = useState(false);
- 
+
   const basedClasses =
     type === "departure" ? "sidebar-block-departure" : "sidebar-block-arrival";
   //console.log(data, "side");
@@ -38,8 +38,10 @@ const SideBlock = ({ type, data, children, parent}) => {
             )}
           </Button>
         </div>
-        {showTiming && !data && !parent? <Timing type={type} /> : null}
-        {showTiming && parent && <TripDetails/>}
+        {showTiming && !data && !parent ? (
+          <Timing type={type} onChangeHandler={onChange} />
+        ) : null}
+        {showTiming && parent && <TripDetails />}
         {children ? children : null}
       </div>
     </React.Fragment>
@@ -47,5 +49,3 @@ const SideBlock = ({ type, data, children, parent}) => {
 };
 
 export default SideBlock;
-
-

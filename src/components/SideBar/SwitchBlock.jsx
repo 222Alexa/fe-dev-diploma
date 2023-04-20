@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -13,25 +13,7 @@ import CustomSwitch from "../Molecules/MUI/CustomSwitch";
 import { MySvgIcon } from "../Atoms/Atoms";
 import "./sidebar.css";
 
-
-const SwitchBlock = () => {
-  const [statusChecked, setStatusChecked] = useState([
-    { first: false },
-    { second: false },
-    { third: false },
-    { fourth: false },
-    { wifi: false },
-    { express: false },
-  ]);
-
-  const handleChange = (event) => {
-    const inputName = event.target.name;
-    const checked = event.target.checked;
-    setStatusChecked((prev) => {
-      return { ...prev, [inputName]: checked };
-    });
-    console.log(statusChecked,'statusChecked')
-  };
+const SwitchBlock = ({handleChange}) => {
 
   return (
     <React.Fragment>

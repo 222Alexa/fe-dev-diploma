@@ -3,7 +3,8 @@ import { CardTitle } from "../Atoms/Atoms";
 import RangeSlider from "./CustomSlider";
 
 
-const Timing = ({ type }) => {
+const Timing = ({ type,onChangeHandler }) => {
+
     return (
       <React.Fragment>
         <div className={type + "_timing-block"}>

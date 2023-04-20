@@ -14,6 +14,7 @@ export const api = createApi({
     }),
     getTrainsList: builder.query({
       query: (arg) => {
+        console.log(arg, "trainParameters");
         const params = new URLSearchParams({
           from_city_id: arg.travelData.from.city._id,
           to_city_id: arg.travelData.to.city._id,
@@ -26,7 +27,15 @@ export const api = createApi({
           params.append("date_start", arg.travelData.from.date);
         if (arg.travelData.to.date)
           params.append("date_end", arg.travelData.to.date);
-
+        for (let key in arg.trainsParameters) {
+          if (arg.trainsParameters[key] === true) {
+            
+            params.append(key, arg.trainsParameters[key]);
+          } else if (key.includes("price")) {
+            //нужен ли здесь таймаут?
+            params.append(key, arg.trainsParameters[key]);
+          }
+        }
         return `?${params}`;
       },
       providesTags: (result, error, arg) => [

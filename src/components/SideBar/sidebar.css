@@ -1,6 +1,7 @@
 .sidebar-wrap {
   margin-left: 259px;
   margin-top: 95px;
+  margin-right: 0;
   width: 360px;
 
   font-family: "Roboto";
@@ -61,7 +62,7 @@ span.MuiTypography-root.MuiFormControlLabel-label.MuiTypography-body1 {
   line-height: 21px;
   color: #ffffff;
   margin-right: 33px;
-  margin-left: 34px;
+margin-left: 34px;
   width: 102px;
 }
 
@@ -122,7 +123,7 @@ span.MuiSlider-markLabel.css-yafthl-MuiSlider-markLabel {
   border: 1px solid #fff;
 }
 span.input-range__label.input-range__label--value {
-  top: 0.52rem;
+  top: 0.8rem;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;

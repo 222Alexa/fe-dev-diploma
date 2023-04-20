@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+//import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+//import { setTrainsParameters } from "../../features/catalogTrainsSlice";
 import { styled } from "@mui/material/styles";
 
-const RangeSlider = ({ min, max, step, height }) => {
-  console.log(min, max, step, height);
+
+
+const RangeSlider = ({ min, max, step, height, type }) => {
   const [value, setValue] = useState([min, max]);
 
   const handleChange = (event, newValue, activeThumb) => {
+ 
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -16,23 +20,32 @@ const RangeSlider = ({ min, max, step, height }) => {
     } else {
       setValue([value[0], Math.max(newValue[1], value[0] + min)]);
     }
+
+
   };
   const mark = [
     {
-      value: min,
-      label: min,
+      value: type === "price" ? min : min + ":00",
+      label: type === "price" ? min : min + ":00",
     },
 
-    { value: value[0], label: value[0] },
-    { value: value[1], label: value[1] },
+    { value: value[0], label: type === "price" ? value[0] : value[0] + ":00" },
+    { value: value[1], label: type === "price" ? value[1] : value[1] + ":00" },
     {
-      value: max,
-      label: max,
+      value: type === "price" ? max : max + ":00",
+      label: type === "price" ? max : max + ":00",
     },
   ];
+
   /**Здесь ошибка "react.development.js:209 Warning: Failed prop type: Invalid prop `marks` supplied to `ForwardRef(Slider)`, expected one of type [boolean]." И... я понимаю о чем она, но не понимаю способа подружить */
   return (
-    <Box sx={{ width: 294, marginLeft: "30px", height: height }}>
+    <Box
+      sx={{
+        width: 294,
+        marginLeft: type === "price" ? 0 : "30px",
+        height: height,
+      }}
+    >
       <CustomSlider
         getAriaLabel={() => "Custom marks"}
         value={value}

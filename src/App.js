@@ -26,6 +26,7 @@ function App() {
           <Route path="order-result" element={<OrderResult/>} />
           <Route path="*" element={<NotFound />} />
         </Route>
+      
       </Routes>
     </BrowserRouter>
   );
