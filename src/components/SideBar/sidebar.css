@@ -62,7 +62,7 @@ span.MuiTypography-root.MuiFormControlLabel-label.MuiTypography-body1 {
   line-height: 21px;
   color: #ffffff;
   margin-right: 33px;
-margin-left: 34px;
+  margin-left: 34px;
   width: 102px;
 }
 
@@ -108,12 +108,11 @@ span.MuiSlider-markLabel.css-yafthl-MuiSlider-markLabel {
   color: #ffffff;
 }
 
-
 .input-range__track.input-range__track--active {
   background: #ffa800;
   border-radius: 8px;
   height: 19px;
-      top: -1px;
+  top: -1px;
 }
 
 .input-range__track.input-range__track--background {
@@ -158,6 +157,7 @@ span.input-range__label.input-range__label--max {
 }
 
 .sidebar-side-block_header {
+  position: relative;
   display: flex;
   align-items: flex-end;
   margin: 27px 34px 25px 32px;
@@ -202,7 +202,18 @@ button.sidebar-side-block_btn.btn.text-center,
 
   border-top: 1px solid #e5e5e5;
 }
-
+.tooltip_side_block_departure,
+.tooltip_side_block_arrival {
+ 
+  position: absolute;
+  visibility: inherit!important;
+  top: 50px;
+  width: 300px;
+  height: 28px;
+  font-size: 10px;
+  line-height: 28px;
+  border: 1px solid red;
+}
 /*timing*/
 
 .arrival_timing-block {

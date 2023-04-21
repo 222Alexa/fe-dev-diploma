@@ -25,14 +25,14 @@ const catalogTrainsSlice = createSlice({
         have_express: false,
         price_from: 500,
         price_to: 9000,
-        start_departure_hour_from: false, //Час отбытия от (число)
-        start_departure_hour_to: false, //Час отбытия до (число)
-        start_arrival_hour_from: false, //Час прибытия от (число)
-        start_arrival_hour_to: false, //Час прибытия до (число)
-        end_departure_hour_from: false, //Час отбытия назад от (число)
-        end_departure_hour_to: false, //Час отбытия назад до (число)
-        end_arrival_hour_from: false, //Час прибытия назад от (работает при установленном параметре date_end)
-        end_arrival_hour_to: false, //Час прибытия назад до (работает при установленном параметре date_end)
+        start_departure_hour_from: 0, //Час отбытия от (число)
+        start_departure_hour_to: 24, //Час отбытия до (число)
+        start_arrival_hour_from: 0, //Час прибытия от (число)
+        start_arrival_hour_to: 24, //Час прибытия до (число)
+        end_departure_hour_from: 0, //Час отбытия назад от (число)
+        end_departure_hour_to: 24, //Час отбытия назад до (число)
+        end_arrival_hour_from: 0, //Час прибытия назад от (работает при установленном параметре date_end)
+        end_arrival_hour_to: 24, //Час прибытия назад до (работает при установленном параметре date_end)
       },
     },
     seletedTrain: {},
@@ -52,10 +52,30 @@ const catalogTrainsSlice = createSlice({
     },
     setTrainsParameters: (state, action) => {
       const { data } = action.payload;
-      console.log(data, "dataOptions");
+
       if (data.name === "price") {
         state.searchData.trainsParameters.price_from = data.value.price_from;
         state.searchData.trainsParameters.price_to = data.value.price_to;
+      } else if (data.name === "start_departure") {
+        state.searchData.trainsParameters.start_departure_hour_from =
+          data.value.start_departure_hour_from;
+        state.searchData.trainsParameters.start_departure_hour_to =
+          data.value.start_departure_hour_to;
+      } else if (data.name === "start_arrival") {
+        state.searchData.trainsParameters.start_arrival_hour_from =
+          data.value.start_arrival_hour_from;
+        state.searchData.trainsParameters.start_arrival_hour_to =
+          data.value.start_arrival_hour_to;
+      } else if (data.name === "end_departure") {
+        state.searchData.trainsParameters.end_departure_hour_from =
+          data.value.end_departure_hour_from;
+        state.searchData.trainsParameters.end_departure_hour_to =
+          data.value.end_departure_hour_to;
+      } else if (data.name === "end_arrival") {
+        state.searchData.trainsParameters.end_arrival_hour_from =
+          data.value.end_arrival_hour_from;
+        state.searchData.trainsParameters.end_arrival_hour_to =
+          data.value.end_arrival_hour_to;
       } else {
         for (let key in state.searchData.trainsParameters) {
           if (key.includes(data.name)) {

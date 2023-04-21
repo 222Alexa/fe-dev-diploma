@@ -29,10 +29,12 @@ export const api = createApi({
           params.append("date_end", arg.travelData.to.date);
         for (let key in arg.trainsParameters) {
           if (arg.trainsParameters[key] === true) {
-            
             params.append(key, arg.trainsParameters[key]);
           } else if (key.includes("price")) {
-            //нужен ли здесь таймаут?
+           // console.log(key, 99, arg.trainsParameters[key]);
+            params.append(key, arg.trainsParameters[key]);
+          } else if (key.includes("start")) {
+           // console.log(key, 89, arg.trainsParameters[key]);
             params.append(key, arg.trainsParameters[key]);
           }
         }

@@ -3,18 +3,18 @@ import { CardTitle } from "../Atoms/Atoms";
 import RangeSlider from "./CustomSlider";
 
 
-const Timing = ({ type,onChangeHandler }) => {
-
+const Timing = ({ type }) => {
+console.log(type, 45454)
     return (
       <React.Fragment>
         <div className={type + "_timing-block"}>
           <div className="time-start__wrap">
             <CardTitle text="Время отбытия" className={type + "_time-start"} />
-            <RangeSlider min={0} max={24} height={10} step={1} />
+            <RangeSlider min={0} max={24} height={10} step={1} type={"start_"+type}/>
           </div>
           <div className="time-end__wrap">
             <CardTitle  text="Время прибытия" className={type + "_time-end"} />
-            <RangeSlider min={0} max={24} height={10} step={1} />
+            <RangeSlider min={0} max={24} height={10} step={1} type={"end_"+type} />
           </div>
         </div>
       </React.Fragment>

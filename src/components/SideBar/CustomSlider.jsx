@@ -1,17 +1,72 @@
-import React, { useState} from "react";
-//import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-//import { setTrainsParameters } from "../../features/catalogTrainsSlice";
+import { setTrainsParameters } from "../../features/catalogTrainsSlice";
 import { styled } from "@mui/material/styles";
-
-
 
 const RangeSlider = ({ min, max, step, height, type }) => {
   const [value, setValue] = useState([min, max]);
+  const dispatch = useDispatch();
+  const debounsedValue = useDebouncedCallback((value) => {
+    setValue(value);
+/*здесь  некоторые типы и имена противоречатдруг другу
+это ненадолго.просто хотела и блоки поменьше делать и переиспользовать
+и потом еще куча запрсов наложилась
+очень тяжело придумывать имена.пока так.позже исправлю*/
+    let template;
+    if (type === "price")
+      template = {
+        name: "price",
+        value: { price_from: value[0], price_to: value[1] },
+      };
+    else if (type === "start_departure")
+      template = {
+        name: "start_departure",
+        value: {
+          start_departure_hour_from: value[0],
+          start_departure_hour_to: value[1],
+        },
+      };
+    else if (type === "start_arrival")
+      template = {
+        name: "end_departure",
+        value: {
+          end_departure_hour_from: value[0],
+          end_departure_hour_to: value[1],
+        },
+      };
+    else if (type === "end_departure")
+      template = {
+        name: "start_arrival",
+        value: {
+          start_arrival_hour_from: value[0],
+          start_arrival_hour_to: value[1],
+        },
+      };
+    else if (type === "end_arrival")
+      template = {
+        name: "end_arrival",
+        value: {
+          end_arrival_hour_from: value[0],
+          end_arrival_hour_to: value[1],
+        },
+      };
+
+  
+    dispatch(setTrainsParameters({ data: template }));
+  }, 2000);
+
+  useEffect(
+    // Effect for API call
+    () => {
+      debounsedValue(value);
+    },
+    [debounsedValue, value] // Only call effect if debounced search term changes
+  );
 
   const handleChange = (event, newValue, activeThumb) => {
- 
     if (!Array.isArray(newValue)) {
       return;
     }
@@ -20,8 +75,7 @@ const RangeSlider = ({ min, max, step, height, type }) => {
     } else {
       setValue([value[0], Math.max(newValue[1], value[0] + min)]);
     }
-
-
+    //
   };
   const mark = [
     {

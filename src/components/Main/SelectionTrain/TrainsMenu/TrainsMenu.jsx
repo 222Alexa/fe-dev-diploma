@@ -15,7 +15,7 @@ const TrainsMenu = ({ currentItems }) => {
   if (!currentItems) {
     return;
   }
-
+  console.log(currentItems, 'current')
   const clickHandler = ( id, item) => {
 
     dispatch(setTrainId({ id: item._id }));
