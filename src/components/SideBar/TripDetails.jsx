@@ -47,6 +47,7 @@ const TripDetails = () => {
           <TrailsData
             className="order-details"
             data={dataTrain}
+            parent={"order"}
             icon={icon_yellow_arrow_right}
           />
         </CardBody>

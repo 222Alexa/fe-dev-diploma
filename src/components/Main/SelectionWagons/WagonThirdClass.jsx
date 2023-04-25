@@ -4,27 +4,32 @@ import { getDisabled } from "../../../utils/WagonSelectionUtils";
 const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
 
-
   const getClassName = (num, dataBase) => {
-
     const item = dataBase.find((item) => {
       return item.index === Number(num) && item.available === true;
     });
 
-    return  item ? "" : " occupied_seat";
+    let className;
+
+    if (item) {
+      const arrSeats = dataSeats[0].seats.concat(dataSeats[1].seats);
+
+      return arrSeats.includes(item.index)
+        ? (className = " utils-wagon_button_selected")
+        : (className = "");
+    } else {
+      className = " occupied_seat";
+    }
+    return className;
   };
 
-  console.log(getDisabled(
-    2,
-    data.seats,
-    dataSeats,
-    selectedTypeTicket
-  ), '89898')
   return (
     <React.Fragment>
       <div className="wagon_item wagon-third_class">
         <div className="wagon_template-block">
-          <span className="template-text">11 человек выбирают места в этом поезде</span>
+          <span className="template-text">
+            11 человек выбирают места в этом поезде
+          </span>
         </div>
         <div className="utils-wagon_wrap wagon-third_class_wrap">
           <div className="utils-wagon_sector">
@@ -48,7 +53,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={1}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(1, data.seats)
                   }
@@ -82,7 +87,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={3}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(3, data.seats)
                   }
@@ -102,7 +107,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_side">
                 <button
                   data-id={33}
-                    data-price={data.coach.side_price}
+                  data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(33, data.seats)
                   }
@@ -156,7 +161,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={5}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(5, data.seats)
                   }
@@ -190,7 +195,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={7}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(7, data.seats)
                   }
@@ -248,7 +253,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={10}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(10, data.seats)
                   }
@@ -264,7 +269,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={9}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(9, data.seats)
                   }
@@ -390,7 +395,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={16}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(16, data.seats)
                   }
@@ -480,7 +485,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={17}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(17, data.seats)
                   }
@@ -498,7 +503,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={20}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(20, data.seats)
                   }
@@ -550,7 +555,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={42}
-                    data-price={data.coach.side_price}
+                  data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(42, data.seats)
                   }
@@ -572,7 +577,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={22}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(22, data.seats)
                   }
@@ -588,7 +593,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={21}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(21, data.seats)
                   }
@@ -606,7 +611,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={24}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(24, data.seats)
                   }
@@ -622,7 +627,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={23}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(23, data.seats)
                   }
@@ -642,7 +647,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_side">
                 <button
                   data-id={43}
-                    data-price={data.coach.side_price}
+                  data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(43, data.seats)
                   }
@@ -680,7 +685,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={26}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(26, data.seats)
                   }
@@ -696,7 +701,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={25}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(25, data.seats)
                   }
@@ -730,7 +735,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={27}
-                    data-price={data.coach.bottom_price}
+                  data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(27, data.seats)
                   }
@@ -788,7 +793,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={30}
-                    data-price={data.coach.top_price}
+                  data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(30, data.seats)
                   }
@@ -858,7 +863,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_side">
                 <button
                   data-id={47}
-                    data-price={data.coach.side_price}
+                  data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(47, data.seats)
                   }
@@ -874,7 +879,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={48}
-                    data-price={data.coach.side_price}
+                  data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(48, data.seats)
                   }

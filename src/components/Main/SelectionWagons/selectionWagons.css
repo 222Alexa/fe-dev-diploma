@@ -254,7 +254,7 @@ span.available-seats-details_buttons-block-legend {
 .available-seats-details_block {
   background: #fff;
   padding-top: 29px;
-  padding-bottom: 73px;
+  padding-bottom: 32px;
 }
 .available-seats-details_buttons-block {
   display: flex;
@@ -520,8 +520,9 @@ tr.amount-seats_table-item {
   color: #ffffff;
 }
 
-.disabled.next-block_btn.btn.text-center {
-  background: #928f94;
+
+button.next-block_btn.btn.text-center:disabled {
+  background: #928F94;
 }
 
 .available-seats-details_block-bottom {
@@ -529,6 +530,8 @@ tr.amount-seats_table-item {
   justify-content: flex-end;
   margin-right: 5px;
   padding-top: 25px;
+  height: 53px;
+
 }
 
 .available-seats-details_block-bottom_text {

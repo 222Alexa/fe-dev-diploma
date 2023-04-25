@@ -12,7 +12,7 @@
 }
 .passengers-info_block {
   margin-top: 95px;
-  margin-right: 257px;
+
   margin-left: 86px;
 }
 
@@ -259,6 +259,7 @@ button.next-passenger_btn.btn.text-center {
 
 .passengers-info_section_control {
   margin-top: 0px;
+  position: relative;
 }
 .passengers-info_section_control > .next-block_btn {
   margin-bottom: 140px !important;
@@ -297,3 +298,5 @@ p.passengers-info_error-text {
   margin: 0;
   margin-left: 16px;
 }
+
+

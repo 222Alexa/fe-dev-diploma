@@ -1,12 +1,12 @@
 import React from "react";
-//import OrderTripInfo from "../../SideBar/OrderTripInfo/OrderTripInfo";
+
 import { Button, Title } from "../../Atoms/Atoms";
 import PassengersForm from "../../Forms/PassengersForm/PassengersForm";
 
 const BlockItem = React.forwardRef(
   ({ id, clickHandler, clickDelete, showInfo }, ref) => {
    
-    console.log(id, "blockItem");
+
     return (
       <React.Fragment>
         <div

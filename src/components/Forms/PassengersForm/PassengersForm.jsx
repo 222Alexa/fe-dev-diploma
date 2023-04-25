@@ -28,18 +28,20 @@ const PassengersForm = ({ id }) => {
   const dispatch = useDispatch();
   const { passengers } = useSelector((state) => state.passengers);
 
-  
   let isValidDocs;
   let basedStyledBackground;
   let errorDocs;
   useEffect(() => {
-    let passenger = passengers.find((item) => item.info.id === id);
+    let passenger = passengers.find((item) => {
+     
+   return item.dataPass ? item.dataPass.info.id === id:null;
+    });
 
     if (passenger) {
-      setInfo(passenger.info);
-      setDocs(passenger.docs);
+      setInfo(passenger.dataPass.info);
+      setDocs(passenger.dataPass.docs);
     }
-  }, [id, passengers]);// eslint-disable-next-line
+  }, [id, passengers]); // eslint-disable-next-line
   const isValidData =
     validateDataPassengers(info) || validateDataPassengers(docs.data_docs)
       ? false
@@ -64,6 +66,11 @@ const PassengersForm = ({ id }) => {
     basedStyledBackground = "inherit";
   }
 
+  const onClickAddPass = () => {
+    const dataInfo = info;
+    dataInfo.type = dataInfo.age === "Взрослый" ? "adult" : "child";
+    dispatch(setDataPassengers({ data: { info: dataInfo, docs } }));
+  };
   return (
     <React.Fragment>
       <PassengersInfo state={info} setState={setInfo} />
@@ -104,10 +111,7 @@ const PassengersForm = ({ id }) => {
           <Button
             text="Следующий пассажир"
             type="next-passenger"
-            onClick={() => {
-         
-              dispatch(setDataPassengers({ data: { info, docs } }));
-            }}
+            onClick={onClickAddPass}
             disabled={!isValidData ? true : false}
           ></Button>
         ) : null}

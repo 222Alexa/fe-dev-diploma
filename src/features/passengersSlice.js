@@ -54,9 +54,32 @@ const passengersSlice = createSlice({
     setDataPassengers: (state, action) => {
       const { data } = action.payload;
       const copyState = state.passengers;
-      const idx = copyState.findIndex((item) => item.info.id === data.info.id);
-      idx === -1 ? copyState.push(data) : (copyState[idx] = data);
-      state.passengers = copyState;
+
+      if (data.seat) {
+        const idx = copyState.findIndex(
+          (item) => item.seat.seats === data.seat.seats
+        );
+
+        idx === -1 ? copyState.push(data) : copyState.splice(idx, 1);
+        state.passengers = copyState;
+      }
+      if (data.info && data.docs) {
+        const idx = copyState.findIndex(
+          (item) => item.seat.type === data.info.type && !item.dataPass
+        );
+
+        if (idx !== -1) copyState[idx].dataPass = data;
+        else {
+          const idx = copyState.findIndex(
+            (item) =>
+              item.seat.type === data.info.type &&
+              item.dataPass.info.id === data.info.id
+          );
+
+          if (idx !== -1) copyState[idx].dataPass = data;
+        }
+      }
+      state.totalCount = state.passengers.length;
     },
     setContributor: (state, action) => {
       const { data } = action.payload;
@@ -64,11 +87,13 @@ const passengersSlice = createSlice({
     },
     deletePassenger: (state, action) => {
       const { id } = action.payload;
-      const filteredArr = state.passengers.filter(
-        (item) => item.info.id !== id
+
+      const idx = state.passengers.findIndex(
+        (item) => item.dataPass.info.id === id
       );
 
-      state.passengers = filteredArr;
+      state.passengers[idx].dataPass = undefined;
+      state.totalCount = state.passengers.length;
     },
     addSeats: (state, action) => {
       const { data, price } = action.payload;
@@ -92,10 +117,6 @@ const passengersSlice = createSlice({
       state.dataSeats[idx] = result;
 
       state.totalPrice = getTotalPrice(state.dataSeats);
-      state.totalCount = state.dataSeats.reduce(
-        (acc, item) => acc + item.count,
-        0
-      );
     },
     clearDataSeats: (state) => {
       const copySeats = state.dataSeats;
@@ -103,7 +124,10 @@ const passengersSlice = createSlice({
         return (item = { ...item, seats: [], count: 0 });
       });
       state.dataSeats = result;
-
+      //потом поправлю, чтоб только места удалялись,
+      // а к сохраненным пассажирам можно было цеплять новые места
+      state.passengers = [];
+      //
       state.totalPrice = 0;
       state.totalCount = 0;
     },

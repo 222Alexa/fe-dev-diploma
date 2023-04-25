@@ -22,6 +22,8 @@ const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
   else if (data.coach.class_type === "fourth")
     availableWagon = ["20", "21", "22", "25"];
 
+
+
   return (
     <React.Fragment>
       <div className={className + "_block"}>

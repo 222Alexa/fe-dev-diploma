@@ -38,9 +38,11 @@ const PassengersInfo = ({ state, setState }) => {
         date_birth: value,
       }));
       if (id === "age")
+ 
       setState((prevState) => ({
         ...prevState,
         age: value,
+    
       }));
   };
   return (

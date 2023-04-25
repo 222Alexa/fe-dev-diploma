@@ -6,15 +6,17 @@ import { Title, CardTitle } from "../Atoms/Atoms";
 import { formattedPrice } from "../../utils/trainSelectionUtils";
 const OrderDetails = () => {
   const { dataSeats, totalPrice } = useSelector((state) => state.passengers);
-  
+  const { from, to } = useSelector(
+    (state) => state.catalogTrains.searchData.travelData
+  );
   return (
     <React.Fragment>
       <div className="order-details-block_wrap">
         <div className="order-details-block_header">
           <Title className="order-details-block_title" text="Детали поездки" />
         </div>
-        <SideBlock type="departure" parent="order-details"/>
-        <SideBlock type="arrival" parent="order-details"/>
+        <SideBlock type="departure" parent="order-details" date={from.date} side="start" />
+        <SideBlock type="arrival" parent="order-details" date={to.date} side="end"/>
         <QuantityPassBlock data={dataSeats} />
         <div className="order-details-block_footer">
           <CardTitle className="order-details price" text="Итог" />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { Button, Title } from "../Atoms/Atoms";
 import Banner from "../Molecules/Banner";
 import banner3 from "../../img/banner/banner3.png";
@@ -15,7 +15,12 @@ import QuantityTickets from "../Main/SelectionWagons/QuantityTickets";
 import WagonsTypesBlock from "../Main/SelectionWagons/WagonsTypesBlock";
 import SeatsDetails from "../Main/SelectionWagons/SeatsDetails";
 import { findWagon } from "../../utils/trainSelectionUtils";
-import { addSeats, clearDataSeats } from "../../features/passengersSlice";
+import { getValidDataPass } from "../../utils/WagonSelectionUtils";
+import {
+  addSeats,
+  //clearDataSeats,
+  setDataPassengers,
+} from "../../features/passengersSlice";
 
 import { useGetTrainIdQuery } from "../../features/myApi";
 import { getDuration } from "../../utils/trainSelectionUtils";
@@ -24,18 +29,23 @@ import "../Main/SelectionWagons/selectionWagons.css";
 const SelectionWagons = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [selectedTypeWagon, setSelectedTypeWagon] = useState(null);
   const [selectedTypeTicket, setSelectedTypeTicket] = useState({
     type: "adult",
   });
 
   const { id, seletedTrain } = useSelector((state) => state.catalogTrains);
+  //const { passengers } = useSelector((state) => state.passengers);
   const { data = [], /*isError,*/ isLoading } = useGetTrainIdQuery(id);
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
 
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
+ 
+
   useEffect(() => {
-    dispatch(clearDataSeats());
+    //dispatch(clearDataSeats());
+ 
   }, [selectedTypeWagon, dispatch]);
 
   const clickSelectedSeats = (event, selectedTypeTicket) => {
@@ -43,6 +53,9 @@ const SelectionWagons = () => {
 
     dispatch(
       addSeats({ data: selectedSeats, price: event.target.dataset.price })
+    );
+    dispatch(
+      setDataPassengers({ data: {  seat: selectedSeats,price: event.target.dataset.price } })
     );
     event.target.classList.toggle("utils-wagon_button_selected");
   };
@@ -60,7 +73,10 @@ const SelectionWagons = () => {
       railway_station_name: seletedTrain.to.railway_station_name,
     },
   };
-
+  const isValidSeats = getValidDataPass(dataSeats);
+  const onChangeInput = (event) => {
+    console.log(event, 11);
+  };
   return (
     <React.Fragment>
       <Banner className="banner banner-tickets" banner={banner3} />
@@ -81,6 +97,7 @@ const SelectionWagons = () => {
                 data={dataSeats}
                 selected={selectedTypeTicket}
                 setSelected={setSelectedTypeTicket}
+                onChangeInput={onChangeInput}
               />
               <WagonsTypesBlock
                 className="wagons-type"
@@ -99,6 +116,7 @@ const SelectionWagons = () => {
                 <Button
                   text="Далее"
                   type="next-block"
+                  disabled={isValidSeats.length ? false : true}
                   onClick={() => navigate("passengers")}
                 ></Button>
               </div>

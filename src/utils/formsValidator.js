@@ -3,7 +3,6 @@ export const validateDataPassengers = (obj) => {
 };
 
 export const validateInputForm = (value, type) => {
-  console.log(value, type, 16);
   let reg;
   if (type === "certificate") {
     reg = /^[A-Z]{4}-[А-Я]{2}-[0-9]{6}$/;
@@ -14,4 +13,10 @@ export const validateInputForm = (value, type) => {
   }
 
   return reg.test(value);
+};
+
+export const validatePass = (arr) => {
+  const result = arr.every((item) => item.seat && item.dataPass);
+
+  return result;
 };

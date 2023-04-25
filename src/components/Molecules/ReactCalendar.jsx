@@ -34,6 +34,7 @@ const FormCalendar = ({ value, type, className }) => {
         onChange={(newDate) => {
           setDate(newDate);
           dispatch(setForm({ type: type,status:false, data: dateFormatted(newDate) }));
+        
         }}
         placeholderText="ДД/ММ/ГГГГ"
         dateFormat="dd/MM/yyyy"

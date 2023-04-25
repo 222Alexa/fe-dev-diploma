@@ -13,7 +13,7 @@ import { nanoid } from "nanoid";
  */
 const TrailsData = ({ className, data, icon, reverse = false }) => {
   const duration = getDuration(data.to.datetime, data.from.datetime);
-  //console.log(duration, "duration");
+
   return (
     <React.Fragment>
       <div className={className + "-group d-flex flex-row"}>
@@ -21,6 +21,12 @@ const TrailsData = ({ className, data, icon, reverse = false }) => {
           <span key={nanoid()} className="train-departure data-trains-datetime">
             {format(new Date(data.from.datetime * 1000), "HH:mm")}
           </span>
+          <span
+              key={nanoid()}
+              className="train-departure data-trains-date"
+            >
+              {format(new Date(data.from.datetime * 1000), "dd.MM.yyyy")}
+            </span>
           <span
             key={nanoid()}
             className="train-departure data-trains-city-name"
@@ -46,6 +52,12 @@ const TrailsData = ({ className, data, icon, reverse = false }) => {
             {format(new Date(data.to.datetime * 1000), "HH:mm")}
           </span>
           <span
+              key={nanoid()}
+              className="train-departure data-trains-date"
+            >
+              {format(new Date(data.to.datetime * 1000), "dd.MM.yyyy")}
+            </span>
+          <span
             key={nanoid()}
             className="train-departure data-trains-city-name"
           >
@@ -67,6 +79,7 @@ const TrailsData = ({ className, data, icon, reverse = false }) => {
             >
               {format(new Date(data.to.datetime * 1000), "HH:mm")}
             </span>
+          
             <span
               key={nanoid()}
               className="train-departure data-trains-city-name"

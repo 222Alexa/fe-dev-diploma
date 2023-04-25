@@ -74,8 +74,9 @@ const TrainsMenuCard = ({ departure, onClick }) => {
       item.type = "Купе";
     }
     if (item.name === "first") {
+      
       item.amount = departure.available_seats_info.first;
-      item.min_price = departure.min_price;
+      item.min_price = departure.price_info.first.price;
       item.type = "Люкс";
     }
 

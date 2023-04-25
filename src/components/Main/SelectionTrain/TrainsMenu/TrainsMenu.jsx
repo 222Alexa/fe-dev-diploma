@@ -5,6 +5,7 @@ import {
   setTrainId,
   setSelectionTrain,
 } from "../../../../features/catalogTrainsSlice";
+import { clearDataSeats } from "../../../../features/passengersSlice";
 import TrainsMenuCard from "./TrainsMenuCard";
 
 import { nanoid } from "nanoid";
@@ -15,9 +16,9 @@ const TrainsMenu = ({ currentItems }) => {
   if (!currentItems) {
     return;
   }
-  console.log(currentItems, 'current')
-  const clickHandler = ( id, item) => {
 
+  const clickHandler = (id, item) => {
+    dispatch(clearDataSeats());
     dispatch(setTrainId({ id: item._id }));
     dispatch(setSelectionTrain({ data: item }));
     navigate(`/fe-dev-diploma/trains/${item._id}`);

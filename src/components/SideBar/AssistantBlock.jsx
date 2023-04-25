@@ -14,13 +14,14 @@ const AssistantBlock = () => {
   const [price, setPrice] = useState({ max: 9000, min: 500 });
   const dispatch = useDispatch();
 
-  //console.log(from, to, 87878);
+
   const handleChangeSwitch = (event) => {
     const inputName = event.target.name;
     const checked = event.target.checked;
-    dispatch(
-      setTrainsParameters({ data: { name: inputName, status: checked } })
-    );
+    if (from.date && from.city.name && to.city.name)
+      dispatch(
+        setTrainsParameters({ data: { name: inputName, status: checked } })
+      );
   };
 
   const handleChangePriceSlider = (value) => {
@@ -40,7 +41,7 @@ const AssistantBlock = () => {
   return (
     <React.Fragment>
       <div className="assistant-block_wrap">
-        <FormSideBar />
+        <FormSideBar from={from.date} to={to.date} />
         <SwitchBlock handleChange={handleChangeSwitch} />
         <PriceBlock
           min={price.min}
@@ -49,7 +50,7 @@ const AssistantBlock = () => {
           onChange={handleChangePriceSlider}
         />
         <SideBlock type="departure" date={from.date} side="start" />
-        <SideBlock type="arrival" date={to.date} side="end"/>
+        <SideBlock type="arrival" date={to.date} side="end" />
       </div>
     </React.Fragment>
   );

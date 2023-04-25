@@ -11,7 +11,7 @@ const SideBar = () => {
   const location = useLocation();
   const params = useParams();
 
-  const { data = [], isLoading, /*isError*/ } = useGetLastTicketsQuery();
+  const { data = [],  /*isError*/ } = useGetLastTicketsQuery();
 
   if (
     location.pathname === "/fe-dev-diploma" ||
@@ -36,7 +36,7 @@ const SideBar = () => {
       <aside className="sidebar-wrap container p-0">
         <div className="sidebar" id="sidebar">
           {getLocation() ? <AssistantBlock /> : <OrderDetails />}
-          {getLocation() && !isLoading && data && data.length > 0 ? (
+          {getLocation() &&  data && data.length > 0 ? (
             <LastTickets data={data.slice(0, 3)} />
           ) : null}
         </div>

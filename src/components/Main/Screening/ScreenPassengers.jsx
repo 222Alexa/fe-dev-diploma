@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { nanoid } from "nanoid";
 
 const ScreenPassengers = ({ data }) => {
-  //console.log(data, "screening");
+console.log(data, "screening");
 const totalPrice=useSelector((state) => state.passengers.totalPrice)
   const navigate = useNavigate();
 const params = useParams();
@@ -33,36 +33,36 @@ const params = useParams();
                       icon={icon_avatar}
                     />
                     <span className="passengers_card-top-text">
-                      {item.info.age}
+                      {item.dataPass.info.age}
                     </span>
                   </CardTop>
                   <CardBody className="passengers">
                     <div className="passengers_body_group-text">
                       <span className="passengers_body-text">
-                        {item.info.last_name +
+                        {item.dataPass.info.last_name +
                           " " +
-                          item.info.first_name +
+                          item.dataPass.info.first_name +
                           " " +
-                          item.info.patronymic}
+                          item.dataPass.info.patronymic}
                       </span>
                       <span className="passengers_body-text">
                         {"Пол " +
-                          (item.info.gender === "male" ? "мужской" : "женский")}
+                          (item.dataPass.info.gender === "male" ? "мужской" : "женский")}
                       </span>
                       <span className="passengers_body-text">
                         {"Дата рождения  " +
-                          format(new Date(item.info.date_birth), "dd.MM.yyyy")}
+                          format(new Date(item.dataPass.info.date_birth), "dd.MM.yyyy")}
                       </span>
                       <span className="passengers_body-text">
-                        {item.docs.type_docs.id === "passport"
-                          ? item.docs.type_docs.description +
+                        {item.dataPass.docs.type_docs.id === "passport"
+                          ? item.dataPass.docs.type_docs.description +
                             " " +
-                            item.docs.data_docs.seria +
+                            item.dataPass.docs.data_docs.seria +
                             " " +
-                            item.docs.data_docs.number
-                          : item.docs.type_docs.description +
+                            item.dataPass.docs.data_docs.number
+                          : item.dataPass.docs.type_docs.description +
                             " " +
-                            item.docs.data_docs.number}
+                            item.dataPass.docs.data_docs.number}
                       </span>
                     </div>
                   </CardBody>

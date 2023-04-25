@@ -120,7 +120,7 @@ const MainForm = ({ className }) => {
             type="main_form"
             onClick={clickHandler}
             disabled={
-              from.city.name === "" || to.city.name === "" ? true : false
+              from.city.name === "" || to.city.name === ""|| !from.date ? true : false
             }
           ></Button>
         </div>

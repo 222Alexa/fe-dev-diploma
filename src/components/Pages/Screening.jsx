@@ -12,37 +12,87 @@ import ScreenTrain from "../Main/Screening/ScreenTrain";
 import ScreenPassengers from "../Main/Screening/ScreenPassengers";
 import ScreenPayment from "../Main/Screening/ScreenPayment";
 import { validateDataPassengers } from "../../utils/formsValidator";
+import { useAddOrderMutation } from "../../features/otherApi";
 import "../Main/Screening/screening.css";
 
 const Screening = () => {
-  const { loading } = useSelector((state) => state.catalogTrains);
-  const { passengers, contributor } = useSelector((state) => state.passengers);
+  const { passengers, contributor } = useSelector(
+    (state) => state.passengers
+  );
+  const { id } = useSelector((state) => state.catalogTrains);
   const navigate = useNavigate();
-
+  const [addOrder, /*result, isError*/] = useAddOrderMutation();
   let progress = useCallback(() => {
     console.log(passengers);
     return {};
   }, [passengers]);
-
+  console.log(id, "id");
   useEffect(() => {
     progress();
     progress.screening =
       passengers.length > 0 && !validateDataPassengers(contributor)
         ? true
         : false;
+    //console.log(addOrder, result, isError, "addOrder");
   }, [progress, passengers, contributor]);
 
   const paymentText =
     contributor.payment_method === "cash" ? "Наличными" : "Онлайн";
+  const handleAddOrder = async () => {
+    await addOrder({ body });
+  };
 
+  const onClickHandler = async () => {
+   await handleAddOrder();
+    navigate("/fe-dev-diploma/order-result");
+  };
+
+  const dataTickets = passengers.map((item) => {
+    const elem = {
+      is_adult: item.seat.type === "adult" ? true : false,
+      is_child: item.seat.type === "child" ? true : false,
+      first_name: item.dataPass.info.first_name,
+      last_name: item.dataPass.info.last_name,
+      patronymic: item.dataPass.info.patronymic,
+      gender: item.dataPass.info.gender === "male" ? true : false,
+      birthday: item.dataPass.info.date_birth,
+      document_type:
+        item.dataPass.docs.type_docs.id === "passport"
+          ? "паспорт"
+          : "свидетельство о рождении",
+      document_data: item.dataPass.docs.data_docs.seria
+        ? item.dataPass.docs.data_docs.seria +
+          item.dataPass.docs.data_docs.number
+        : item.dataPass.docs.data_docs.number,
+    };
+
+    const ticket = {
+      coach_id: 1234, //идентификатор вагона, не нашла его
+      personInfo: elem,
+     
+      seat_number: item.seat.seats,
+      include_children_seat: false,
+    };
+    return ticket;
+  });
+
+  console.log(dataTickets , "dataTickets ");
+  const body = JSON.stringify({
+    user: contributor,
+    departure: {
+      route_direction_id: id,
+      seats: dataTickets ,
+    },
+  });
+ 
   return (
     <React.Fragment>
       <Banner className="banner banner-tickets" banner={banner3} />
       <div className="screening_wrapper">
         <MainForm className="search-tickets_form" />
         <div className="screening-content">
-          {!loading && <ProgressBar data={progress} />}
-          {!loading && <SideBar />}
+          <ProgressBar data={progress} />
+          <SideBar />
           <section className="screening">
             <ScreenTrain />
             <ScreenPassengers data={passengers} />
@@ -51,7 +101,7 @@ const Screening = () => {
               <Button
                 text="Подтвердить"
                 type="next-block"
-                onClick={() => navigate("/fe-dev-diploma/order-result")}
+                onClick={onClickHandler}
               ></Button>
             </div>
           </section>
@@ -63,42 +113,3 @@ const Screening = () => {
 
 export default Screening;
 
-/**
- * данные для отправки orders
- * 
- * fetch( 'https://netology-trainbooking.netoservices.ru/order', {
-    method: 'POST',
-    body: JSON.stringify({
-      "user": {
-          "first_name": "Иван",
-          "last_name": "Смирнов",
-          "patronymic": "Олегович",
-          "phone": "8900123123",
-          "email": "string@string.ru",
-          "payment_method": "cash" // или online
-        },
-        "departure": {
-          "route_direction_id": "123431",
-          "seats": [
-            {
-              "coach_id": "12341",
-              "person_info": {
-                "is_adult": true,
-                "first_name": "Ivan",
-                "last_name": "Popov",
-                "patronymic": "Popovich",
-                "gender": true,
-                "birthday": "1980-01-01",
-                "document_type": "паспорт",
-                "document_data": "45 6790195"
-              },
-              "seat_number": 10,
-              "is_child": true,
-              "include_children_seat": true
-            }
-          ]
-        }
-      })
-  })
-    .then( response => response.json())
-    .then( console.log ); */

@@ -4,7 +4,7 @@ import RangeSlider from "./CustomSlider";
 
 
 const Timing = ({ type }) => {
-console.log(type, 45454)
+
     return (
       <React.Fragment>
         <div className={type + "_timing-block"}>

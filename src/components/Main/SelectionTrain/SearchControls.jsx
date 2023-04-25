@@ -7,7 +7,7 @@ const SearchControls = ({
   onClickSorted,
   onClickLimit,
 }) => {
-  console.log(amount, "am");
+
 
   return (
     <React.Fragment>

@@ -31,10 +31,17 @@ export const api = createApi({
           if (arg.trainsParameters[key] === true) {
             params.append(key, arg.trainsParameters[key]);
           } else if (key.includes("price")) {
-           // console.log(key, 99, arg.trainsParameters[key]);
-            params.append(key, arg.trainsParameters[key]);
+            // console.log(key, 99, arg.trainsParameters[key]);
+            if (
+              arg.trainsParameters[key] !== 500 ||
+              arg.trainsParameters[key] !== 9000
+            )
+              params.append(key, arg.trainsParameters[key]);
           } else if (key.includes("start")) {
-           // console.log(key, 89, arg.trainsParameters[key]);
+            if (
+              arg.trainsParameters[key] !== 0 ||
+              arg.trainsParameters[key] !== 24
+            )
             params.append(key, arg.trainsParameters[key]);
           }
         }

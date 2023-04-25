@@ -1,12 +1,17 @@
 import React from "react";
 import { CardTitle } from "../../Atoms/Atoms";
-
+import { templateText } from "../../../utils/dataText";
 import { nanoid } from "nanoid";
 
-const QuantityTickets = ({ className, data, selected, setSelected }) => {
-
-  
+const QuantityTickets = ({
+  className,
+  data,
+  selected,
+  setSelected,
+  onChangeInput,
+}) => {
   const basedClassesItem = className + "_block-menu-item";
+
   return (
     <React.Fragment>
       <div className={className + "_block"}>
@@ -23,7 +28,12 @@ const QuantityTickets = ({ className, data, selected, setSelected }) => {
                     ? basedClassesItem + " selected_type-tickets"
                     : basedClassesItem
                 }
-                onClick={() => setSelected({ type: item.type })}
+                onClick={(event) => {
+                  setSelected({ type: item.type });
+                }}
+                onChange={(event) => {
+                  console.log(event.target, "inp");
+                }}
               >
                 <div
                   className={
@@ -40,19 +50,19 @@ const QuantityTickets = ({ className, data, selected, setSelected }) => {
                   <input
                     type="text"
                     className={
-                      className + " " + item.type + "input form-control"
+                      className + " " + item.type + " input form-control"
                     }
                     id="exampleInputTypeTickets"
                     aria-describedby="typeTickets"
                     defaultValue={item.count}
-                    onChange={(event) => console.log(event.target.value)}
+                    onChange={onChangeInput}
                   />
                 </div>{" "}
                 <label
                   htmlFor={"exampleInputTypeTickets"}
                   className={className + " " + item.type + "_input-label"}
                 >
-                  {item.deskription}
+                  {templateText(item)}
                 </label>
               </div>
             );

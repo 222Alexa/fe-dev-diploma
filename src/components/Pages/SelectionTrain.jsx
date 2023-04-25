@@ -23,13 +23,12 @@ const SelectionTrain = () => {
   const {
     data = [],
     isLoading,
+    isFetching,
     isError,
   } = useGetTrainsListQuery({ travelData, parameters, trainsParameters });
-  let cardInfo = document.querySelector(".info_card")
+  let cardInfo = document.querySelector(".info_card");
   useEffect(() => {
-
-    if (!data.length && cardInfo)
-     cardInfo.classList.add('active');
+    if (!data.length && cardInfo) cardInfo.classList.add("active");
   }, [data, cardInfo]);
   const onClickSorted = (event) => {
     event.preventDefault();
@@ -47,7 +46,7 @@ const SelectionTrain = () => {
     dispatch(setParameters({ limit: event.target.textContent, offset: 0 }));
   };
   const onClickInfo = () => {
-    document.querySelector(".info_card").classList.remove('active')
+    document.querySelector(".info_card").classList.remove("active");
   };
   return (
     <React.Fragment>
@@ -55,7 +54,13 @@ const SelectionTrain = () => {
       <div className="selection-train_wrapper">
         <MainForm className="search-tickets_form" />
         <div className="selection-train_content">
-          {isLoading ? <Loader /> : null}
+          {isLoading && <Loader />}
+          {isError &&  <Info
+                  type={"error"}
+                  text={"Что-то пошло не так..."}
+                  onClick={onClickInfo}
+                />}
+            
           {!isLoading && <ProgressBar />}
           {!isLoading && <SideBar />}
           {!isLoading && !isError && data.items ? (
@@ -83,10 +88,10 @@ const SelectionTrain = () => {
             </section>
           ) : (
             <Info
-                  type={"error info"}
-                  text={"Поля откуда и куда обязательны для заполнения"}
-                  onClick={onClickInfo}
-                />
+              type={"error info"}
+              text={"Поля откуда и куда обязательны для заполнения"}
+              onClick={onClickInfo}
+            />
           )}
         </div>
       </div>

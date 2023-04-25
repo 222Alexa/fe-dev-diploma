@@ -58,3 +58,4 @@ export const getDataPassTemplate = (data) => {
 
   return template;
 };
+
