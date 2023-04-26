@@ -23,9 +23,14 @@ const SelectionTrain = () => {
   const {
     data = [],
     isLoading,
-    
+
     isError,
-  } = useGetTrainsListQuery({ travelData, parameters, trainsParameters });
+  } = useGetTrainsListQuery(
+    { travelData, parameters, trainsParameters },
+    { refetchOnMountOrArgChange: true }
+  );
+
+
   let cardInfo = document.querySelector(".info_card");
   useEffect(() => {
     if (!data.length && cardInfo) cardInfo.classList.add("active");
@@ -55,14 +60,17 @@ const SelectionTrain = () => {
         <MainForm className="search-tickets_form" />
         <div className="selection-train_content">
           {isLoading && <Loader />}
-          {isError &&  <Info
-                  type={"error"}
-                  text={"Что-то пошло не так..."}
-                  onClick={onClickInfo}
-                />}
-            
+          {isError && (
+            <Info
+              type={"error"}
+              text={"Что-то пошло не так..."}
+              onClick={onClickInfo}
+            />
+          )}
+
           {!isLoading && <ProgressBar />}
           {!isLoading && <SideBar />}
+
           {!isLoading && !isError && data.items ? (
             <section className="trains-menu-wrap d-flex" id="trains-menu">
               <SearchControls
@@ -72,7 +80,7 @@ const SelectionTrain = () => {
                 onClickSorted={onClickSorted}
                 onClickLimit={onClickLimit}
               />
-              {data.items.length > 0 ? (
+              {data.items.length > 0 && !isLoading ? (
                 <PaginatedItems
                   itemsPerPage={parameters.limit}
                   items={[...Array(data.total_count).keys()]}
@@ -86,12 +94,11 @@ const SelectionTrain = () => {
                 />
               )}
             </section>
-          ) : (
-            <Info
-              type={"error info"}
-              text={"Поля откуда и куда обязательны для заполнения"}
-              onClick={onClickInfo}
-            />
+          ) : null}
+          {!isLoading && data.error && (
+            <div className="info__wrapper">
+              <Info type={"info"} text={data.error} onClick={onClickInfo} />
+            </div>
           )}
         </div>
       </div>

@@ -14,18 +14,7 @@ const Timing = ({ type }) => {
     end_arrival_hour_from,
     end_arrival_hour_to,
   } = useSelector((state) => state.catalogTrains.searchData.trainsParameters);
-  console.log(type, "timing");
-  let template =
-    type === "departure"
-      ? [
-          { start: start_departure_hour_from, end: start_departure_hour_to },
-          { start: start_arrival_hour_from, end: start_arrival_hour_to },
-        ]
-      : [
-          { start: end_departure_hour_from, end: end_departure_hour_to },
-          { start: end_arrival_hour_from, end: end_arrival_hour_to },
-        ];
-  console.log(template, "template");
+
   return (
     <React.Fragment>
       <div className={type + "_timing-block"}>

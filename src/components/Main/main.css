@@ -518,6 +518,11 @@ button.carousel__dot--selected {
 }
 
 /*Info*/
+
+.info__wrapper {
+  margin-top: 94px;
+  margin-left: 86px;
+}
 .info_card,
 .error_card {
   width: 666px;
@@ -573,7 +578,7 @@ button.carousel__dot--selected {
 }
 
 .error_card {
-  margin-top: 95px;
+  margin-top: -50%;
   margin-left: 86px;
 }
 .error_block-text {

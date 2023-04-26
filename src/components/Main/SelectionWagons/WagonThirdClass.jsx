@@ -797,16 +797,16 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                   data-id={45}
                   data-price={data.coach.side_price}
                   data-wagon_id={data.coach._id}
+                  className={
+                    "utils-wagon_button_side" + getClassName(45, data.seats)
+                  }
+                  onClick={(event) => onClick(event, selectedTypeTicket)}
                   disabled={getDisabled(
                     45,
                     data.seats,
                     dataSeats,
                     selectedTypeTicket
                   )}
-                  className={
-                    "utils-wagon_button_side" + getClassName(45, data.seats)
-                  }
-                  onClick={(event) => onClick(event, selectedTypeTicket)}
                 >
                   45
                 </button>

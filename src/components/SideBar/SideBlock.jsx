@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CardTitle, MySvgIcon, Button } from "../Atoms/Atoms";
 import Timing from "./Timing";
 import TripDetails from "./TripDetails";
@@ -10,14 +10,10 @@ const SideBlock = ({ type, data, date, side, children, parent, onChange }) => {
 
   const basedClasses =
     type === "departure" ? "sidebar-block-departure" : "sidebar-block-arrival";
-console.log(data, 'side')
 
-
-
-    useEffect(() => {
-    
-      if(date)setShowTooltip(false)
-    }, [date])
+  useEffect(() => {
+    if (date) setShowTooltip(false);
+  }, [date]);
   const clickHandler = (type) => {
     date ? setShowTiming(!showTiming) : setShowTooltip(!showTooltip);
   };

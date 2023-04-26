@@ -14,13 +14,10 @@ import TrailDetails from "../Main/SelectionWagons/TrailDetails";
 import QuantityTickets from "../Main/SelectionWagons/QuantityTickets";
 import WagonsTypesBlock from "../Main/SelectionWagons/WagonsTypesBlock";
 import SeatsDetails from "../Main/SelectionWagons/SeatsDetails";
+import Info from "../Molecules/Info";
 import { findWagon } from "../../utils/trainSelectionUtils";
 import { getValidDataPass } from "../../utils/WagonSelectionUtils";
-import {
-  addSeats,
-  //clearDataSeats,
-  setDataPassengers,
-} from "../../features/passengersSlice";
+import { addSeats, setDataPassengers } from "../../features/passengersSlice";
 
 import { useGetTrainIdQuery } from "../../features/myApi";
 import { getDuration } from "../../utils/trainSelectionUtils";
@@ -37,16 +34,18 @@ const SelectionWagons = () => {
 
   const { id, seletedTrain } = useSelector((state) => state.catalogTrains);
 
-  const { data = [], /*isError,*/ isLoading } = useGetTrainIdQuery(id);
+  const { data = [], isError, isLoading } = useGetTrainIdQuery(id);
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
 
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
 
   useEffect(() => {}, [selectedTypeWagon, dispatch]);
-
+  const onClickInfo = () => {
+    document.querySelector(".info_card").classList.remove("active");
+  };
   const clickSelectedSeats = (event, selectedTypeTicket) => {
     selectedSeats.seats = Number(event.target.dataset.id);
-    console.log(event.target, "target");
+
     dispatch(
       addSeats({ data: selectedSeats, price: event.target.dataset.price })
     );
@@ -87,9 +86,16 @@ const SelectionWagons = () => {
         <MainForm className="search-tickets_form" />
         <div className="selection-wagon-content">
           {isLoading ? <Loader /> : null}
+          {isError && (
+            <Info
+              type={"error"}
+              text={"Что-то пошло не так..."}
+              onClick={onClickInfo}
+            />
+          )}
           {!isLoading && <ProgressBar />}
           {!isLoading && <SideBar />}
-          {data && (
+          {!isLoading && data && (
             <section className="selection-wagon_Block">
               <Title className={"selection-wagon_title"} text="Выбор мест" />
               <TrailDetails className="selection-wagon" data={details} />

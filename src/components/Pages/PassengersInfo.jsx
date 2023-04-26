@@ -32,8 +32,8 @@ const PassengersInfo = () => {
   let isValidData;
   validatePass(passengers) ? (isValidData = false) : (isValidData = true);
   useEffect(() => {
-   // console.log(passengers, "passengers");
-  }, [passengers,isValidData]);
+    // console.log(passengers, "passengers");
+  }, [passengers, isValidData]);
   const clickHandler = (event) => {
     cardRef.current = event.target.parentElement.nextSibling;
     cardRef.current.classList.toggle("active-show");
@@ -89,8 +89,9 @@ const PassengersInfo = () => {
             <div className="passengers-info_section_control">
               {showError && (
                 <Info
+                
                   type="error"
-                  text="Количество пассажиров должно соответствовать количеству посадочных мест"
+                  text="Количество и типы пассажиров должны соответствовать количеству посадочных мест и типам билетов"
                   onClick={() => setShowError(false)}
                 />
               )}
