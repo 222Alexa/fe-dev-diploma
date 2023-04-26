@@ -16,17 +16,15 @@ import { useAddOrderMutation } from "../../features/otherApi";
 import "../Main/Screening/screening.css";
 
 const Screening = () => {
-  const { passengers, contributor } = useSelector(
-    (state) => state.passengers
-  );
+  const { passengers, contributor } = useSelector((state) => state.passengers);
   const { id } = useSelector((state) => state.catalogTrains);
   const navigate = useNavigate();
-  const [addOrder, /*result, isError*/] = useAddOrderMutation();
+  const [addOrder /*result, isError*/] = useAddOrderMutation();
   let progress = useCallback(() => {
     console.log(passengers);
     return {};
   }, [passengers]);
-  console.log(id, "id");
+
   useEffect(() => {
     progress();
     progress.screening =
@@ -43,7 +41,7 @@ const Screening = () => {
   };
 
   const onClickHandler = async () => {
-   await handleAddOrder();
+    await handleAddOrder();
     navigate("/fe-dev-diploma/order-result");
   };
 
@@ -67,24 +65,24 @@ const Screening = () => {
     };
 
     const ticket = {
-      coach_id: 1234, //идентификатор вагона, не нашла его
+      coach_id: item.coach_id,
       personInfo: elem,
-     
+
       seat_number: item.seat.seats,
       include_children_seat: false,
     };
     return ticket;
   });
 
-  console.log(dataTickets , "dataTickets ");
+  console.log(dataTickets, "dataTickets ");
   const body = JSON.stringify({
     user: contributor,
     departure: {
       route_direction_id: id,
-      seats: dataTickets ,
+      seats: dataTickets,
     },
   });
- 
+
   return (
     <React.Fragment>
       <Banner className="banner banner-tickets" banner={banner3} />
@@ -112,4 +110,3 @@ const Screening = () => {
 };
 
 export default Screening;
-

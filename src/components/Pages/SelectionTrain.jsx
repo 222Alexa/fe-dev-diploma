@@ -23,7 +23,7 @@ const SelectionTrain = () => {
   const {
     data = [],
     isLoading,
-    isFetching,
+    
     isError,
   } = useGetTrainsListQuery({ travelData, parameters, trainsParameters });
   let cardInfo = document.querySelector(".info_card");

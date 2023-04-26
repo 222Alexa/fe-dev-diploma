@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { setTrainsParameters } from "../../features/catalogTrainsSlice";
 import { styled } from "@mui/material/styles";
 
-const RangeSlider = ({ min, max, step, height, type }) => {
-  const [value, setValue] = useState([min, max]);
+const RangeSlider = ({ min, max, step, height, type, start, end }) => {
+ 
+  const [value, setValue] = useState([start, end]);
+
   const dispatch = useDispatch();
+
   const debounsedValue = useDebouncedCallback((value) => {
+
     setValue(value);
-/*здесь  некоторые типы и имена противоречатдруг другу
+    /*здесь  некоторые типы и имена противоречатдруг другу
 это ненадолго.просто хотела и блоки поменьше делать и переиспользовать
 и потом еще куча запрсов наложилась
-очень тяжело придумывать имена.пока так.позже исправлю*/
+очень тяжело придумывать имена.пока так.позже исправлю
+
+[хотя... после gender=false на бэке ...;)*/
     let template;
+
+ 
     if (type === "price")
       template = {
         name: "price",
@@ -54,7 +62,6 @@ const RangeSlider = ({ min, max, step, height, type }) => {
         },
       };
 
-  
     dispatch(setTrainsParameters({ data: template }));
   }, 2000);
 
@@ -62,8 +69,18 @@ const RangeSlider = ({ min, max, step, height, type }) => {
     // Effect for API call
     () => {
       debounsedValue(value);
+      /* 
+      } /*else if (type === "start_departure" || type === "end_departure") {
+        setValue([start_departure_hour_from, end_departure_hour_from]);
+      } else if (type === "start_arrival" || type === "end_arrival") {
+        setValue([start_arrival_hour_from, end_arrival_hour_from]);
+      }*/
     },
-    [debounsedValue, value] // Only call effect if debounced search term changes
+    [
+      debounsedValue,
+      value,
+
+    ] // Only call effect if debounced search term changes
   );
 
   const handleChange = (event, newValue, activeThumb) => {
@@ -79,14 +96,14 @@ const RangeSlider = ({ min, max, step, height, type }) => {
   };
   const mark = [
     {
-      value: type === "price" ? min : min + ":00",
+      value: min,
       label: type === "price" ? min : min + ":00",
     },
 
     { value: value[0], label: type === "price" ? value[0] : value[0] + ":00" },
     { value: value[1], label: type === "price" ? value[1] : value[1] + ":00" },
     {
-      value: type === "price" ? max : max + ":00",
+      value: max,
       label: type === "price" ? max : max + ":00",
     },
   ];

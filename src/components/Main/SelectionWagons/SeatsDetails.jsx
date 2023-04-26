@@ -3,35 +3,26 @@ import { useSelector } from "react-redux";
 import { Button } from "../../Atoms/Atoms";
 import Wagon from "../../Molecules/SelectionWagon/Wagon";
 import WagonThirdClass from "./WagonThirdClass";
+import { getArrWagons } from "../../../utils/WagonSelectionUtils";
 import { nanoid } from "nanoid";
 const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
-  const {  totalPrice } = useSelector((state) => state.passengers);
+  const { totalPrice } = useSelector((state) => state.passengers);
 
-  if (!data) {
+  if (!data.length) {
     return;
   }
-
-
-  let availableWagon;
-
-  if (data.coach.class_type === "first") availableWagon = ["02", "05"];
-  else if (data.coach.class_type === "second") availableWagon = ["07", "09"];
-  else if (data.coach.class_type === "third")
-    availableWagon = ["10", "12", "15"];
-  //откуда берутся номера свободных вагонов?
-  else if (data.coach.class_type === "fourth")
-    availableWagon = ["20", "21", "22", "25"];
-
-
-
+  const result = getArrWagons(data);
+  //console.log(data, "data", result, "result");
   return (
     <React.Fragment>
-      <div className={className + "_block"}>
-        <div className={className + "_block-header"}>
+      <div key={nanoid()} className={className + "_block"}>
+        <div  className={className + "_block-header"}>
           <div className={className + "_buttons-block"}>
             <span className={className + "_buttons-block-label"}>Вагоны</span>
-            {availableWagon.map((item) => {
-              return <Button key={nanoid()} type="number-wagons" text={item} />;
+            {result.map((item) => {
+              return (
+                <Button key={nanoid()} type="number-wagons" text={item.index} />
+              );
             })}
           </div>
           <span className={className + "_buttons-block-legend"}>
@@ -39,14 +30,25 @@ const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
           </span>
         </div>
         <div className={className + "_block-body"}>
-          <Wagon className={className} data={data} num={availableWagon[0]} />
-          {data.coach.class_type === "third" && (
-            <WagonThirdClass
-              data={data}
-              selectedTypeTicket={selectedTypeTicket}
-              onClick={(event) => onClick(event, selectedTypeTicket)}
-            />
-          )}
+          {result.map((item) => (
+            <div  key={nanoid()} className="wagon-util">
+              <Wagon
+                key={nanoid()}
+                className={className}
+                data={item}
+                num={item.index}
+              />
+              {item.coach.class_type === "third" && (
+                <WagonThirdClass
+                  key={nanoid()}
+                  _id={item.coach._id}
+                  data={item}
+                  selectedTypeTicket={selectedTypeTicket}
+                  onClick={(event) => onClick(event, selectedTypeTicket)}
+                />
+              )}
+            </div>
+          ))}
         </div>
         <div className={className + "_block-bottom"}>
           <span className={className + "_block-bottom_text"}>

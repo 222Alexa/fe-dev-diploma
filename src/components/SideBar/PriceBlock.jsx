@@ -1,21 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import RangeSlider from "./CustomSlider";
-//import InputRange from "react-input-range";
-//import "react-input-range/lib/css/index.css";
 import { CardTitle } from "../Atoms/Atoms";
 
-const PriceBlock = ({ onChange, min, max, step }) => {
-  /*const { price_from, price_to } = useSelector(
+const PriceBlock = () => {
+  const { price_from, price_to } = useSelector(
     (state) => state.catalogTrains.searchData.trainsParameters
   );
-  const [state, setState] = useState({ max: 5000, min: 100 });
-*/
-  /* const dispatch = useDispatch();
-  const onChange = (value) => {
-    console.log(value, "value");
-    
-    setState({ max: value.max, min: value.min });
-  };*/
+
   return (
     <React.Fragment>
       <div className="sidebar-price-block">
@@ -30,6 +22,8 @@ const PriceBlock = ({ onChange, min, max, step }) => {
           height={19}
           step={100}
           type={"price"}
+          start={price_from}
+          end={price_to}
         />
       </div>
     </React.Fragment>
@@ -37,16 +31,3 @@ const PriceBlock = ({ onChange, min, max, step }) => {
 };
 
 export default PriceBlock;
-
-/**   <RangeSlider min={1920} max={7000} step={100} height={19}/> */
-/*        /*<InputRange
-          id="slider"
-          minValue={500}
-          maxValue={9000}
-          step={step}
-          onChange={onChange}
-          value={{
-            min: min,
-            max: max,
-          }}
-        />*/

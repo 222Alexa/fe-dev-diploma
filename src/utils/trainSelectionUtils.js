@@ -54,5 +54,5 @@ export const filteredSeats = (arr) => {
 
 export const findWagon = (arr, value) => {
   //console.log(arr, value, 'findWagon');
-  return arr.find((item) => item.coach.class_type === value);
+  return arr.filter((item) => item.coach.class_type === value);
 };

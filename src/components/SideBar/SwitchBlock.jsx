@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useSelector } from "react-redux";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import icon_second_class from "../../img/selectionTrain/icon_second_class.svg";
@@ -13,8 +13,10 @@ import CustomSwitch from "../Molecules/MUI/CustomSwitch";
 import { MySvgIcon } from "../Atoms/Atoms";
 import "./sidebar.css";
 
-const SwitchBlock = ({handleChange}) => {
-
+const SwitchBlock = ({ handleChange }) => {
+  const { trainsParameters } = useSelector(
+    (state) => state.catalogTrains.searchData
+  );
   return (
     <React.Fragment>
       <div className="sidebar-switch-block">
@@ -31,6 +33,7 @@ const SwitchBlock = ({handleChange}) => {
               onChange={handleChange}
               name={"second"}
               label="Купе"
+              checked={trainsParameters.have_second_class}
             />
           </div>
           <div className="sidebar-switch-block-form-item">
@@ -47,6 +50,7 @@ const SwitchBlock = ({handleChange}) => {
               onChange={handleChange}
               name={"third"}
               label="Плацкарт"
+              checked={trainsParameters.have_third_class}
             />
           </div>
           <div className="sidebar-switch-block-form-item">
@@ -61,6 +65,7 @@ const SwitchBlock = ({handleChange}) => {
               onChange={handleChange}
               name={"fourth"}
               label="Сидячий"
+              checked={trainsParameters.have_fourth_class}
             />
           </div>
           <div className="sidebar-switch-block-form-item">
@@ -75,6 +80,7 @@ const SwitchBlock = ({handleChange}) => {
               onChange={handleChange}
               name={"first"}
               label="Люкс"
+              checked={trainsParameters.have_first_class}
             />
           </div>
           <div className="sidebar-switch-block-form-item">
@@ -89,6 +95,7 @@ const SwitchBlock = ({handleChange}) => {
               onChange={handleChange}
               name={"wifi"}
               label="Wi-Fi"
+              checked={trainsParameters.have_wifi}
             />
           </div>
           <div className="sidebar-switch-block-form-item">
@@ -103,6 +110,7 @@ const SwitchBlock = ({handleChange}) => {
               onChange={handleChange}
               name={"express"}
               label="Экспресс"
+              checked={trainsParameters.have_express}
             />
           </div>
         </FormGroup>

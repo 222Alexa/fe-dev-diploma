@@ -10,6 +10,8 @@ const SideBlock = ({ type, data, date, side, children, parent, onChange }) => {
 
   const basedClasses =
     type === "departure" ? "sidebar-block-departure" : "sidebar-block-arrival";
+console.log(data, 'side')
+
 
 
     useEffect(() => {

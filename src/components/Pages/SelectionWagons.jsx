@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Title } from "../Atoms/Atoms";
 import Banner from "../Molecules/Banner";
 import banner3 from "../../img/banner/banner3.png";
@@ -36,26 +36,28 @@ const SelectionWagons = () => {
   });
 
   const { id, seletedTrain } = useSelector((state) => state.catalogTrains);
-  //const { passengers } = useSelector((state) => state.passengers);
+
   const { data = [], /*isError,*/ isLoading } = useGetTrainIdQuery(id);
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
 
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
- 
 
-  useEffect(() => {
-    //dispatch(clearDataSeats());
- 
-  }, [selectedTypeWagon, dispatch]);
+  useEffect(() => {}, [selectedTypeWagon, dispatch]);
 
   const clickSelectedSeats = (event, selectedTypeTicket) => {
     selectedSeats.seats = Number(event.target.dataset.id);
-
+    console.log(event.target, "target");
     dispatch(
       addSeats({ data: selectedSeats, price: event.target.dataset.price })
     );
     dispatch(
-      setDataPassengers({ data: {  seat: selectedSeats,price: event.target.dataset.price } })
+      setDataPassengers({
+        data: {
+          coach_id: event.target.dataset.wagon_id,
+          seat: selectedSeats,
+          price: event.target.dataset.price,
+        },
+      })
     );
     event.target.classList.toggle("utils-wagon_button_selected");
   };

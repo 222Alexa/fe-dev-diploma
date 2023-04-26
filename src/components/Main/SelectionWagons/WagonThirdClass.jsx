@@ -38,6 +38,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-price={data.coach.top_price}
                   data-id={2}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(2, data.seats)
                   }
@@ -53,6 +54,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={1}
+                  data-wagon_id={data.coach._id}
                   data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(1, data.seats)
@@ -71,6 +73,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_box">
                 <button
                   data-id={4}
+                  data-wagon_id={data.coach._id}
                   data-price={data.coach.top_price}
                   className={
                     "utils-wagon_button_box" + getClassName(4, data.seats)
@@ -87,6 +90,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={3}
+                  data-wagon_id={data.coach._id}
                   data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(3, data.seats)
@@ -107,6 +111,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
               <div className="utils-wagon_buttons-block_side">
                 <button
                   data-id={33}
+                  data-wagon_id={data.coach._id}
                   data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(33, data.seats)
@@ -123,6 +128,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={34}
+                  data-wagon_id={data.coach._id}
                   data-price={data.coach.side_price}
                   className={
                     "utils-wagon_button_side" + getClassName(34, data.seats)
@@ -146,6 +152,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={6}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(6, data.seats)
                   }
@@ -162,6 +169,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={5}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(5, data.seats)
                   }
@@ -180,6 +188,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={8}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(8, data.seats)
                   }
@@ -195,6 +204,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 </button>
                 <button
                   data-id={7}
+                  data-wagon_id={data.coach._id}
                   data-price={data.coach.bottom_price}
                   className={
                     "utils-wagon_button_box" + getClassName(7, data.seats)
@@ -216,6 +226,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={35}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(35, data.seats)
                   }
@@ -232,6 +243,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={36}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(36, data.seats)
                   }
@@ -254,6 +266,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={10}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(10, data.seats)
                   }
@@ -270,6 +283,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={9}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(9, data.seats)
                   }
@@ -288,6 +302,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={12}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(12, data.seats)
                   }
@@ -304,6 +319,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={11}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(11, data.seats)
                   }
@@ -324,6 +340,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={37}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(37, data.seats)
                   }
@@ -340,6 +357,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={38}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(38, data.seats)
                   }
@@ -362,6 +380,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={14}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(14, data.seats)
                   }
@@ -378,6 +397,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={13}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(13, data.seats)
                   }
@@ -396,6 +416,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={16}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(16, data.seats)
                   }
@@ -412,6 +433,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={15}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(15, data.seats)
                   }
@@ -432,6 +454,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={39}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(39, data.seats)
                   }
@@ -448,6 +471,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={40}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(40, data.seats)
                   }
@@ -470,6 +494,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={18}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(18, data.seats)
                   }
@@ -486,6 +511,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={17}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(17, data.seats)
                   }
@@ -504,6 +530,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={20}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(20, data.seats)
                   }
@@ -520,6 +547,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={19}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(19, data.seats)
                   }
@@ -540,6 +568,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={41}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(41, data.seats)
                   }
@@ -556,6 +585,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={42}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(42, data.seats)
                   }
@@ -578,6 +608,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={22}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(22, data.seats)
                   }
@@ -594,6 +625,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={21}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(21, data.seats)
                   }
@@ -612,6 +644,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={24}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(24, data.seats)
                   }
@@ -628,6 +661,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={23}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(23, data.seats)
                   }
@@ -648,6 +682,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={43}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(43, data.seats)
                   }
@@ -664,6 +699,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={44}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(44, data.seats)
                   }
@@ -686,6 +722,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={26}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(26, data.seats)
                   }
@@ -702,6 +739,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={25}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(25, data.seats)
                   }
@@ -720,6 +758,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={28}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(28, data.seats)
                   }
@@ -736,6 +775,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={27}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(27, data.seats)
                   }
@@ -756,6 +796,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={45}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   disabled={getDisabled(
                     45,
                     data.seats,
@@ -772,6 +813,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={46}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(46, data.seats)
                   }
@@ -794,6 +836,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={30}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(30, data.seats)
                   }
@@ -810,6 +853,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={29}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(29, data.seats)
                   }
@@ -828,6 +872,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={32}
                   data-price={data.coach.top_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(32, data.seats)
                   }
@@ -844,6 +889,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={31}
                   data-price={data.coach.bottom_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_box" + getClassName(31, data.seats)
                   }
@@ -864,6 +910,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={47}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(47, data.seats)
                   }
@@ -880,6 +927,7 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
                 <button
                   data-id={48}
                   data-price={data.coach.side_price}
+                  data-wagon_id={data.coach._id}
                   className={
                     "utils-wagon_button_side" + getClassName(48, data.seats)
                   }
