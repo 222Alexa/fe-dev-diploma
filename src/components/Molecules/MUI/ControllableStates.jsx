@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Autocomplete, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -15,14 +15,16 @@ const ControllableStates = ({
   placeholder,
 }) => {
   const classes = useStyles();
-  const [state, seState] = useState(value);
+  const [state, setState] = useState(value);
   const dispatch = useDispatch();
 
   let width;
 
+  useEffect(() => {
+    setState(value);
+  }, [value]);
   if (type === "Свидетельство о рождении") {
     width = 444;
-  
   } else if (type === "Паспорт") {
     width = 280;
   } else {
@@ -39,7 +41,7 @@ const ControllableStates = ({
         }
         id="demo"
         onChange={(event, newValue) => {
-          seState(newValue);
+          setState(newValue);
 
           if (newValue)
             dispatch(

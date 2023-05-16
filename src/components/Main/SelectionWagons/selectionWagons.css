@@ -146,6 +146,7 @@
   justify-content: space-between;
 }
 .quantity-tickets_block-menu-item {
+  position: relative;
   padding-left: 36px;
   padding-top: 20px;
   padding-right: 41px;
@@ -173,6 +174,9 @@
   border: 1px solid #928f94;
   border-radius: 5px;
   background: #fff;
+}
+.quantity-tickets_input-group.error-quantity {
+  border: 1px solid red;
 }
 input#exampleInputTypeTickets {
   width: 35px;
@@ -520,9 +524,8 @@ tr.amount-seats_table-item {
   color: #ffffff;
 }
 
-
 button.next-block_btn.btn.text-center:disabled {
-  background: #928F94;
+  background: #928f94;
 }
 
 .available-seats-details_block-bottom {
@@ -531,7 +534,6 @@ button.next-block_btn.btn.text-center:disabled {
   margin-right: 5px;
   padding-top: 25px;
   height: 53px;
-
 }
 
 .available-seats-details_block-bottom_text {
@@ -567,6 +569,17 @@ button.next-block_btn.btn.text-center:disabled {
   border-radius: 5px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   text-align: center;
+}
+
+.services_tooltip.tooltip_quantity-tickets {
+  top: 80px;
+  background: none;
+  text-align: start;
+}
+
+span.tooltip_text.text_quantity-tickets {
+  font-size: 12px;
+  color: red;
 }
 .tooltip_conditioning {
   width: 130px;
@@ -608,7 +621,6 @@ button.next-block_btn.btn.text-center:disabled {
 
   color: #292929;
 }
-
 
 .wagon_template-block {
   position: absolute;

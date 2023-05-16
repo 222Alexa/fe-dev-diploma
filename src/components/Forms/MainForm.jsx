@@ -12,7 +12,7 @@ import ic_arrow from "../../img/ic_arrow.svg";
 import { inputValue } from "../../features/formTicketsSlice";
 import { setDataRequest } from "../../features/catalogTrainsSlice";
 import { setParameters } from "../../features/catalogTrainsSlice";
-//import { setForm } from "../../features/formTicketsSlice";
+import { setReverseData } from "../../features/formTicketsSlice";
 const MainForm = ({ className }) => {
   const { name } = useSelector((state) => state.formTickets);
 
@@ -20,11 +20,11 @@ const MainForm = ({ className }) => {
 
   const dispatch = useDispatch();
   const reverseRef = useRef();
-  const { data = [], isLoading } = useGetCityesNameQuery(name);
+  const { data = [] /*isLoading */ } = useGetCityesNameQuery(name);
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (isLoading) return <span>Loading...</span>;
+  /*if (isLoading) return <span>Loading...</span>*/
 
   let optionsData = [];
   if (data.length > 0) {
@@ -32,22 +32,10 @@ const MainForm = ({ className }) => {
       return { ...item, name: capitalizeFirstLetter(item.name) };
     });
   }
-  /*const clickReverse = () => {
-    dispatch(
-      setForm({
-        type: "startCity",
-        status: false,
-        data: to.city.name,
-      })
-    );
-    dispatch(
-      setForm({
-        type: "finishCity",
-        status: false,
-        data: from.city.name,
-      })
-    );
-  };*/
+
+  const clickReverse = () => {
+    dispatch(setReverseData());
+  };
   const clickHandler = () => {
     dispatch(setDataRequest({ data: { from, to } }));
     dispatch(setParameters({ offset: 0 }));
@@ -83,7 +71,7 @@ const MainForm = ({ className }) => {
             <button
               type="button"
               className=" btn btn-transparent p-0 form_reverse-button"
-              /*onClick={clickReverse}*/
+              onClick={clickReverse}
             >
               <img className="ic_arrow_form" src={ic_arrow} alt="arrow icon" />
             </button>
@@ -120,7 +108,9 @@ const MainForm = ({ className }) => {
             type="main_form"
             onClick={clickHandler}
             disabled={
-              from.city.name === "" || to.city.name === ""|| !from.date ? true : false
+              from.city.name === "" || to.city.name === "" || !from.date
+                ? true
+                : false
             }
           ></Button>
         </div>

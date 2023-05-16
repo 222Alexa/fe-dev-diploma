@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { CardTitle } from "../../Atoms/Atoms";
+import Tooltip from "../../Molecules/Tooltip";
 import { templateText } from "../../../utils/dataText";
+import { setTicketNoSeats } from "../../../features/passengersSlice";
 import { nanoid } from "nanoid";
 
-const QuantityTickets = ({
-  className,
-  data,
-  selected,
-  setSelected,
-  onChangeInput,
-}) => {
-  const basedClassesItem = className + "_block-menu-item";
+const QuantityTickets = ({ className, data, selected, setSelected }) => {
+  const dispatch = useDispatch();
+  const inputRef = useRef();
 
+ 
+  const basedClassesItem = className + "_block-menu-item";
+  const onClickSelected = (type) => {
+    setSelected({ type: type });
+  };
+ 
+  const onChangeInput = (event) => {
+    if (event.target.value === "") {
+
+      return;
+    }
+    if (data[0].count < Number(event.target.value)) {
+      
+      inputRef.current = event.target.parentElement;
+      inputRef.current.classList.add("error-quantity");
+      inputRef.current.nextElementSibling.style.visibility = "visible";
+     
+      return;
+    }
+    inputRef.current.nextElementSibling.style.visibility = "hidden";
+    inputRef.current.classList.remove("error-quantity");
+    dispatch(setTicketNoSeats({ count: Number(event.target.value) }));
+  };
   return (
     <React.Fragment>
       <div className={className + "_block"}>
@@ -28,12 +49,11 @@ const QuantityTickets = ({
                     ? basedClassesItem + " selected_type-tickets"
                     : basedClassesItem
                 }
-                onClick={(event) => {
-                  setSelected({ type: item.type });
-                }}
-                onChange={(event) => {
-                  console.log(event.target, "inp");
-                }}
+                onClick={() =>
+                  item.type !== "child-no-seats"
+                    ? onClickSelected(item.type)
+                    : null
+                }
               >
                 <div
                   className={
@@ -48,22 +68,33 @@ const QuantityTickets = ({
                     {item.text + " \u2013"}{" "}
                   </span>
                   <input
-                    type="text"
+                    type="number"
                     className={
                       className + " " + item.type + " input form-control"
                     }
                     id="exampleInputTypeTickets"
                     aria-describedby="typeTickets"
                     defaultValue={item.count}
-                    onChange={onChangeInput}
+                    onChange={(event) =>
+                      item.type === "child-no-seats"
+                        ? onChangeInput(event)
+                        : null
+                    }
                   />
                 </div>{" "}
-                <label
-                  htmlFor={"exampleInputTypeTickets"}
-                  className={className + " " + item.type + "_input-label"}
-                >
-                  {templateText(item)}
-                </label>
+                {item.type === "child-no-seats" ? (
+                  <Tooltip
+                    name="quantity-tickets"
+                    text="*Количество билетов без места не должно превышать количество взрослых билетов"
+                  />
+                ) : (
+                  <label
+                    htmlFor={"exampleInputTypeTickets"}
+                    className={className + " " + item.type + "_input-label"}
+                  >
+                    {templateText(item)}
+                  </label>
+                )}
               </div>
             );
           })}

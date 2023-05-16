@@ -113,6 +113,9 @@ export const getDataPassTemplate = (data) => {
     } else if (elem.type === "child") {
       elem.text = elem.count > 1 ? "Детей" : "Ребёнок";
     }
+    else if (elem.type === "child-no-seats") {
+      elem.text = elem.count > 1 ? "Детских без места" : "";
+    }
 
     return elem;
   });

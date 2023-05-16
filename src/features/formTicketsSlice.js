@@ -7,10 +7,9 @@ const formSlice = createSlice({
     status: false,
     formData: {
       status: false,
-      from: { date: null, city: { _id: "", name: "" } },
-      to: { date: null, city: { _id: "", name: "" } },
+      from: { date: null, city: { _id: "", name: null } },
+      to: { date: null, city: { _id: "", name: null } },
     },
-
   },
   reducers: {
     inputValue: (state, action) => {
@@ -20,20 +19,22 @@ const formSlice = createSlice({
       state.name = value;
     },
     setForm: (state, action) => {
-      const { type, data,  status } = action.payload;
+      const { type, data, status } = action.payload;
       if (type === "startCity") state.formData.from.city = data;
       if (type === "finishCity") state.formData.to.city = data;
       if (type === "startDate") state.formData.from.date = data;
       if (type === "finishDate") state.formData.to.date = data;
       state.formData.status = status;
-
     },
-
-
+    setReverseData: (state) => {
+      const startCity = state.formData.to.city;
+      const finishCity = state.formData.from.city;
+      state.formData.from.city = startCity;
+      state.formData.to.city = finishCity;
+    },
   },
 });
 
-export const { inputValue, setForm } =
-  formSlice.actions;
+export const { inputValue, setForm, setReverseData } = formSlice.actions;
 
 export default formSlice.reducer;

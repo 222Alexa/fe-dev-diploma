@@ -79,7 +79,13 @@ const passengersSlice = createSlice({
           if (idx !== -1) copyState[idx].dataPass = data;
         }
       }
+      
       state.totalCount = state.passengers.length;
+    },
+    setTicketNoSeats: (state, action) => {
+      const { count } = action.payload;
+      state.dataSeats[2].count = count;
+      state.dataSeats[2].limit = state.dataSeats[0].count;
     },
     setContributor: (state, action) => {
       const { data } = action.payload;
@@ -115,7 +121,7 @@ const passengersSlice = createSlice({
       };
 
       state.dataSeats[idx] = result;
-
+      state.dataSeats[2].limit = state.dataSeats[0].count;
       state.totalPrice = getTotalPrice(state.dataSeats);
     },
     clearDataSeats: (state) => {
@@ -146,6 +152,7 @@ export const {
   addSeats,
   clearDataSeats,
   addSubscriber,
+  setTicketNoSeats,
 } = passengersSlice.actions;
 
 export default passengersSlice.reducer;

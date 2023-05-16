@@ -25,14 +25,15 @@ a:hover {
   opacity: 0;
 }
 
-
-
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .homepage_form_destination {
   width: 670px;
 }
-
 
 /* Preloader */
 .preloader {
@@ -81,10 +82,6 @@ a:hover {
   }
 }
 
-
-
-
-
 /* Bootstrap */
 
 input {
@@ -95,7 +92,6 @@ input {
 
 input:active,
 input:focus {
- 
   outline: none !important;
   box-shadow: none !important;
   -o-transition: color 0 ease-in;
