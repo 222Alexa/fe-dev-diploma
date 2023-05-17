@@ -3,6 +3,10 @@ import { useSelector } from "react-redux";
 import { Button } from "../../Atoms/Atoms";
 import Wagon from "../../Molecules/SelectionWagon/Wagon";
 import WagonThirdClass from "./WagonThirdClass";
+import WagonFourthClass from "./WagonFourthClass";
+import WagonFirstClass from "./WagonFirstClass";
+//import WagonSecondClass from "./WagonSecondClass";
+
 import { getArrWagons } from "../../../utils/WagonSelectionUtils";
 import { nanoid } from "nanoid";
 const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
@@ -12,11 +16,11 @@ const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
     return;
   }
   const result = getArrWagons(data);
-  //console.log(data, "data", result, "result");
+console.log( result, "result");
   return (
     <React.Fragment>
       <div key={nanoid()} className={className + "_block"}>
-        <div  className={className + "_block-header"}>
+        <div className={className + "_block-header"}>
           <div className={className + "_buttons-block"}>
             <span className={className + "_buttons-block-label"}>Вагоны</span>
             {result.map((item) => {
@@ -31,15 +35,33 @@ const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
         </div>
         <div className={className + "_block-body"}>
           {result.map((item) => (
-            <div  key={nanoid()} className="wagon-util">
+            <div key={nanoid()} className="wagon-util">
               <Wagon
                 key={nanoid()}
                 className={className}
                 data={item}
                 num={item.index}
               />
+                     {item.coach.class_type === "first" && (
+                <WagonFirstClass
+                  key={nanoid()}
+                  _id={item.coach._id}
+                  data={item}
+                  selectedTypeTicket={selectedTypeTicket}
+                  onClick={(event) => onClick(event, selectedTypeTicket)}
+                />
+              )}
               {item.coach.class_type === "third" && (
                 <WagonThirdClass
+                  key={nanoid()}
+                  _id={item.coach._id}
+                  data={item}
+                  selectedTypeTicket={selectedTypeTicket}
+                  onClick={(event) => onClick(event, selectedTypeTicket)}
+                />
+              )}
+              {item.coach.class_type === "fourth" && (
+                <WagonFourthClass
                   key={nanoid()}
                   _id={item.coach._id}
                   data={item}

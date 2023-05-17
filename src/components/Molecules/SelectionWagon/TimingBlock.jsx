@@ -14,6 +14,7 @@ const TimingBlock = ({ className, duration }) => {
     { format: ["hours", "minutes"] }
   );
 
+
   return (
     <React.Fragment>
       <div className={className + "-timing"}>
@@ -22,5 +23,5 @@ const TimingBlock = ({ className, duration }) => {
     </React.Fragment>
   );
 };
-/**<span>{timeTextMinutes}</span> */
+
 export default TimingBlock;

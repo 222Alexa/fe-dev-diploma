@@ -265,6 +265,14 @@ span.available-seats-details_buttons-block-legend {
 }
 
 /*Карта вагона*/
+.wagon_item.wagon-first_class {
+  position: relative;
+  width: 921px;
+  height: 145px;
+  margin-top: 69px;
+  margin-left: 20px;
+  background-image: url(../../../img/image_first_class_wagon.png);
+}
 .wagon_item.wagon-third_class {
   position: relative;
   width: 921px;
@@ -274,7 +282,18 @@ span.available-seats-details_buttons-block-legend {
 
   background-image: url(../../../img/image_third_class_wagon.svg);
 }
-.utils-wagon_wrap.wagon-third_class_wrap {
+.wagon_item.wagon-fourth_class {
+  position: relative;
+  width: 921px;
+  height: 145px;
+  margin-top: 69px;
+  margin-left: 20px;
+
+  background-image: url(../../../img/image_fourth_class_wagon.svg);
+}
+.utils-wagon_wrap.wagon-third_class_wrap,
+.utils-wagon_wrap.wagon-fourth_class_wrap,
+.utils-wagon_wrap.wagon-first_class_wrap {
   position: absolute;
   top: 29px;
   left: 134px;
@@ -283,7 +302,7 @@ span.available-seats-details_buttons-block-legend {
   height: 108px;
   width: 712px;
 }
-
+/*Плацкарт*/
 .utils-wagon_sector:first-child {
   width: 86px;
   height: 108px;
@@ -339,6 +358,71 @@ span.available-seats-details_buttons-block-legend {
   padding: 1px;
   border: 1px solid #e5e5e5;
 }
+
+/*Сидячий*/
+.utils-wagon_wrap.wagon-fourth_class_wrap {
+  display: flex;
+  flex-direction: column;
+  height: 108px;
+  justify-content: space-between;
+}
+
+.utils-wagon-wagon-fourth_class_sector {
+  /*background-color: yellow;*/
+  display: flex;
+  /*opacity: 0.5;*/
+  height: 48px;
+  width: 712px;
+  flex-direction: column;
+  width: 100%;
+}
+.utils-wagon-wagon-fourth_class_sector-row {
+  display: flex;
+  justify-content: space-between;
+  height: 24px;
+  width: 688px;
+  margin: 1px auto;
+
+}
+.utils-wagon-wagon-fourth_class_sector-row.short-row {
+  width: 600px;
+}
+button.utils-wagon_button_box.wagon-fourth_class_seat-btn {
+  height: 22px;
+  width: 29px;
+}
+
+/*Люкс*/
+.utils-wagon-wagon-first_class_sector {
+ 
+  display: flex;
+
+  height: 58px;
+  width: 712px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.utils-wagon-wagon-first_class_sector-row {
+  display: flex;
+  height: 70px;
+  
+  justify-content: space-between;
+}
+.utils-wagon_buttons-block_box.first_class-buttons-block_box {
+
+  width: 86px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+button.utils-wagon_button_box.wagon-first_class_seat-btn {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
 .occupied_seat {
   background: #959393;
   color: #fff;

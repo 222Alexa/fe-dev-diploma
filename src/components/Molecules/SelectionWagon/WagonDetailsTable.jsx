@@ -2,8 +2,8 @@ import React from "react";
 
 import { filteredSeats } from "../../../utils/trainSelectionUtils";
 
-const WagonDetailsTable = ({ data }) => {
-
+const WagonDetailsTable = ({ data, classType }) => {
+  console.log(data, classType, "table");
   const currencyIcon = (
     <svg
       className="amount-seats_details-price-currency"
@@ -49,36 +49,46 @@ const WagonDetailsTable = ({ data }) => {
               Стоимость
             </th>
             <th scope="col" title="Валюта"></th>
-            
           </tr>
         </thead>
-        <tbody className={"amount-seats_table-body"}>
-          <tr className="amount-seats_table-item">
-            <td className="amount-seats_details">Верхние</td>
-            <td  className="amount-seats_details-num">
-              {filteredSeats(data.topSeats).length}
-            </td>
-            <td className="amount-seats_details-price">
-              {data.top_price}
-              {currencyIcon}
-            </td>
-          </tr>
-          <tr className="amount-seats_table-item">
-            <td className="amount-seats_details">Нижние</td>
-            <td className="amount-seats_details-num">
-              {filteredSeats(data.bottomSeats).length}
-            </td>
-            <td className="amount-seats_details-price">
-              {data.bottom_price}
-              {currencyIcon}
-            </td>
-          </tr>
-          
-        </tbody>
+        {classType === "fourth"  || classType === "first"? (
+          <tbody className={"amount-seats_table-body"}>
+            <tr className="amount-seats_table-item">
+              <td className="amount-seats_details"></td>
+              <td className="amount-seats_details-num"></td>
+              <td className="amount-seats_details-price">
+                {data.top_price}
+                {currencyIcon}
+              </td>
+            </tr>
+          </tbody>
+        ) : (
+          <tbody className={"amount-seats_table-body"}>
+            <tr className="amount-seats_table-item">
+              <td className="amount-seats_details">Верхние</td>
+              <td className="amount-seats_details-num">
+                {filteredSeats(data.topSeats).length}
+              </td>
+              <td className="amount-seats_details-price">
+                {data.top_price}
+                {currencyIcon}
+              </td>
+            </tr>
+            <tr className="amount-seats_table-item">
+              <td className="amount-seats_details">Нижние</td>
+              <td className="amount-seats_details-num">
+                {filteredSeats(data.bottomSeats).length}
+              </td>
+              <td className="amount-seats_details-price">
+                {data.bottom_price}
+                {currencyIcon}
+              </td>
+            </tr>
+          </tbody>
+        )}
       </table>
     </React.Fragment>
   );
 };
 
 export default WagonDetailsTable;
-

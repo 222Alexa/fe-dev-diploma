@@ -21,14 +21,16 @@ const QuantityTickets = ({ className, data, selected, setSelected }) => {
 
       return;
     }
+    inputRef.current = event.target.parentElement;
     if (data[0].count < Number(event.target.value)) {
       
-      inputRef.current = event.target.parentElement;
+    
       inputRef.current.classList.add("error-quantity");
       inputRef.current.nextElementSibling.style.visibility = "visible";
      
       return;
     }
+    console.log(inputRef.current,'inputRef.current')
     inputRef.current.nextElementSibling.style.visibility = "hidden";
     inputRef.current.classList.remove("error-quantity");
     dispatch(setTicketNoSeats({ count: Number(event.target.value) }));
