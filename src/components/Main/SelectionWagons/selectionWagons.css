@@ -273,6 +273,15 @@ span.available-seats-details_buttons-block-legend {
   margin-left: 20px;
   background-image: url(../../../img/image_first_class_wagon.png);
 }
+.wagon_item.wagon-second_class {
+  position: relative;
+  width: 921px;
+  height: 145px;
+  margin-top: 69px;
+  margin-left: 20px;
+
+  background-image: url(../../../img/image_second_class_wagon.svg);
+}
 .wagon_item.wagon-third_class {
   position: relative;
   width: 921px;
@@ -291,9 +300,11 @@ span.available-seats-details_buttons-block-legend {
 
   background-image: url(../../../img/image_fourth_class_wagon.svg);
 }
+
 .utils-wagon_wrap.wagon-third_class_wrap,
 .utils-wagon_wrap.wagon-fourth_class_wrap,
-.utils-wagon_wrap.wagon-first_class_wrap {
+.utils-wagon_wrap.wagon-first_class_wrap,
+.utils-wagon_wrap.wagon-second_class_wrap {
   position: absolute;
   top: 29px;
   left: 134px;
@@ -302,15 +313,17 @@ span.available-seats-details_buttons-block-legend {
   height: 108px;
   width: 712px;
 }
-/*Плацкарт*/
-.utils-wagon_sector:first-child {
-  width: 86px;
-  height: 108px;
 
-  margin-left: 0;
+/*Плацкарт*/
+.utils-wagon_wrap.wagon-third_class_wrap {
+  flex-direction: column;
+  justify-content: space-between;
 }
-.utils-wagon_sector {
-  margin-right: 3.5px;
+.utils-wagon-second_class_sector {
+  display: flex;
+  height: 61px;
+  width: 100%;
+  justify-content: space-between;
 }
 .utils-wagon_buttons-block_box {
   width: 25px;
@@ -323,7 +336,9 @@ span.available-seats-details_buttons-block-legend {
   display: flex;
   justify-content: space-between;
 }
-
+.utils-wagon_buttons-block_box:nth-child(odd) {
+  margin-right: 31px;
+}
 .utils-wagon_button_box {
   width: 25px;
   height: 31px;
@@ -340,25 +355,20 @@ span.available-seats-details_buttons-block-legend {
   background-color: #fff;
   cursor: pointer;
 }
-.utils-wagon_side {
-  margin-top: 21px;
-
-  width: 86px;
-  height: 25px;
-}
-.utils-wagon_buttons-block_side {
+.utils-wagon_buttons-block_side-box {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-}
-.utils-wagon_button_side {
-  height: 25px;
-  width: 43px;
-
-  padding: 1px;
-  border: 1px solid #e5e5e5;
+  width: 86px;
 }
 
+.utils-wagon-second_class_sector.side-sector {
+  height: 23px;
+}
+
+button.utils-wagon_button_box.side-button_box {
+  height: 22px;
+  width: 49%;
+  line-height: 10px;
+}
 /*Сидячий*/
 .utils-wagon_wrap.wagon-fourth_class_wrap {
   display: flex;
@@ -382,7 +392,6 @@ span.available-seats-details_buttons-block-legend {
   height: 24px;
   width: 688px;
   margin: 1px auto;
-
 }
 .utils-wagon-wagon-fourth_class_sector-row.short-row {
   width: 600px;
@@ -394,7 +403,6 @@ button.utils-wagon_button_box.wagon-fourth_class_seat-btn {
 
 /*Люкс*/
 .utils-wagon-wagon-first_class_sector {
- 
   display: flex;
 
   height: 58px;
@@ -406,15 +414,15 @@ button.utils-wagon_button_box.wagon-fourth_class_seat-btn {
 .utils-wagon-wagon-first_class_sector-row {
   display: flex;
   height: 70px;
-  
+
   justify-content: space-between;
 }
 .utils-wagon_buttons-block_box.first_class-buttons-block_box {
-
   width: 86px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  margin: 0;
 }
 button.utils-wagon_button_box.wagon-first_class_seat-btn {
   height: 100%;
@@ -423,6 +431,19 @@ button.utils-wagon_button_box.wagon-first_class_seat-btn {
   justify-content: space-around;
 }
 
+/*Купе*/
+
+.utils-wagon-wagon-second_class_sector {
+  width: 100%;
+  height: 58px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.utils-wagon_buttons-block_box.second_class-buttons-block_box:nth-child(odd) {
+  margin-right: 31px;
+}
 .occupied_seat {
   background: #959393;
   color: #fff;

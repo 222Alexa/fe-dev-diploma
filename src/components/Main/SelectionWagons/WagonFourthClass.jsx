@@ -1,45 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getDisabled } from "../../../utils/WagonSelectionUtils";
+import {
+  getDisabled,
+  getClassName,
+  getSeatsArr,
+} from "../../../utils/WagonSelectionUtils";
 import { nanoid } from "nanoid";
 const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
-
-  const getClassName = (num, dataBase) => {
-    const item = dataBase.find((item) => {
-      return item.index === Number(num) && item.available === true;
-    });
-
-    let className;
-
-    if (item) {
-      const arrSeats = dataSeats[0].seats.concat(dataSeats[1].seats);
-
-      return arrSeats.includes(item.index)
-        ? (className = " utils-wagon_button_selected")
-        : (className = "");
-    } else {
-      className = " occupied_seat";
-    }
-    return className;
-  };
-
-  const seatsBtnsArr = Array.from({ length: 62 }, (_, index) => index + 1);
-  let sector2 = seatsBtnsArr.splice(32, 31);
-  let sector1 = seatsBtnsArr;
-  const isEvenNumber = (arr) => {
-    let evenArr = [];
-    let oddArr = [];
-  arr.map((item) => {
-    return  item !== 62 && item % 2 === 0 ? evenArr.push(item) : oddArr.push(item);
-    });
-    return { evenArr, oddArr };
-  };
-
-  const sideRight = isEvenNumber(sector1);
-  const sideLeft = isEvenNumber(sector2);
-
-
+  const seatsBtnsArr = getSeatsArr(data.coach.class_type);
 
   return (
     <React.Fragment>
@@ -52,15 +21,16 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
         <div className="utils-wagon_wrap wagon-fourth_class_wrap">
           <div className="utils-wagon-wagon-fourth_class_sector">
             <div className="utils-wagon-wagon-fourth_class_sector-row">
-              {sideRight.evenArr.map((item) => {
+              {seatsBtnsArr[0].evenArr.map((item) => {
                 return (
                   <button
-                  key={nanoid()}
+                    key={nanoid()}
                     data-id={item}
                     data-wagon_id={data.coach._id}
                     data-price={data.coach.bottom_price}
                     className={
-                      "utils-wagon_button_box wagon-fourth_class_seat-btn" + getClassName(item, data.seats)
+                      "utils-wagon_button_box wagon-fourth_class_seat-btn" +
+                      getClassName(item, data.seats, dataSeats)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -77,14 +47,16 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
             </div>
 
             <div className="utils-wagon-wagon-fourth_class_sector-row">
-            {sideRight.oddArr.map((item) => {
+              {seatsBtnsArr[0].oddArr.map((item) => {
                 return (
                   <button
+                    key={nanoid()}
                     data-id={item}
                     data-wagon_id={data.coach._id}
                     data-price={data.coach.bottom_price}
                     className={
-                      "utils-wagon_button_box wagon-fourth_class_seat-btn" + getClassName(item, data.seats)
+                      "utils-wagon_button_box wagon-fourth_class_seat-btn" +
+                      getClassName(item, data.seats, dataSeats)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -102,14 +74,16 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
           </div>
           <div className="utils-wagon-wagon-fourth_class_sector">
             <div className="utils-wagon-wagon-fourth_class_sector-row  short-row">
-            {sideLeft.evenArr.map((item) => {
+              {seatsBtnsArr[1].evenArr.map((item) => {
                 return (
                   <button
+                    key={nanoid()}
                     data-id={item}
                     data-wagon_id={data.coach._id}
                     data-price={data.coach.bottom_price}
                     className={
-                      "utils-wagon_button_box wagon-fourth_class_seat-btn" + getClassName(item, data.seats)
+                      "utils-wagon_button_box wagon-fourth_class_seat-btn" +
+                      getClassName(item, data.seats, dataSeats)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -126,14 +100,16 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
             </div>
 
             <div className="utils-wagon-wagon-fourth_class_sector-row">
-            {sideLeft.oddArr.map((item) => {
+              {seatsBtnsArr[1].oddArr.map((item) => {
                 return (
                   <button
+                    key={nanoid()}
                     data-id={item}
                     data-wagon_id={data.coach._id}
                     data-price={data.coach.bottom_price}
                     className={
-                      "utils-wagon_button_box wagon-fourth_class_seat-btn" + getClassName(item, data.seats)
+                      "utils-wagon_button_box wagon-fourth_class_seat-btn" +
+                      getClassName(item, data.seats, dataSeats)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(

@@ -5,7 +5,7 @@ import Wagon from "../../Molecules/SelectionWagon/Wagon";
 import WagonThirdClass from "./WagonThirdClass";
 import WagonFourthClass from "./WagonFourthClass";
 import WagonFirstClass from "./WagonFirstClass";
-//import WagonSecondClass from "./WagonSecondClass";
+import WagonSecondClass from "./WagonSecondClass";
 
 import { getArrWagons } from "../../../utils/WagonSelectionUtils";
 import { nanoid } from "nanoid";
@@ -44,6 +44,15 @@ console.log( result, "result");
               />
                      {item.coach.class_type === "first" && (
                 <WagonFirstClass
+                  key={nanoid()}
+                  _id={item.coach._id}
+                  data={item}
+                  selectedTypeTicket={selectedTypeTicket}
+                  onClick={(event) => onClick(event, selectedTypeTicket)}
+                />
+              )}
+                        {item.coach.class_type === "second" && (
+                <WagonSecondClass
                   key={nanoid()}
                   _id={item.coach._id}
                   data={item}
