@@ -82,7 +82,6 @@ const rangeSeats = (arr) => {
   return total;
 };
 export const getSeatsArr = (class_type) => {
- 
   let boxSeatsArr = [];
 
   let rangeBoxSeatsArr = [];
@@ -123,18 +122,26 @@ export const getSeatsArr = (class_type) => {
 };
 
 export const getClassName = (num, dataBase, state) => {
-  const item = dataBase.find((item) => {
+ 
+  const item = dataBase.seats.find((item) => {
     return item.index === Number(num) && item.available === true;
   });
 
-  let className;
+  let className = "";
 
   if (item) {
-    const arrSeats = state[0].seats.concat(state[1].seats);
+    const filteredArr = state.filter(
+      (item) => item.coach_id === dataBase.coach._id
+    );
 
-    return arrSeats.includes(item.index)
-      ? (className = " utils-wagon_button_selected")
-      : (className = "");
+    const seatNum = item.index;
+
+    if (filteredArr.length > 0)
+      filteredArr.find((item) => {
+        return item.seat.seats === seatNum
+          ? (className = " utils-wagon_button_selected")
+          : (className = "");
+      });
   } else {
     className = " occupied_seat";
   }
@@ -142,6 +149,8 @@ export const getClassName = (num, dataBase, state) => {
 };
 
 export const getDisabled = (num, dataBase, stateData, type) => {
+  //console.log(dataBase, 'disabled');
+ // console.log(stateData, 'stateData')
   let itemBase = dataBase.find((item) => {
     return item.index === Number(num) && item.available === true;
   });
@@ -150,6 +159,7 @@ export const getDisabled = (num, dataBase, stateData, type) => {
 
   if (type.type === "adult") {
     itemState = stateData[1].seats.find((item) => {
+    
       return Number(item) === num;
     });
   } else if (type.type === "child") {
@@ -161,6 +171,7 @@ export const getDisabled = (num, dataBase, stateData, type) => {
     itemState = allTypesArr.find((item) => {
       return Number(item) === num;
     });
+    console.log(itemState,'itemState')
     itemBase = false;
   }
 
@@ -190,12 +201,13 @@ export const getDataPassTemplate = (data) => {
       count: item.count,
       price: item.count * item.price,
     };
+ 
     if (elem.type === "adult") {
       elem.text = elem.count > 1 ? "Взрослых" : "Взрослый";
     } else if (elem.type === "child") {
       elem.text = elem.count > 1 ? "Детей" : "Ребёнок";
     } else if (elem.type === "child-no-seats") {
-      elem.text = elem.count > 1 ? "Детских без места" : "";
+      elem.text = elem.count > 0 ? "Детских без места" : "";
     }
 
     return elem;

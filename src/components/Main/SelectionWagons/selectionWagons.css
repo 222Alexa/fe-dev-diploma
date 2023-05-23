@@ -162,6 +162,7 @@
 }
 /*инпуты, скорее всего они уберутся, тк выбор места будет по клику на карте вагона*/
 .input-group-prepend.quantity-tickets_input-group {
+  position: relative;
   height: 50px;
   font-family: "Roboto";
   font-style: normal;
@@ -175,6 +176,22 @@
   border-radius: 5px;
   background: #fff;
 }
+.quantity-tickets_input-group > .services_tooltip {
+  background: rgb(242, 208, 122);
+  position: absolute;
+  left: 0;
+  top: 70px;
+
+}
+.quantity-tickets_input-group > .services_tooltip:before {
+  content: "";
+  border: 20px solid transparent;
+  border-bottom-color: rgb(242, 208, 122);
+  position: absolute;
+  top: 4px;
+  margin: -43px 0px 0px 82px;
+}
+
 .quantity-tickets_input-group.error-quantity {
   border: 1px solid red;
 }
@@ -447,6 +464,7 @@ button.utils-wagon_button_box.wagon-first_class_seat-btn {
 .occupied_seat {
   background: #959393;
   color: #fff;
+  cursor: not-allowed;
 }
 .utils-wagon_button_selected {
   border: 2px solid #ffa800;

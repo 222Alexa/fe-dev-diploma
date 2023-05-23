@@ -2,7 +2,7 @@ import React from "react";
 import WagonSeats from "./WagonSeats";
 
 const Wagon = ({ data, num, className }) => {
-  console.log(data, num, className, "wagon");
+  //console.log(data, num, className, "wagon");
     return (
       <React.Fragment>
         <div className={className + "_wagon-wrap"}>

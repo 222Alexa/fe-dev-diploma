@@ -9,28 +9,44 @@ import { nanoid } from "nanoid";
 const QuantityTickets = ({ className, data, selected, setSelected }) => {
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const tooltipRef = useRef();
 
- 
   const basedClassesItem = className + "_block-menu-item";
+  const onMouseOver = (event) => {
+    event.preventDefault();
+    tooltipRef.current = event.target.dataset.name;
+
+    document
+      .querySelector(".tooltip_" + tooltipRef.current)
+      .classList.add("visible");
+  };
+  const onMouseOut = (event) => {
+    event.preventDefault();
+
+    document
+      .querySelector(".tooltip_" + tooltipRef.current)
+      .classList.remove("visible");
+  };
+
   const onClickSelected = (type) => {
     setSelected({ type: type });
   };
- 
-  const onChangeInput = (event) => {
-    if (event.target.value === "") {
 
+  const onChangeInput = (event) => {
+    document
+      .querySelector(".tooltip_" + tooltipRef.current)
+      .classList.remove("visible");
+    if (event.target.value === "") {
       return;
     }
     inputRef.current = event.target.parentElement;
     if (data[0].count < Number(event.target.value)) {
-      
-    
       inputRef.current.classList.add("error-quantity");
       inputRef.current.nextElementSibling.style.visibility = "visible";
-     
+
       return;
     }
-    console.log(inputRef.current,'inputRef.current')
+
     inputRef.current.nextElementSibling.style.visibility = "hidden";
     inputRef.current.classList.remove("error-quantity");
     dispatch(setTicketNoSeats({ count: Number(event.target.value) }));
@@ -71,6 +87,7 @@ const QuantityTickets = ({ className, data, selected, setSelected }) => {
                   </span>
                   <input
                     type="number"
+                    data-name={item.type}
                     className={
                       className + " " + item.type + " input form-control"
                     }
@@ -81,6 +98,17 @@ const QuantityTickets = ({ className, data, selected, setSelected }) => {
                       item.type === "child-no-seats"
                         ? onChangeInput(event)
                         : null
+                    }
+                    onMouseOver={onMouseOver}
+                    onMouseOut={onMouseOut}
+                  />
+
+                  <Tooltip
+                    name={item.type}
+                    text={
+                      item.type === "child-no-seats"
+                        ? "Введите количество билетов"
+                        : "Кликните на иконку вагона и выберите место из доступных"
                     }
                   />
                 </div>{" "}

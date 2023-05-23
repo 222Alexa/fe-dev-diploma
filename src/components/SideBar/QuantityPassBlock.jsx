@@ -12,7 +12,7 @@ const QuantityPassBlock = ({ data }) => {
   };
 
   const resultTemplate = getDataPassTemplate(data);
-  //console.log(data, 'data', resultTemplate,'resultTemplate')
+    //console.log(data, 'data', resultTemplate,'resultTemplate')
 
   return (
     <React.Fragment>

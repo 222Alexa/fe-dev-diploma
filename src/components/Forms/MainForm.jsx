@@ -6,6 +6,7 @@ import { useGetCityesNameQuery } from "../../features/myApi";
 import ControllableStates from "../Molecules/MUI/ControllableStates";
 import { LocationOn } from "@mui/icons-material";
 import { Title, Button } from "../Atoms/Atoms";
+import Info from "../Molecules/Info";
 import FormCalendar from "../Molecules/ReactCalendar";
 import { capitalizeFirstLetter } from "../../utils/trainSelectionUtils";
 import ic_arrow from "../../img/ic_arrow.svg";
@@ -20,12 +21,12 @@ const MainForm = ({ className }) => {
 
   const dispatch = useDispatch();
   const reverseRef = useRef();
-  const { data = [] /*isLoading */ } = useGetCityesNameQuery(name);
+  const { data = [], isError /*isLoading */ } = useGetCityesNameQuery(name);
   const navigate = useNavigate();
   const location = useLocation();
 
   /*if (isLoading) return <span>Loading...</span>*/
-
+  if (isError) console.log(isError, "error!!!");
   let optionsData = [];
   if (data.length > 0) {
     optionsData = data.map((item) => {
@@ -46,6 +47,9 @@ const MainForm = ({ className }) => {
   const onChangeInput = (event) => {
     if (event.target.value !== "")
       dispatch(inputValue({ name: event.target.value }));
+  };
+  const onClickInfo = () => {
+    document.querySelector(".error_card").classList.remove("active");
   };
 
   return (
@@ -113,6 +117,13 @@ const MainForm = ({ className }) => {
                 : false
             }
           ></Button>
+          {isError && location.pathname==="/fe-dev-diploma" && (
+            <Info
+              type={"error"}
+              text={"Что-то пошло не так, обновите страницу..."}
+              onClick={onClickInfo}
+            />
+          )}
         </div>
       </div>
     </React.Fragment>

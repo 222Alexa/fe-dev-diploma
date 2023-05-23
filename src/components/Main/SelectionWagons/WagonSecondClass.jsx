@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 
 const WagonSecondClass = ({ data, selectedTypeTicket, onClick }) => {
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
+  const passengers = useSelector((state) => state.passengers.passengers);
   const seatsBtnsArr = getSeatsArr(data.coach.class_type)
  
   return (
@@ -29,7 +30,7 @@ const WagonSecondClass = ({ data, selectedTypeTicket, onClick }) => {
                     data-price={data.coach.bottom_price}
                     className={
                       "utils-wagon_button_box wagon-second_class_seat-btn" +
-                      getClassName(item[1], data.seats,dataSeats)
+                      getClassName(item[1], data, passengers)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -47,7 +48,7 @@ const WagonSecondClass = ({ data, selectedTypeTicket, onClick }) => {
                     data-price={data.coach.bottom_price}
                     className={
                       "utils-wagon_button_box wagon-second_class_seat-btn" +
-                      getClassName(item[0], data.seats,dataSeats)
+                      getClassName(item[0], data, passengers)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(

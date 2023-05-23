@@ -56,9 +56,16 @@ const passengersSlice = createSlice({
       const copyState = state.passengers;
 
       if (data.seat) {
-        const idx = copyState.findIndex(
-          (item) => item.seat.seats === data.seat.seats
-        );
+        const idx = copyState.findIndex((item) => {
+          let res;
+          if (
+            item.seat.seats === data.seat.seats &&
+            item.coach_id === data.coach_id
+          ) {
+            res = item;
+          }
+          return res;
+        });
 
         idx === -1 ? copyState.push(data) : copyState.splice(idx, 1);
         state.passengers = copyState;
@@ -79,7 +86,7 @@ const passengersSlice = createSlice({
           if (idx !== -1) copyState[idx].dataPass = data;
         }
       }
-      
+
       state.totalCount = state.passengers.length;
     },
     setTicketNoSeats: (state, action) => {
@@ -107,10 +114,15 @@ const passengersSlice = createSlice({
       const idx = state.dataSeats.findIndex((item) => item.type === data.type);
 
       const copySeats = state.dataSeats[idx].seats;
-      const seatsIndex = copySeats.findIndex((item) => item === data.seats);
+      // eslint-disable-next-line
+      const seatsIndex = copySeats.findIndex((item) => {
+        if (item.seats === data.seats && item.coach_id === data.coach_id) {
+          return item;
+        }
+      });
 
       seatsIndex === -1
-        ? copySeats.push(data.seats)
+        ? copySeats.push(data)
         : copySeats.splice(seatsIndex, 1);
       const result = {
         ...state.dataSeats[idx],

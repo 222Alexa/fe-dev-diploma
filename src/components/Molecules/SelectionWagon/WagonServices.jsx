@@ -52,7 +52,7 @@ const WagonServices = ({ className, data }) => {
   const onMouseOver = (event) => {
     event.preventDefault();
     tooltipRef.current = event.target.dataset.name;
-
+   
     document
       .querySelector(".tooltip_" + tooltipRef.current)
       .classList.add("visible");
@@ -62,6 +62,7 @@ const WagonServices = ({ className, data }) => {
     document
       .querySelector(".tooltip_" + tooltipRef.current)
       .classList.remove("visible");
+ 
   };
  
   return (

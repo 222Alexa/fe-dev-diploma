@@ -30,7 +30,6 @@ const SelectionTrain = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-
   let cardInfo = document.querySelector(".info_card");
   useEffect(() => {
     if (!data.length && cardInfo) cardInfo.classList.add("active");
@@ -50,9 +49,16 @@ const SelectionTrain = () => {
 
     dispatch(setParameters({ limit: event.target.textContent, offset: 0 }));
   };
-  const onClickInfo = () => {
-    document.querySelector(".info_card").classList.remove("active");
+  const onClickInfo = (type) => {
+
+
+    if (type === "info") {
+      document.querySelector(".info_card").classList.remove("active");
+    } else {
+  document.querySelector(".error_card").classList.remove("active");
+    }
   };
+
   return (
     <React.Fragment>
       <Banner className="banner banner-tickets" banner={banner3} />
@@ -64,7 +70,7 @@ const SelectionTrain = () => {
             <Info
               type={"error"}
               text={"Что-то пошло не так..."}
-              onClick={onClickInfo}
+             onClick={() => onClickInfo("error")}
             />
           )}
 
@@ -90,14 +96,14 @@ const SelectionTrain = () => {
                 <Info
                   type={"info"}
                   text={"По вашему запросу ничего не найдено"}
-                  onClick={onClickInfo}
+                  onClick={onClickInfo("info")}
                 />
               )}
             </section>
           ) : null}
           {!isLoading && data.error && (
-            <div className="info__wrapper">
-              <Info type={"info"} text={data.error} onClick={onClickInfo} />
+            <div className="error__wrapper">
+              <Info type={"error"} text={data.error} onClick={() => onClickInfo("error")} />
             </div>
           )}
         </div>

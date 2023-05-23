@@ -6,17 +6,13 @@ import FeedBack from "../Main/FeedBack";
 
 import Banner from "../Molecules/Banner";
 import banner1 from "../../img/banner/banner1.png";
-import { Title } from "../Atoms/Atoms";
+
 
 const HomePage = () => {
   return (
     <React.Fragment>
       <Banner className="banner banner-home" banner={banner1}>
-        <Title
-          text="Вся жизнь - "
-          strongText={"путешествие!"}
-          className="header-title"
-        />
+
       </Banner>
       <MainForm className="homepage_form" />
       <About />

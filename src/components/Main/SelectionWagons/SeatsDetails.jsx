@@ -16,7 +16,7 @@ const SeatsDetails = ({ className, data, selectedTypeTicket, onClick }) => {
     return;
   }
   const result = getArrWagons(data);
-console.log( result, "result");
+//console.log( result, "result");
   return (
     <React.Fragment>
       <div key={nanoid()} className={className + "_block"}>

@@ -3,7 +3,7 @@ import React from "react";
 import { filteredSeats } from "../../../utils/trainSelectionUtils";
 
 const WagonDetailsTable = ({ data, classType }) => {
-  console.log(data, classType, "table");
+  //console.log(data, classType, "table");
   const currencyIcon = (
     <svg
       className="amount-seats_details-price-currency"

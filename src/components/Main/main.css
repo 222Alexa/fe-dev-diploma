@@ -538,13 +538,21 @@ button.carousel__dot--selected {
   border: 1px solid #c4c4c4;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
+.error_card {
+  position: absolute;
 
+  margin-top: 96px;
+  margin-left: 86px;
+}
+.selection-train_content > .error_card {
+  margin-left: 700px;
+  margin-top: 194px;
+}
 .info_card.active,
 .error_card.active {
   visibility: inherit;
 }
-.card-top.info_card-top
- {
+.card-top.info_card-top {
   width: 664.92px;
   height: 107px;
   background: rgba(255, 245, 0, 0.36);
@@ -577,10 +585,6 @@ button.carousel__dot--selected {
   border-bottom: 1px dashed #928f94;
 }
 
-.error_card {
-  margin-top: -50%;
-  margin-left: 86px;
-}
 .error_block-text {
   padding: 25px;
   text-align: justify;

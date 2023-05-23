@@ -38,7 +38,7 @@ const SelectionWagons = () => {
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
 
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
-
+  //console.log(data, "dataWagon");
   useEffect(() => {}, [selectedTypeWagon, dispatch]);
   const onClickInfo = () => {
     document.querySelector(".info_card").classList.remove("active");
@@ -46,6 +46,9 @@ const SelectionWagons = () => {
   const clickSelectedSeats = (event, selectedTypeTicket) => {
     selectedSeats.seats = Number(event.target.dataset.id);
 
+    selectedSeats.coach_id = event.target.dataset.wagon_id; 
+    console.log(selectedSeats, "selectedSeats.seats");
+    
     dispatch(
       addSeats({ data: selectedSeats, price: event.target.dataset.price })
     );

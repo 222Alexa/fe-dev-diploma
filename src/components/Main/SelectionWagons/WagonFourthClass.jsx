@@ -8,8 +8,14 @@ import {
 import { nanoid } from "nanoid";
 const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
+  const passengers = useSelector((state) => state.passengers.passengers);
   const seatsBtnsArr = getSeatsArr(data.coach.class_type);
 
+  console.log(data, 'data4')
+  
+
+
+  
   return (
     <React.Fragment>
       <div className="wagon_item wagon-fourth_class">
@@ -30,7 +36,7 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
                     data-price={data.coach.bottom_price}
                     className={
                       "utils-wagon_button_box wagon-fourth_class_seat-btn" +
-                      getClassName(item, data.seats, dataSeats)
+                      getClassName(item, data, passengers)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -56,7 +62,7 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
                     data-price={data.coach.bottom_price}
                     className={
                       "utils-wagon_button_box wagon-fourth_class_seat-btn" +
-                      getClassName(item, data.seats, dataSeats)
+                      getClassName(item, data, passengers)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -83,7 +89,7 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
                     data-price={data.coach.bottom_price}
                     className={
                       "utils-wagon_button_box wagon-fourth_class_seat-btn" +
-                      getClassName(item, data.seats, dataSeats)
+                      getClassName(item, data, passengers)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
@@ -109,7 +115,7 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
                     data-price={data.coach.bottom_price}
                     className={
                       "utils-wagon_button_box wagon-fourth_class_seat-btn" +
-                      getClassName(item, data.seats, dataSeats)
+                      getClassName(item, data, passengers)
                     }
                     onClick={(event) => onClick(event, selectedTypeTicket)}
                     disabled={getDisabled(
