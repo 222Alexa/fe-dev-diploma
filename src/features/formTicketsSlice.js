@@ -32,9 +32,15 @@ const formSlice = createSlice({
       state.formData.from.city = startCity;
       state.formData.to.city = finishCity;
     },
+    upDateForm:(state, action) => {//
+      const {data} =action.payload;
+      state.formData = data;
+      console.log(data, 'slice')
+      if(!data.to.date)state.formData.to.date = null;
+    }
   },
 });
 
-export const { inputValue, setForm, setReverseData } = formSlice.actions;
+export const { inputValue, setForm, setReverseData,upDateForm } = formSlice.actions;
 
 export default formSlice.reducer;

@@ -12,7 +12,6 @@ const FormCalendar = ({ value, type, className }) => {
   const [date, setDate] = useState(value);
   const dispatch = useDispatch();
 
-
   const getClasses = (date) => {
     let basedClasses;
     basedClasses = isSunday(date) ? "sunday_date" : "";
@@ -31,10 +30,12 @@ const FormCalendar = ({ value, type, className }) => {
       <DatePicker
         showIcon
         selected={date}
+        value={new Date(date)}
         onChange={(newDate) => {
           setDate(newDate);
-          dispatch(setForm({ type: type,status:false, data: dateFormatted(newDate) }));
-        
+          dispatch(
+            setForm({ type: type, status: false, data: dateFormatted(newDate) })
+          );
         }}
         placeholderText="ДД/ММ/ГГГГ"
         dateFormat="dd/MM/yyyy"

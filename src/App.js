@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/fe-dev-diploma/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="trains" element={<SelectionTrain />} />
+          <Route path="trains/" element={<SelectionTrain />} />
           <Route path="trains/:id" element={<SelectionWagons />} />
           <Route path="trains/:id/passengers" element={<PassengersInfo />} />
           <Route path="personal_information" element={<PersonalData />} />
@@ -33,4 +33,4 @@ function App() {
 }
 
 export default App;
-/** <Route path="/" element={<MainForm className={"homepage_form"} />}> */
+

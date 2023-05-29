@@ -6,7 +6,7 @@ import TrainsMenu from "../Main/SelectionTrain/TrainsMenu/TrainsMenu";
 import { setParameters } from "../../features/catalogTrainsSlice";
 
 const PaginatedItems = ({ itemsPerPage, items, listItems }) => {
-  //const searchData = useSelector((state) => state.catalogTrains.searchData);
+
 
   const [currentItems, setCurrentItems] = useState(listItems);
   const [pageCount, setPageCount] = useState(0);
@@ -14,7 +14,7 @@ const PaginatedItems = ({ itemsPerPage, items, listItems }) => {
   const [itemOffset, setItemOffset] = useState(0);
 
   const dispatch = useDispatch();
-  
+
   let newOffset;
   useEffect(() => {
     // Fetch items from another resources.

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import Banner from "../Molecules/Banner";
 import banner3 from "../../img/banner/banner3.png";
 import MainForm from "../Forms/MainForm";
@@ -9,31 +10,63 @@ import ProgressBar from "../Molecules/ProgressBar";
 import Loader from "../Molecules/Loader";
 import SearchControls from "../Main/SelectionTrain/SearchControls";
 import PaginatedItems from "../Molecules/ReactPaginate";
-import { setParameters } from "../../features/catalogTrainsSlice";
+import {
+  setParameters,
+  upDateCatalog,
+} from "../../features/catalogTrainsSlice";
 import Info from "../Molecules/Info";
 import { useGetTrainsListQuery } from "../../features/myApi";
 import "../Main/SelectionTrain/selectionTrain.css";
 
+import {
+  parsedUrlString,
+  getUrlSearch,
+  formattedFormData,
+} from "../../utils/trainSelectionUtils";
+
 const SelectionTrain = () => {
-  const { travelData, parameters, trainsParameters } = useSelector(
-    (state) => state.catalogTrains.searchData
-  );
+  const { parameters } = useSelector((state) => state.catalogTrains.searchData);
 
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  let cardInfo = document.querySelector(".info_card");
+
+  let upData = parsedUrlString(location.search);
+  const formData = formattedFormData(upData);
+  const trainsParameters = upData.parameters;
+  //const parameters = upData.filter;
+  //console.log(upData.parameters, 'params')
+  console.log(11);
   const {
     data = [],
     isLoading,
 
     isError,
   } = useGetTrainsListQuery(
-    { travelData, parameters, trainsParameters },
+    { formData, parameters, trainsParameters },
     { refetchOnMountOrArgChange: true }
   );
 
-  let cardInfo = document.querySelector(".info_card");
   useEffect(() => {
     if (!data.length && cardInfo) cardInfo.classList.add("active");
-  }, [data, cardInfo]);
+
+    dispatch(
+      upDateCatalog({
+        data: {
+          formData,
+          trainsParameters: upData.parameters,
+          parameters: upData.filter,
+        },
+      })
+    );
+
+    // eslint-disable-next-line
+  }, [dispatch, location, cardInfo]);
+
+  if (isError) console.log(isError, "error!!!");
+
   const onClickSorted = (event) => {
     event.preventDefault();
     let type;
@@ -42,20 +75,44 @@ const SelectionTrain = () => {
     if (event.target.textContent === "длительности") type = "duration";
 
     dispatch(setParameters({ sort: { type, text: event.target.textContent } }));
+    upData.filter.sort = event.target.textContent;
+    const urlSearchString = getUrlSearch(
+      upData.optionsName,
+      upData.formData,
+      upData.filter,
+      upData.parameters
+    );
+
+    navigate({
+      search: `${urlSearchString}`,
+    });
   };
 
   const onClickLimit = (event) => {
     event.preventDefault();
 
-    dispatch(setParameters({ limit: event.target.textContent, offset: 0 }));
+    dispatch(
+      setParameters({ limit: Number(event.target.textContent), offset: 0 })
+    );
+
+    upData.filter.limit = Number(event.target.textContent);
+
+    const urlSearchString = getUrlSearch(
+      upData.optionsName,
+      upData.formData,
+      upData.filter,
+      upData.parameters
+    );
+
+    navigate({
+      search: `${urlSearchString}`,
+    });
   };
   const onClickInfo = (type) => {
-
-
     if (type === "info") {
       document.querySelector(".info_card").classList.remove("active");
     } else {
-  document.querySelector(".error_card").classList.remove("active");
+      document.querySelector(".error_card").classList.remove("active");
     }
   };
 
@@ -70,7 +127,7 @@ const SelectionTrain = () => {
             <Info
               type={"error"}
               text={"Что-то пошло не так..."}
-             onClick={() => onClickInfo("error")}
+              onClick={() => onClickInfo("error")}
             />
           )}
 
@@ -103,7 +160,11 @@ const SelectionTrain = () => {
           ) : null}
           {!isLoading && data.error && (
             <div className="error__wrapper">
-              <Info type={"error"} text={data.error} onClick={() => onClickInfo("error")} />
+              <Info
+                type={"error"}
+                text={data.error}
+                onClick={() => onClickInfo("error")}
+              />
             </div>
           )}
         </div>

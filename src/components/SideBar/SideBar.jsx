@@ -21,7 +21,8 @@ const SideBar = () => {
   }
 
   const getLocation = () => {
-    if (location.pathname === "/fe-dev-diploma/trains") {
+   
+    if (location.pathname === "/fe-dev-diploma/trains/") {
       return true;
     } else if (
       location.pathname === `/fe-dev-diploma/trains/${params.id}`

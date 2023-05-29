@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+console.log(window.location, 456);
+
 const catalogTrainsSlice = createSlice({
   name: "catalogTrains",
   initialState: {
@@ -101,6 +103,14 @@ const catalogTrainsSlice = createSlice({
       const { data } = action.payload;
       state.dataWagons = data;
     },
+    upDateCatalog(state, action) {
+      const { data } = action.payload;
+      console.log(data, " upDateCatalog");
+      state.searchData.travelData = data.formData;
+      state.searchData.trainsParameters = data.trainsParameters;
+      state.searchData.parameters.limit = data.parameters.limit;
+      state.searchData.parameters.offset = data.parameters.offset;
+    },
   },
 });
 
@@ -112,6 +122,7 @@ export const {
   setSelectionTrain,
   setDataWagons,
   setTrainsParameters,
+  upDateCatalog,
 } = catalogTrainsSlice.actions;
 
 export default catalogTrainsSlice.reducer;
