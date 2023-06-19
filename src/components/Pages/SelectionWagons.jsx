@@ -27,7 +27,7 @@ import { useGetTrainIdQuery } from "../../features/myApi";
 import {
   getDuration,
   parsedUrlString,
-  getUrlSearch,
+ 
   formattedFormData,
 } from "../../utils/trainSelectionUtils";
 
@@ -49,8 +49,7 @@ const SelectionWagons = () => {
   let upData = parsedUrlString(location.search);
   const formData = formattedFormData(upData);
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
-  //console.log(data, "dataWagon");
-  console.log(location, "location");
+
   useEffect(() => {
     dispatch(
       upDateCatalog({
@@ -61,6 +60,7 @@ const SelectionWagons = () => {
         },
       })
     );
+    //eslint-disable-next-line
   }, [selectedTypeWagon, dispatch]);
   const onClickInfo = () => {
     document.querySelector(".info_card").classList.remove("active");

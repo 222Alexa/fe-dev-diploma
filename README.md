@@ -86,4 +86,6 @@
 
 ---
 
+[GH-Pages](https://222alexa.github.io/fe-dev-diploma/)
+
 [![Build status](https://ci.appveyor.com/api/projects/status/vg9buncwprubqq3s/branch/main?svg=true)](https://ci.appveyor.com/project/222Alexa44925/fe-dev-diploma/branch/main)
