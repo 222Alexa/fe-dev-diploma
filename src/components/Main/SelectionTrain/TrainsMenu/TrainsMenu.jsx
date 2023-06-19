@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   setTrainId,
@@ -13,6 +13,7 @@ import { nanoid } from "nanoid";
 const TrainsMenu = ({ currentItems }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   if (!currentItems) {
     return;
   }
@@ -21,7 +22,10 @@ const TrainsMenu = ({ currentItems }) => {
     dispatch(clearDataSeats());
     dispatch(setTrainId({ id: item._id }));
     dispatch(setSelectionTrain({ data: item }));
-    navigate(`/fe-dev-diploma/trains/${item._id}`);
+    navigate({
+      pathname: `/fe-dev-diploma/trains/${item._id}`,
+      search: location.search,
+    });
   };
 
   return (

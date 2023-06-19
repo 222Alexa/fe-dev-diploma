@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { parsedUrlString, getUrlSearch } from "../../utils/trainSelectionUtils";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { setTrainsParameters } from "../../features/catalogTrainsSlice";
 import { styled } from "@mui/material/styles";
 
 const RangeSlider = ({ min, max, step, height, type, start, end }) => {
- 
   const [value, setValue] = useState([start, end]);
 
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const navigate = useNavigate();
   const debounsedValue = useDebouncedCallback((value) => {
-
     setValue(value);
+
+    let upData = parsedUrlString(location.search);
+
     /*здесь  некоторые типы и имена противоречатдруг другу
 это ненадолго.просто хотела и блоки поменьше делать и переиспользовать
 и потом еще куча запрсов наложилась
@@ -23,13 +27,14 @@ const RangeSlider = ({ min, max, step, height, type, start, end }) => {
 [хотя... после gender=false на бэке ...;)*/
     let template;
 
- 
-    if (type === "price")
+    if (type === "price") {
       template = {
         name: "price",
         value: { price_from: value[0], price_to: value[1] },
       };
-    else if (type === "start_departure")
+      upData.parameters.price_from = value[0];
+      upData.parameters.price_to = value[1];
+    } else if (type === "start_departure") {
       template = {
         name: "start_departure",
         value: {
@@ -37,7 +42,9 @@ const RangeSlider = ({ min, max, step, height, type, start, end }) => {
           start_departure_hour_to: value[1],
         },
       };
-    else if (type === "start_arrival")
+      upData.parameters.start_departure_hour_from = value[0];
+      upData.parameters.start_departure_hour_to = value[1];
+    } else if (type === "start_arrival") {
       template = {
         name: "end_departure",
         value: {
@@ -45,7 +52,9 @@ const RangeSlider = ({ min, max, step, height, type, start, end }) => {
           end_departure_hour_to: value[1],
         },
       };
-    else if (type === "end_departure")
+      upData.parameters.end_departure_hour_from = value[0];
+      upData.parameters.end_departure_hour_to = value[1];
+    } else if (type === "end_departure") {
       template = {
         name: "start_arrival",
         value: {
@@ -53,7 +62,9 @@ const RangeSlider = ({ min, max, step, height, type, start, end }) => {
           start_arrival_hour_to: value[1],
         },
       };
-    else if (type === "end_arrival")
+      upData.parameters.start_arrival_hour_from = value[0];
+      upData.parameters.start_arrival_hour_to = value[1];
+    } else if (type === "end_arrival") {
       template = {
         name: "end_arrival",
         value: {
@@ -61,14 +72,28 @@ const RangeSlider = ({ min, max, step, height, type, start, end }) => {
           end_arrival_hour_to: value[1],
         },
       };
+      upData.parameters.end_arrival_hour_from = value[0];
+      upData.parameters.end_arrival_hour_to = value[1];
+    }
 
     dispatch(setTrainsParameters({ data: template }));
+
+    const urlSearchString = getUrlSearch(
+      upData.optionsName,
+      upData.formData,
+      upData.filter,
+      upData.parameters
+    );
+    navigate({
+      search: `${urlSearchString}`,
+    });
   }, 2000);
 
   useEffect(
     // Effect for API call
     () => {
       debounsedValue(value);
+
       /* 
       } /*else if (type === "start_departure" || type === "end_departure") {
         setValue([start_departure_hour_from, end_departure_hour_from]);
@@ -76,11 +101,7 @@ const RangeSlider = ({ min, max, step, height, type, start, end }) => {
         setValue([start_arrival_hour_from, end_arrival_hour_from]);
       }*/
     },
-    [
-      debounsedValue,
-      value,
-
-    ] // Only call effect if debounced search term changes
+    [debounsedValue, value] // Only call effect if debounced search term changes
   );
 
   const handleChange = (event, newValue, activeThumb) => {

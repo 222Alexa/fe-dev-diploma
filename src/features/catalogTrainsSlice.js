@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+/*import {parsedUrlString,} from "../utils/trainSelectionUtils";
 console.log(window.location, 456);
-
+console.log(parsedUrlString(window.location.search, 111))*/
 const catalogTrainsSlice = createSlice({
   name: "catalogTrains",
   initialState: {

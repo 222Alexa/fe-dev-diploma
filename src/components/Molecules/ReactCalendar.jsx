@@ -11,7 +11,7 @@ import { dateFormatted } from "../../utils/trainSelectionUtils";
 const FormCalendar = ({ value, type, className }) => {
   const [date, setDate] = useState(value);
   const dispatch = useDispatch();
-
+//console.log(date, 'formDAte')
   const getClasses = (date) => {
     let basedClasses;
     basedClasses = isSunday(date) ? "sunday_date" : "";

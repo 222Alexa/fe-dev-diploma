@@ -35,17 +35,15 @@ const SelectionTrain = () => {
 
   let upData = parsedUrlString(location.search);
   const formData = formattedFormData(upData);
-  const trainsParameters = upData.parameters;
-  //const parameters = upData.filter;
-  //console.log(upData.parameters, 'params')
-  console.log(11);
+ 
+
   const {
     data = [],
     isLoading,
 
     isError,
   } = useGetTrainsListQuery(
-    { formData, parameters, trainsParameters },
+    upData,
     { refetchOnMountOrArgChange: true }
   );
 
@@ -153,7 +151,7 @@ const SelectionTrain = () => {
                 <Info
                   type={"info"}
                   text={"По вашему запросу ничего не найдено"}
-                  onClick={onClickInfo("info")}
+                  onClick={() => onClickInfo("info")}
                 />
               )}
             </section>

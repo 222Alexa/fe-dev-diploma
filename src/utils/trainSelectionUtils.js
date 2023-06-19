@@ -3,20 +3,22 @@ import { format, intervalToDuration } from "date-fns";
 import queryString from "query-string";
 
 export const getUrlSearch = (search, form, filter, parameters) => {
-  // console.log(filter, "filter");
+
   const urlSearchObj = {
     ...search,
     ...form,
     ...filter,
     ...parameters,
   };
-  console.log(urlSearchObj, "urlSearchObj");
+
   return queryString.stringify(urlSearchObj, {
     skipNull: true,
+    skipEmptyString:true,
+
   });
 };
 export const parsedUrlString = (searchString) => {
-  //console.log(searchString, "searchString");
+  
   const parsed = queryString.parse(searchString);
 
   const formData = {

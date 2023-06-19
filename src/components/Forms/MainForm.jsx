@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGetCityesNameQuery } from "../../features/myApi";
@@ -11,13 +11,13 @@ import FormCalendar from "../Molecules/ReactCalendar";
 import {
   capitalizeFirstLetter,
   getUrlSearch,
-  parsedUrlString,
+  
 } from "../../utils/trainSelectionUtils";
 import ic_arrow from "../../img/ic_arrow.svg";
 import { inputValue } from "../../features/formTicketsSlice";
 import { setDataRequest } from "../../features/catalogTrainsSlice";
 import { setParameters } from "../../features/catalogTrainsSlice";
-import { setReverseData, upDateForm } from "../../features/formTicketsSlice";
+import { setReverseData, } from "../../features/formTicketsSlice";
 
 const MainForm = ({ className }) => {
   const { name } = useSelector((state) => state.formTickets);
@@ -28,32 +28,13 @@ const MainForm = ({ className }) => {
   );
   const dispatch = useDispatch();
   const reverseRef = useRef();
+  const formRef = useRef();
   const { data = [], isError /*isLoading */ } = useGetCityesNameQuery(name);
   const navigate = useNavigate();
-  let upData;
-  let formData = { from, to };
+
   const location = useLocation();
- useEffect(() => {
-    if (location.pathname === "/fe-dev-diploma") {
-      return;
-    } else {
-      upData = parsedUrlString(location.search);
- console.log(222)
-      if (name !== upData.name) dispatch(inputValue({ name: upData.name }));
-      formData = {
-        from: {
-          date: upData.formData.date_start,
-          city: { _id: upData.formData.from_city_id, name: upData.formData.from_city_name },
-        },
-        to: {
-          date: upData.formData.date_end,
-          city: { _id: upData.formData.to_city_id, name: upData.formData.to_city_name },
-        },
-      };
-      dispatch(upDateForm({ data: formData }));
-     
-    }
-  }, [dispatch, location,parameters]);
+
+
   if (isError) console.log(isError, "error!!!");
   let optionsData = [];
   if (data.length > 0) {
@@ -62,7 +43,7 @@ const MainForm = ({ className }) => {
     });
   }
 
-  formData = {
+formRef.current = {
     from_city_id: from.city._id,
     from_city_name: from.city.name,
     to_city_id: to.city._id,
@@ -77,15 +58,15 @@ const MainForm = ({ className }) => {
     limit: parameters.limit,
     offset: parameters.offset,
   };
-  console.log(filterData, 'form')
+
   const searchOptions = { value: name };
   const urlSearchString = getUrlSearch(
     searchOptions,
-    formData,
+    formRef.current,
     filterData,
     trainsParameters
   );
-
+ 
   const clickReverse = () => {
     dispatch(setReverseData());
   };
@@ -151,11 +132,7 @@ const MainForm = ({ className }) => {
           <div className="form-group group-date-trails">
             <FormCalendar
               className=""
-              value={
-                from.date
-                  ? new Date(from.date)
-                  : null
-              }
+              value={from.date ? new Date(from.date) : null}
               type="startDate"
             />
             <FormCalendar

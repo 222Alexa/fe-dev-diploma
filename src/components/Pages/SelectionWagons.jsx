@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Title } from "../Atoms/Atoms";
 import Banner from "../Molecules/Banner";
 import banner3 from "../../img/banner/banner3.png";
@@ -18,15 +18,25 @@ import Info from "../Molecules/Info";
 import { findWagon } from "../../utils/trainSelectionUtils";
 import { getValidDataPass } from "../../utils/WagonSelectionUtils";
 import { addSeats, setDataPassengers } from "../../features/passengersSlice";
+import {
+
+  upDateCatalog,
+} from "../../features/catalogTrainsSlice";
 
 import { useGetTrainIdQuery } from "../../features/myApi";
-import { getDuration } from "../../utils/trainSelectionUtils";
+import {
+  getDuration,
+  parsedUrlString,
+  getUrlSearch,
+  formattedFormData,
+} from "../../utils/trainSelectionUtils";
+
 import "../Main/SelectionWagons/selectionWagons.css";
 
 const SelectionWagons = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const [selectedTypeWagon, setSelectedTypeWagon] = useState(null);
   const [selectedTypeTicket, setSelectedTypeTicket] = useState({
     type: "adult",
@@ -36,19 +46,30 @@ const SelectionWagons = () => {
 
   const { data = [], isError, isLoading } = useGetTrainIdQuery(id);
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
-
+  let upData = parsedUrlString(location.search);
+  const formData = formattedFormData(upData);
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
   //console.log(data, "dataWagon");
-  useEffect(() => {}, [selectedTypeWagon, dispatch]);
+  console.log(location, "location");
+  useEffect(() => {
+    dispatch(
+      upDateCatalog({
+        data: {
+          formData,
+          trainsParameters: upData.parameters,
+          parameters: upData.filter,
+        },
+      })
+    );
+  }, [selectedTypeWagon, dispatch]);
   const onClickInfo = () => {
     document.querySelector(".info_card").classList.remove("active");
   };
   const clickSelectedSeats = (event, selectedTypeTicket) => {
     selectedSeats.seats = Number(event.target.dataset.id);
 
-    selectedSeats.coach_id = event.target.dataset.wagon_id; 
-    console.log(selectedSeats, "selectedSeats.seats");
-    
+    selectedSeats.coach_id = event.target.dataset.wagon_id;
+
     dispatch(
       addSeats({ data: selectedSeats, price: event.target.dataset.price })
     );
