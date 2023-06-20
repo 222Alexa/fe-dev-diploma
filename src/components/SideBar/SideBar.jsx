@@ -21,7 +21,7 @@ const SideBar = () => {
   }
 
   const getLocation = () => {
-   
+   console.log(location.pathname,55)
     if (location.pathname === "/fe-dev-diploma/trains/") {
       return true;
     } else if (

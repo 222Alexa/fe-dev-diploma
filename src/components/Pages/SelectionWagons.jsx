@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { Button, Title } from "../Atoms/Atoms";
 import Banner from "../Molecules/Banner";
 import banner3 from "../../img/banner/banner3.png";
@@ -19,39 +19,67 @@ import { findWagon } from "../../utils/trainSelectionUtils";
 import { getValidDataPass } from "../../utils/WagonSelectionUtils";
 import { addSeats, setDataPassengers } from "../../features/passengersSlice";
 import {
+  setTrainId,
+  setDataRequest,
 
-  upDateCatalog,
 } from "../../features/catalogTrainsSlice";
 
-import { useGetTrainIdQuery } from "../../features/myApi";
+import {
+  useGetTrainIdQuery,
+//useGetTrainsListQuery
+} from "../../features/myApi";
 import {
   getDuration,
   parsedUrlString,
- 
   formattedFormData,
 } from "../../utils/trainSelectionUtils";
 
 import "../Main/SelectionWagons/selectionWagons.css";
 
+
 const SelectionWagons = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const params = useParams();
   const [selectedTypeWagon, setSelectedTypeWagon] = useState(null);
   const [selectedTypeTicket, setSelectedTypeTicket] = useState({
     type: "adult",
   });
 
-  const { id, seletedTrain } = useSelector((state) => state.catalogTrains);
+  const { id, seleсtedTrain } = useSelector((state) => state.catalogTrains);
 
-  const { data = [], isError, isLoading } = useGetTrainIdQuery(id);
+const { data=[], isError:isErrorId, isLoading:isLoadingId } = useGetTrainIdQuery(params.id);
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
   let upData = parsedUrlString(location.search);
+  /**В процессе. .. пока не очень понятно как вызвать в одном компоненте
+   * и id и список, если список "потерялся"
+   * и лишнего не навертеть
+   */
+
+  
+  /*const {
+    data:dataList,
+    isLoading:isLoadingList,
+
+    isError:isErrorList,
+  } = useGetTrainsListQuery(
+    upData,
+    { refetchOnMountOrArgChange: true }
+  );*/
+
   const formData = formattedFormData(upData);
+
   const selectedSeats = { type: selectedTypeTicket.type, seats: null };
+  if (!id) {
+    dispatch(setDataRequest({ data: formData }));
+    dispatch(setTrainId({ id: params.id }));
+  }
 
   useEffect(() => {
-    dispatch(
+    console.log("errorororor");
+
+    /* dispatch(
       upDateCatalog({
         data: {
           formData,
@@ -59,9 +87,8 @@ const SelectionWagons = () => {
           parameters: upData.filter,
         },
       })
-    );
-    //eslint-disable-next-line
-  }, [selectedTypeWagon, dispatch]);
+    );*/
+  }, [seleсtedTrain, selectedTypeWagon, location, dispatch]);
   const onClickInfo = () => {
     document.querySelector(".info_card").classList.remove("active");
   };
@@ -86,16 +113,19 @@ const SelectionWagons = () => {
   };
 
   const details = {
-    duration: getDuration(seletedTrain.to.datetime, seletedTrain.from.datetime),
+    duration: getDuration(
+      seleсtedTrain.to.datetime,
+      seleсtedTrain.from.datetime
+    ),
     from: {
-      name: seletedTrain.from.city.name,
-      datetime: seletedTrain.from.datetime * 1000,
-      railway_station_name: seletedTrain.from.railway_station_name,
+      name: seleсtedTrain.from.city.name,
+      datetime: seleсtedTrain.from.datetime * 1000,
+      railway_station_name: seleсtedTrain.from.railway_station_name,
     },
     to: {
-      name: seletedTrain.to.city.name,
-      datetime: seletedTrain.to.datetime * 1000,
-      railway_station_name: seletedTrain.to.railway_station_name,
+      name: seleсtedTrain.to.city.name,
+      datetime: seleсtedTrain.to.datetime * 1000,
+      railway_station_name: seleсtedTrain.to.railway_station_name,
     },
   };
   const isValidSeats = getValidDataPass(dataSeats);
@@ -109,20 +139,22 @@ const SelectionWagons = () => {
       <div className="selection-wagons_wrapper">
         <MainForm className="search-tickets_form" />
         <div className="selection-wagon-content">
-          {isLoading ? <Loader /> : null}
-          {isError && (
+          {isLoadingId ? <Loader /> : null}
+          {isErrorId && (
             <Info
               type={"error"}
               text={"Что-то пошло не так..."}
               onClick={onClickInfo}
             />
           )}
-          {!isLoading && <ProgressBar />}
-          {!isLoading && <SideBar />}
-          {!isLoading && data && (
+          {!isLoadingId && <ProgressBar />}
+          {!isLoadingId && <SideBar />}
+          {!isLoadingId && data && (
             <section className="selection-wagon_Block">
               <Title className={"selection-wagon_title"} text="Выбор мест" />
-              <TrailDetails className="selection-wagon" data={details} />
+              {id!=='' && (
+                <TrailDetails className="selection-wagon" data={details} />
+              )}
 
               <QuantityTickets
                 className="quantity-tickets"

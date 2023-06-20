@@ -4,7 +4,7 @@ import queryString from "query-string";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://netology-trainbooking.netoservices.ru/routes/",
+    baseUrl: "https://students.netoservices.ru/fe-diplom/routes/",
   }),
   endpoints: (builder) => ({
     getCityesName: builder.query({
@@ -32,7 +32,7 @@ export const api = createApi({
           skipNull: true,
           skipEmptyString: true,
         });
-  
+  console.log(`?${params}`, 555)
         return `?${params}`;
       },
       providesTags: (result, error, arg) => [

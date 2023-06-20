@@ -11,13 +11,12 @@ import FormCalendar from "../Molecules/ReactCalendar";
 import {
   capitalizeFirstLetter,
   getUrlSearch,
-  
 } from "../../utils/trainSelectionUtils";
 import ic_arrow from "../../img/ic_arrow.svg";
 import { inputValue } from "../../features/formTicketsSlice";
 import { setDataRequest } from "../../features/catalogTrainsSlice";
 import { setParameters } from "../../features/catalogTrainsSlice";
-import { setReverseData, } from "../../features/formTicketsSlice";
+import { setReverseData } from "../../features/formTicketsSlice";
 
 const MainForm = ({ className }) => {
   const { name } = useSelector((state) => state.formTickets);
@@ -34,7 +33,6 @@ const MainForm = ({ className }) => {
 
   const location = useLocation();
 
-
   if (isError) console.log(isError, "error!!!");
   let optionsData = [];
   if (data.length > 0) {
@@ -43,7 +41,7 @@ const MainForm = ({ className }) => {
     });
   }
 
-formRef.current = {
+  formRef.current = {
     from_city_id: from.city._id,
     from_city_name: from.city.name,
     to_city_id: to.city._id,
@@ -66,9 +64,11 @@ formRef.current = {
     filterData,
     trainsParameters
   );
- 
+
   const clickReverse = () => {
     dispatch(setReverseData());
+    //просто меняет местами города
+    //для поиска и отправки запроса нужно нажать "Найти билеты"
   };
   const clickHandler = () => {
     dispatch(setDataRequest({ data: { from, to } }));
