@@ -22,7 +22,12 @@ const AssistantBlock = () => {
   const handleChangeSwitch = (event) => {
     const inputName = event.target.name;
     const checked = event.target.checked;
-    if (from.date && from.city.name && to.city.name)
+    if (
+      from.date &&
+      from.city.name &&
+      to.city.name &&
+      location.pathname === "/fe-dev-diploma/trains"
+    )
       dispatch(
         setTrainsParameters({ data: { name: inputName, status: checked } })
       );

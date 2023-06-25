@@ -11,7 +11,7 @@ const SideBar = () => {
   const location = useLocation();
   const params = useParams();
 
-  const { data = [],  /*isError*/ } = useGetLastTicketsQuery();
+  const { data = [] /*isError*/ } = useGetLastTicketsQuery();
 
   if (
     location.pathname === "/fe-dev-diploma" ||
@@ -21,23 +21,21 @@ const SideBar = () => {
   }
 
   const getLocation = () => {
-   console.log(location.pathname,55)
-    if (location.pathname === "/fe-dev-diploma/trains/") {
+    if (location.pathname === "/fe-dev-diploma/trains") {
       return true;
-    } else if (
-      location.pathname === `/fe-dev-diploma/trains/${params.id}`
-    ) {
+    } else if (location.pathname === `/fe-dev-diploma/trains/${params.id}`) {
       return true;
     } else {
       return false;
     }
   };
+
   return (
     <React.Fragment>
       <aside className="sidebar-wrap container p-0">
         <div className="sidebar" id="sidebar">
           {getLocation() ? <AssistantBlock /> : <OrderDetails />}
-          {getLocation() &&  data && data.length > 0 ? (
+          {getLocation() && data && data.length > 0 ? (
             <LastTickets data={data.slice(0, 3)} />
           ) : null}
         </div>

@@ -11,13 +11,13 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
   const passengers = useSelector((state) => state.passengers.passengers);
   const seatsBtnsArr = getSeatsArr(data.coach.class_type);
 
-/*console.log(  data.seats,
+console.log(  data.seats,
  'data.seats');
   console.log( 
     dataSeats,'dataSeats'
     );
     console.log(  
-      selectedTypeTicket,' selectedTypeTicket');*/
+      selectedTypeTicket,' selectedTypeTicket');
   return (
     <React.Fragment>
       <div className="wagon_item wagon-third_class">

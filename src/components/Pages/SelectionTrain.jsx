@@ -35,7 +35,7 @@ const SelectionTrain = () => {
 
   let upData = parsedUrlString(location.search);
   const formData = formattedFormData(upData);
- 
+
 
   const {
     data = [],

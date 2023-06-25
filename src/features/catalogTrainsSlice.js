@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {parsedUrlString,} from "../utils/trainSelectionUtils";
 
-console.log(window.location, 456);
-console.log(parsedUrlString(window.location.search, 111))
+
+
 const catalogTrainsSlice = createSlice({
   name: "catalogTrains",
   initialState: {
@@ -38,7 +37,7 @@ const catalogTrainsSlice = createSlice({
         end_arrival_hour_to: 24, //Час прибытия назад до (работает при установленном параметре date_end)
       },
     },
-    seleсtedTrain: {},
+    seleсtedTrain: null,
     dataWagons: {},
   },
   reducers: {
@@ -106,7 +105,7 @@ const catalogTrainsSlice = createSlice({
     },
     upDateCatalog(state, action) {
       const { data } = action.payload;
-      console.log(data, " upDateCatalog");
+      //console.log(data, " upDateCatalog");
       state.searchData.travelData = data.formData;
       state.searchData.trainsParameters = data.trainsParameters;
       state.searchData.parameters.limit = data.parameters.limit;

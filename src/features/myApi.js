@@ -15,7 +15,7 @@ export const api = createApi({
     }),
     getTrainsList: builder.query({
       query: (arg) => {
-        console.log(arg, "trainParameters");
+       // console.log(arg, "trainParams");
 
         const requestObj = {
           ...arg.search,
@@ -32,11 +32,11 @@ export const api = createApi({
           skipNull: true,
           skipEmptyString: true,
         });
-  console.log(`?${params}`, 555)
+
         return `?${params}`;
       },
       providesTags: (result, error, arg) => [
-        { type: "dataSearchTrains", data: arg },
+        { type: "dataSearchTrains", list: arg },
       ],
     }),
     getTrainId: builder.query({

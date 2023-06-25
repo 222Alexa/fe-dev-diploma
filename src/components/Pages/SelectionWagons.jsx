@@ -21,12 +21,13 @@ import { addSeats, setDataPassengers } from "../../features/passengersSlice";
 import {
   setTrainId,
   setDataRequest,
-
+  upDateCatalog,
+  setSelectionTrain,
 } from "../../features/catalogTrainsSlice";
 
 import {
   useGetTrainIdQuery,
-//useGetTrainsListQuery
+  useGetTrainsListQuery,
 } from "../../features/myApi";
 import {
   getDuration,
@@ -36,11 +37,7 @@ import {
 
 import "../Main/SelectionWagons/selectionWagons.css";
 
-
 const SelectionWagons = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const location = useLocation();
   const params = useParams();
   const [selectedTypeWagon, setSelectedTypeWagon] = useState(null);
   const [selectedTypeTicket, setSelectedTypeTicket] = useState({
@@ -49,24 +46,29 @@ const SelectionWagons = () => {
 
   const { id, seleсtedTrain } = useSelector((state) => state.catalogTrains);
 
-const { data=[], isError:isErrorId, isLoading:isLoadingId } = useGetTrainIdQuery(params.id);
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
   let upData = parsedUrlString(location.search);
+
+  const {
+    data: list,
+    /*isError: isErrorList,
+    isLoading: isLoadingList,
+    isSuccess,*/
+  } = useGetTrainsListQuery(upData);
+  const {
+    data = [],
+    isError: isErrorId,
+    isLoading: isLoadingId,
+  } = useGetTrainIdQuery(params.id);
+  //console.log(list, "list");
+
   /**В процессе. .. пока не очень понятно как вызвать в одном компоненте
    * и id и список, если список "потерялся"
    * и лишнего не навертеть
    */
-
-  
-  /*const {
-    data:dataList,
-    isLoading:isLoadingList,
-
-    isError:isErrorList,
-  } = useGetTrainsListQuery(
-    upData,
-    { refetchOnMountOrArgChange: true }
-  );*/
 
   const formData = formattedFormData(upData);
 
@@ -77,9 +79,14 @@ const { data=[], isError:isErrorId, isLoading:isLoadingId } = useGetTrainIdQuery
   }
 
   useEffect(() => {
-    console.log("errorororor");
+    if (list) {
+      const train = list.items.findIndex(
+        (item) => item.departure._id === params.id
+      );
 
-    /* dispatch(
+      dispatch(setSelectionTrain({ data: list.items[train].departure }));
+    }
+    dispatch(
       upDateCatalog({
         data: {
           formData,
@@ -87,8 +94,9 @@ const { data=[], isError:isErrorId, isLoading:isLoadingId } = useGetTrainIdQuery
           parameters: upData.filter,
         },
       })
-    );*/
-  }, [seleсtedTrain, selectedTypeWagon, location, dispatch]);
+    );
+    // eslint-disable-next-line
+  }, [seleсtedTrain, selectedTypeWagon, list, params.id, dispatch]);
   const onClickInfo = () => {
     document.querySelector(".info_card").classList.remove("active");
   };
@@ -112,22 +120,24 @@ const { data=[], isError:isErrorId, isLoading:isLoadingId } = useGetTrainIdQuery
     event.target.classList.toggle("utils-wagon_button_selected");
   };
 
-  const details = {
-    duration: getDuration(
-      seleсtedTrain.to.datetime,
-      seleсtedTrain.from.datetime
-    ),
-    from: {
-      name: seleсtedTrain.from.city.name,
-      datetime: seleсtedTrain.from.datetime * 1000,
-      railway_station_name: seleсtedTrain.from.railway_station_name,
-    },
-    to: {
-      name: seleсtedTrain.to.city.name,
-      datetime: seleсtedTrain.to.datetime * 1000,
-      railway_station_name: seleсtedTrain.to.railway_station_name,
-    },
-  };
+  const details = seleсtedTrain
+    ? {
+        duration: getDuration(
+          seleсtedTrain.to.datetime,
+          seleсtedTrain.from.datetime
+        ),
+        from: {
+          name: seleсtedTrain.from.city.name,
+          datetime: seleсtedTrain.from.datetime * 1000,
+          railway_station_name: seleсtedTrain.from.railway_station_name,
+        },
+        to: {
+          name: seleсtedTrain.to.city.name,
+          datetime: seleсtedTrain.to.datetime * 1000,
+          railway_station_name: seleсtedTrain.to.railway_station_name,
+        },
+      }
+    : null;
   const isValidSeats = getValidDataPass(dataSeats);
   const onChangeInput = (event) => {
     console.log(event, 11);
@@ -152,10 +162,10 @@ const { data=[], isError:isErrorId, isLoading:isLoadingId } = useGetTrainIdQuery
           {!isLoadingId && data && (
             <section className="selection-wagon_Block">
               <Title className={"selection-wagon_title"} text="Выбор мест" />
-              {id!=='' && (
+
+              {details && (
                 <TrailDetails className="selection-wagon" data={details} />
               )}
-
               <QuantityTickets
                 className="quantity-tickets"
                 data={dataSeats}
