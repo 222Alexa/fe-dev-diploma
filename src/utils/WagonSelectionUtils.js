@@ -150,8 +150,10 @@ export const getClassName = (num, dataBase, state) => {
 
 export const getDisabled = (num, dataBase, stateData, type) => {
   //console.log(dataBase, 'disabled');
- // console.log(stateData, 'stateData')
+console.log(stateData, 'stateData');
+//console.log(num, 'num', type, "type")
   let itemBase = dataBase.find((item) => {
+   
     return item.index === Number(num) && item.available === true;
   });
 
@@ -160,25 +162,28 @@ export const getDisabled = (num, dataBase, stateData, type) => {
   if (type.type === "adult") {
     itemState = stateData[1].seats.find((item) => {
     
-      return Number(item) === num;
+      return Number(item.seats) === num;
     });
   } else if (type.type === "child") {
     itemState = stateData[0].seats.find((item) => {
-      return Number(item) === num;
+  
+      return Number(item.seats) === num;
     });
   } else if (type.type === "child-no-seats") {
     const allTypesArr = stateData[0].seats.concat(stateData[1].seats);
     itemState = allTypesArr.find((item) => {
-      return Number(item) === num;
+      return Number(item.seats) === num;
     });
     console.log(itemState,'itemState')
     itemBase = false;
   }
-
+  console.log(itemBase, 'base', itemState, 'state');
+ 
   return !itemBase || itemState ? true : false;
 };
 
 export const getTotalPrice = (arr) => {
+  console.log(arr, 'passArr')
   let price = arr.map((item) => {
     let priceItem = item.count * item.price;
     return priceItem;

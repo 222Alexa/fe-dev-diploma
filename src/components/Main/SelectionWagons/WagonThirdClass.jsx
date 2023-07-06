@@ -10,7 +10,13 @@ const WagonThirdClass = ({ data, selectedTypeTicket, onClick }) => {
   const dataSeats = useSelector((state) => state.passengers.dataSeats);
   const passengers = useSelector((state) => state.passengers.passengers);
   const seatsBtnsArr = getSeatsArr(data.coach.class_type);
-
+console.log(seatsBtnsArr, 'seatsBtnsArr');
+console.log(getDisabled(
+  6,
+  data.seats,
+  dataSeats,
+  selectedTypeTicket
+))
 console.log(  data.seats,
  'data.seats');
   console.log( 

@@ -32,10 +32,9 @@ const SelectionTrain = () => {
   const navigate = useNavigate();
 
   let cardInfo = document.querySelector(".info_card");
-
+console.log(parameters, 'params')
   let upData = parsedUrlString(location.search);
   const formData = formattedFormData(upData);
-
 
   const {
     data = [],
@@ -58,8 +57,10 @@ const SelectionTrain = () => {
           parameters: upData.filter,
         },
       })
+   
     );
 
+    console.log(upData.filter, 'filter')
     // eslint-disable-next-line
   }, [dispatch, location, cardInfo]);
 
@@ -73,7 +74,8 @@ const SelectionTrain = () => {
     if (event.target.textContent === "длительности") type = "duration";
 
     dispatch(setParameters({ sort: { type, text: event.target.textContent } }));
-    upData.filter.sort = event.target.textContent;
+    upData.filter.sort = type;
+    console.log(upData, 888)
     const urlSearchString = getUrlSearch(
       upData.optionsName,
       upData.formData,

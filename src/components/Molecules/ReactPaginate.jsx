@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import TrainsMenu from "../Main/SelectionTrain/TrainsMenu/TrainsMenu";
 import { setParameters } from "../../features/catalogTrainsSlice";
-
+import { parsedUrlString, getUrlSearch } from "../../utils/trainSelectionUtils";
 const PaginatedItems = ({ itemsPerPage, items, listItems }) => {
-
-
   const [currentItems, setCurrentItems] = useState(listItems);
   const [pageCount, setPageCount] = useState(0);
-
-  const [itemOffset, setItemOffset] = useState(0);
+  const itemOffset = useSelector(
+    (state) => state.catalogTrains.searchData.parameters.offset
+  );
 
   const dispatch = useDispatch();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  let upData = parsedUrlString(location.search);
   let newOffset;
+
   useEffect(() => {
     // Fetch items from another resources.
     // const endOffset = itemOffset + itemsPerPage;
@@ -23,13 +26,21 @@ const PaginatedItems = ({ itemsPerPage, items, listItems }) => {
     setCurrentItems(listItems);
 
     setPageCount(Math.ceil(items.length / itemsPerPage));
-  }, [items,listItems, itemOffset, itemsPerPage]);
+  }, [location, items, listItems, itemOffset, itemsPerPage]);
 
   const handlePageClick = (event) => {
     newOffset = (event.selected * itemsPerPage) % items.length;
 
     dispatch(setParameters({ offset: newOffset }));
-    setItemOffset(newOffset);
+    upData.filter.offset = newOffset;
+    const urlSearchString = getUrlSearch(
+      upData.optionsName,
+      upData.formData,
+      upData.filter,
+      upData.parameters
+    );
+
+    navigate({ search: `${urlSearchString}` });
   };
 
   return (

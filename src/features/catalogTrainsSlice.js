@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 const catalogTrainsSlice = createSlice({
   name: "catalogTrains",
   initialState: {
@@ -105,11 +103,17 @@ const catalogTrainsSlice = createSlice({
     },
     upDateCatalog(state, action) {
       const { data } = action.payload;
-      //console.log(data, " upDateCatalog");
+      console.log(data, " upDateCatalog");
       state.searchData.travelData = data.formData;
       state.searchData.trainsParameters = data.trainsParameters;
       state.searchData.parameters.limit = data.parameters.limit;
       state.searchData.parameters.offset = data.parameters.offset;
+      state.searchData.parameters.sort =
+        data.parameters.sort === "date"
+          ? { type: "date", text: "времени" }
+          : data.parameters.sort === "min_price"
+          ? { type: "price", text: "стоимости" }
+          : { type: "duration", text: "длительности" };
     },
   },
 });

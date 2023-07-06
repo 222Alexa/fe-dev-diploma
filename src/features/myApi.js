@@ -15,15 +15,15 @@ export const api = createApi({
     }),
     getTrainsList: builder.query({
       query: (arg) => {
-       // console.log(arg, "trainParams");
+      console.log(arg, "trainParams");
 
         const requestObj = {
           ...arg.search,
           ...arg.formData,
           ...arg.parameters,
-          ...arg.trainsParameters,
+          ...arg.filter,
         };
-
+console.log(requestObj,'requestObj')
         for (let key in requestObj) {
           if (requestObj[key] === false) requestObj[key] = undefined;
         }

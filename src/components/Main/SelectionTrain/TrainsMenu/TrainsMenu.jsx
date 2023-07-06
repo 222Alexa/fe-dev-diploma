@@ -19,7 +19,7 @@ const TrainsMenu = ({ currentItems }) => {
   }
 
   const clickHandler = (id, item) => {
-    console.log(item, 'item')
+
     dispatch(clearDataSeats());
     dispatch(setTrainId({ id: item._id }));
     dispatch(setSelectionTrain({ data: item }));
