@@ -86,8 +86,9 @@ const passengersSlice = createSlice({
           if (idx !== -1) copyState[idx].dataPass = data;
         }
       }
-
+//let result = price.reduce((sum, current) => sum + current, 0);
       state.totalCount = state.passengers.length;
+      state.totalPrice = getTotalPrice(state.passengers);
     },
     setTicketNoSeats: (state, action) => {
       const { count } = action.payload;
@@ -107,10 +108,11 @@ const passengersSlice = createSlice({
 
       state.passengers[idx].dataPass = undefined;
       state.totalCount = state.passengers.length;
+      state.totalPrice = getTotalPrice(state.passengers);
     },
     addSeats: (state, action) => {
       const { data, price } = action.payload;
-
+console.log(data, 'data')
       const idx = state.dataSeats.findIndex((item) => item.type === data.type);
 
       const copySeats = state.dataSeats[idx].seats;
@@ -134,7 +136,7 @@ const passengersSlice = createSlice({
 
       state.dataSeats[idx] = result;
       state.dataSeats[2].limit = state.dataSeats[0].count;
-      state.totalPrice = getTotalPrice(state.dataSeats);
+     
     },
     clearDataSeats: (state) => {
       const copySeats = state.dataSeats;

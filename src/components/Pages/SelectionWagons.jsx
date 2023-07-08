@@ -51,7 +51,7 @@ const SelectionWagons = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   let upData = parsedUrlString(location.search);
-
+console.log(upData,'upData')
   const {
     data: list,
     /*isError: isErrorList,
@@ -104,9 +104,9 @@ const SelectionWagons = () => {
     selectedSeats.seats = Number(event.target.dataset.id);
 
     selectedSeats.coach_id = event.target.dataset.wagon_id;
-
+    selectedSeats.price = event.target.dataset.price;
     dispatch(
-      addSeats({ data: selectedSeats, price: event.target.dataset.price })
+      addSeats({ data: selectedSeats })
     );
     dispatch(
       setDataPassengers({
@@ -191,7 +191,10 @@ const SelectionWagons = () => {
                   text="Далее"
                   type="next-block"
                   disabled={isValidSeats.length ? false : true}
-                  onClick={() => navigate("passengers")}
+                  onClick={() =>     navigate({
+                    pathname: `/fe-dev-diploma/passengers/${id}`,
+                    search: location.search,
+                  })}
                 ></Button>
               </div>
             </section>

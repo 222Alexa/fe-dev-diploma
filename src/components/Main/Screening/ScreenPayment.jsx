@@ -1,10 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Title, Button } from "../../Atoms/Atoms";
-
 
 const ScreenPayment = ({ data }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
   return (
     <React.Fragment>
       <div className="screening-block screening-block_payment">
@@ -22,7 +23,10 @@ const ScreenPayment = ({ data }) => {
                 text="Изменить"
                 type="screening"
                 onClick={() =>
-                  navigate("/fe-dev-diploma/personal_information")
+                  navigate({
+                    pathname: `/fe-dev-diploma/personal_information/${params.id}`,
+                    search: location.search,
+                  })
                 }
               ></Button>
             </div>
@@ -32,6 +36,5 @@ const ScreenPayment = ({ data }) => {
     </React.Fragment>
   );
 };
-
 
 export default ScreenPayment;

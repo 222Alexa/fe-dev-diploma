@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const other = createApi({
   reducerPath: "other",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://netology-trainbooking.netoservices.ru/",
+    baseUrl: "https://students.netoservices.ru/fe-diplom/",
     tagTypes: ["Order", "Subscriber"],
   }),
   endpoints: (builder) => ({

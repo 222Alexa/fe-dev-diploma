@@ -11,7 +11,7 @@ const WagonFourthClass = ({ data, selectedTypeTicket, onClick }) => {
   const passengers = useSelector((state) => state.passengers.passengers);
   const seatsBtnsArr = getSeatsArr(data.coach.class_type);
 
-  console.log(data, 'data4')
+  //console.log(data, 'data4')
   
 
 

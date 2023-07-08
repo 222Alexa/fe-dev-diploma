@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setContributor } from "../../features/passengersSlice";
 import Banner from "../Molecules/Banner";
 import banner3 from "../../img/banner/banner3.png";
 import MainForm from "../Forms/MainForm";
 import ProgressBar from "../Molecules/ProgressBar";
+import Info from "../Molecules/Info";
 import SideBar from "../SideBar/SideBar";
 import PersonalDataForm from "../Forms/PersonalDataForm";
 import ControlledCheckbox from "../Molecules/MUI/ControlledCheckbox";
@@ -16,9 +17,12 @@ import { optionsPayment } from "../../utils/dataText";
 
 const PersonalData = () => {
   const { loading } = useSelector((state) => state.catalogTrains);
-  const { contributor } = useSelector((state) => state.passengers);
+  const { contributor, passengers } = useSelector((state) => state.passengers);
+
   const [state, setState] = useState(contributor);
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
   const dispatch = useDispatch();
 
   const onChangeInput = (value, id) => {
@@ -70,90 +74,110 @@ const PersonalData = () => {
         <div className="personal-data_content">
           {!loading && <ProgressBar />}
           {!loading && <SideBar />}
-          <div className="personal-data_block">
-            <div className="personal-data">
-              <div className="personal-data_fullname">
-                <div className="personal-data_block-top">
-                  <CardTitle
-                    text={"Персональные данные"}
-                    className="personal-data_block"
-                  />
+          {passengers.length > 0 ? (
+            <div className="personal-data_block">
+              <div className="personal-data">
+                <div className="personal-data_fullname">
+                  <div className="personal-data_block-top">
+                    <CardTitle
+                      text={"Персональные данные"}
+                      className="personal-data_block"
+                    />
+                  </div>
+                  <PersonalDataForm data={state} onChange={onChangeInput} />
                 </div>
-                <PersonalDataForm data={state} onChange={onChangeInput} />
-              </div>
 
-              <div className="personal-data_payment">
-                <div
-                  className="personal-data_block-top"
-                  style={{
-                    borderTop: "1px dashed #928F94",
-                    borderBottom: "1px dashed #928F94",
-                  }}
-                >
-                  <CardTitle
-                    text={"Способ оплаты"}
-                    className="personal-data_block"
-                  />
-                </div>
-                <div className="online-payment">
-                  {" "}
-                  <div className="payment-wrap">
-                    <ControlledCheckbox
-                      id="online"
-                      value={state.payment_method}
-                      onChange={handleChange}
+                <div className="personal-data_payment">
+                  <div
+                    className="personal-data_block-top"
+                    style={{
+                      borderTop: "1px dashed #928F94",
+                      borderBottom: "1px dashed #928F94",
+                    }}
+                  >
+                    <CardTitle
+                      text={"Способ оплаты"}
+                      className="personal-data_block"
                     />
-                    <span
-                      className="payment-description"
-                      style={{
-                        color: styledColor("online", state.payment_method),
-                      }}
-                    >
-                      Онлайн
-                    </span>
                   </div>
-                  <div className="payment-options_block d-flex">
-                    {optionsPayment.map((item) => {
-                      return (
-                        <span key={item} className="payment-options_block-item">
-                          {item}
-                        </span>
-                      );
-                    })}
+                  <div className="online-payment">
+                    {" "}
+                    <div className="payment-wrap">
+                      <ControlledCheckbox
+                        id="online"
+                        value={state.payment_method}
+                        onChange={handleChange}
+                      />
+                      <span
+                        className="payment-description"
+                        style={{
+                          color: styledColor("online", state.payment_method),
+                        }}
+                      >
+                        Онлайн
+                      </span>
+                    </div>
+                    <div className="payment-options_block d-flex">
+                      {optionsPayment.map((item) => {
+                        return (
+                          <span
+                            key={item}
+                            className="payment-options_block-item"
+                          >
+                            {item}
+                          </span>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-                <div className="cash-payment" style={{ paddingTop: "58px" }}>
-                  {" "}
-                  <div className="payment-wrap">
-                    <ControlledCheckbox
-                      id="cash"
-                      value={state.payment_method}
-                      onChange={handleChange}
-                    />
-                    <span
-                      className="payment-description"
-                      style={{
-                        color: styledColor("cash", state.payment_method),
-                      }}
-                    >
-                      Наличными
-                    </span>
+                  <div className="cash-payment" style={{ paddingTop: "58px" }}>
+                    {" "}
+                    <div className="payment-wrap">
+                      <ControlledCheckbox
+                        id="cash"
+                        value={state.payment_method}
+                        onChange={handleChange}
+                      />
+                      <span
+                        className="payment-description"
+                        style={{
+                          color: styledColor("cash", state.payment_method),
+                        }}
+                      >
+                        Наличными
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="personal-data_block-control">
+                <Button
+                  text="Купить билеты"
+                  type={!isValidData ? "next-block" : " disabled next-block"}
+                  disabled={isValidData ? true : false}
+                  onClick={() => {
+                    dispatch(setContributor({ data: state }));
+                    navigate({
+                      pathname: `/fe-dev-diploma/screening/${params.id}`,
+                      search: location.search,
+                    })
+                
+                  }}
+                ></Button>
+              </div>
             </div>
-            <div className="personal-data_block-control">
-              <Button
-                text="Купить билеты"
-                type={!isValidData ? "next-block" : " disabled next-block"}
-                disabled={isValidData ? true : false}
-                onClick={() => {
-                  dispatch(setContributor({ data: state }));
-                  navigate("/fe-dev-diploma/screening");
-                }}
-              ></Button>
-            </div>
-          </div>
+          ) : (
+            <Info
+              type="info"
+              text="Вы не выбрали ни одного места в вагоне "
+              onClick={() =>
+                navigate({
+                  pathname: `/fe-dev-diploma/seats/${params.id}`,
+                  search: location.search,
+                })
+              }
+            />
+          )}
         </div>
       </div>
     </React.Fragment>

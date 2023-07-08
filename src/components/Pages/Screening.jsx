@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Button } from "../Atoms/Atoms";
 import Banner from "../Molecules/Banner";
@@ -19,6 +19,8 @@ const Screening = () => {
   const { passengers, contributor } = useSelector((state) => state.passengers);
   const { id } = useSelector((state) => state.catalogTrains);
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
   const [addOrder /*result, isError*/] = useAddOrderMutation();
   let progress = useCallback(() => {
     console.log(passengers);
@@ -42,7 +44,10 @@ const Screening = () => {
 
   const onClickHandler = async () => {
     await handleAddOrder();
-    navigate("/fe-dev-diploma/order-result");
+    navigate({
+      pathname: `/fe-dev-diploma/order-result/${params.id}`,
+      search: location.search,
+    });
   };
 
   const dataTickets = passengers.map((item) => {

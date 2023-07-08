@@ -9,6 +9,7 @@ const OrderDetails = () => {
   const { from, to } = useSelector(
     (state) => state.catalogTrains.searchData.travelData
   );
+  
   return (
     <React.Fragment>
       <div className="order-details-block_wrap">

@@ -5,18 +5,12 @@ import { useSelector } from "react-redux";
 import TrainsMenuCard from "../../Main/SelectionTrain/TrainsMenu/TrainsMenuCard";
 
 const ScreenTrain = () => {
-  const selectedTrain = useSelector(
-    (state) => state.catalogTrains.seletedTrain
-  );
- 
+  const { seleсtedTrain } = useSelector((state) => state.catalogTrains);
 
   return (
     <React.Fragment>
       <div className="screening-block screening-block_train">
-        <TrainsMenuCard
-          departure={selectedTrain}
-     
-        />
+        <TrainsMenuCard departure={seleсtedTrain} />
       </div>
     </React.Fragment>
   );

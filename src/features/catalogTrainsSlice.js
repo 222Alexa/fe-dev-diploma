@@ -103,7 +103,7 @@ const catalogTrainsSlice = createSlice({
     },
     upDateCatalog(state, action) {
       const { data } = action.payload;
-      console.log(data, " upDateCatalog");
+
       state.searchData.travelData = data.formData;
       state.searchData.trainsParameters = data.trainsParameters;
       state.searchData.parameters.limit = data.parameters.limit;

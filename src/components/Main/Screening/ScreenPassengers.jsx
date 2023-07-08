@@ -1,19 +1,20 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { CardTitle, Button, MySvgIcon } from "../../Atoms/Atoms";
 import Card from "../CardsBlock/Card";
 import { CardTop, CardBody } from "../CardsBlock/CardsMolecules";
 import icon_avatar from "../../../img/icon_avatar.svg";
-import {formattedPrice} from "../../../utils/trainSelectionUtils";
+import { formattedPrice } from "../../../utils/trainSelectionUtils";
 import { format } from "date-fns";
 import { nanoid } from "nanoid";
 
 const ScreenPassengers = ({ data }) => {
-console.log(data, "screening");
-const totalPrice=useSelector((state) => state.passengers.totalPrice)
+  console.log(data, "screening");
+  const totalPrice = useSelector((state) => state.passengers.totalPrice);
   const navigate = useNavigate();
-const params = useParams();
+  const location = useLocation();
+  const params = useParams();
 
   return (
     <React.Fragment>
@@ -47,11 +48,16 @@ const params = useParams();
                       </span>
                       <span className="passengers_body-text">
                         {"Пол " +
-                          (item.dataPass.info.gender === "male" ? "мужской" : "женский")}
+                          (item.dataPass.info.gender === "male"
+                            ? "мужской"
+                            : "женский")}
                       </span>
                       <span className="passengers_body-text">
                         {"Дата рождения  " +
-                          format(new Date(item.dataPass.info.date_birth), "dd.MM.yyyy")}
+                          format(
+                            new Date(item.dataPass.info.date_birth),
+                            "dd.MM.yyyy"
+                          )}
                       </span>
                       <span className="passengers_body-text">
                         {item.dataPass.docs.type_docs.id === "passport"
@@ -73,7 +79,9 @@ const params = useParams();
               <div className="screening-passengers_control_price-block">
                 <span className="price-block_text">Всего</span>
                 <div className="price-block_sum">
-                  <span className="price-block_text">{formattedPrice(totalPrice)}</span>
+                  <span className="price-block_text">
+                    {formattedPrice(totalPrice)}
+                  </span>
                   <svg
                     className="control_price-block_currency"
                     width="20"
@@ -93,9 +101,10 @@ const params = useParams();
                 text="Изменить"
                 type="screening"
                 onClick={() =>
-                  navigate(
-                    `/fe-dev-diploma/trains/${params.id}/passengers`
-                  )
+                  navigate({
+                    pathname: `/fe-dev-diploma/passengers/${params.id}`,
+                    search: location.search,
+                  })
                 }
               ></Button>
             </div>

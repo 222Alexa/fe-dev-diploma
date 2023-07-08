@@ -18,11 +18,12 @@ const TrainsMenuCard = ({ departure, onClick }) => {
   const location = useLocation();
   const navigate = useNavigate();
   let screen =
-    location.pathname === "/fe-dev-diploma/screening" ? "screen" : null;
+    location.pathname === `/fe-dev-diploma/screening/${params.id}`
+      ? "screen"
+      : null;
 
-  params.id = departure._id;
+  if (departure) params.id = departure._id;
 
-  //console.log(departure, "departure");
   const dataTrain = {
     duration: departure.duration,
     statusWagons: [
@@ -70,11 +71,10 @@ const TrainsMenuCard = ({ departure, onClick }) => {
       item.min_price = departure.min_price;
       item.bottom_price = departure.price_info.second.bottom_price;
       item.top_price = departure.price_info.second.top_price;
-      
+
       item.type = "Купе";
     }
     if (item.name === "first") {
-      
       item.amount = departure.available_seats_info.first;
       item.min_price = departure.price_info.first.price;
       item.type = "Люкс";
@@ -124,7 +124,12 @@ const TrainsMenuCard = ({ departure, onClick }) => {
               <Button
                 text="Изменить"
                 type="screening"
-                onClick={() => navigate("/fe-dev-diploma/trains")}
+                onClick={() =>
+                  navigate({
+                    pathname: `/fe-dev-diploma/trains`,
+                    search: location.search,
+                  })
+                }
               ></Button>
             </div>
           ) : (

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deletePassenger } from "../../features/passengersSlice";
 import Banner from "../Molecules/Banner";
@@ -28,9 +28,13 @@ const PassengersInfo = () => {
 
   const cardRef = useRef();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const params = useParams();
+
   let showInfo = true;
   let isValidData;
   validatePass(passengers) ? (isValidData = false) : (isValidData = true);
+
   useEffect(() => {
     // console.log(passengers, "passengers");
   }, [passengers, isValidData]);
@@ -60,11 +64,14 @@ const PassengersInfo = () => {
   };
 
   const onClickHandler = () => {
-    console.log(validatePass(passengers), "    validatePass(passengers)");
     validatePass(passengers) === true
-      ? navigate("/fe-dev-diploma/personal_information")
+      ? navigate({
+          pathname: `/fe-dev-diploma/personal_information/${params.id}`,
+          search: location.search,
+        })
       : setShowError(true);
   };
+  console.log(count, "count");
   return (
     <React.Fragment>
       <Banner className="banner banner-tickets" banner={banner3} />
@@ -74,33 +81,45 @@ const PassengersInfo = () => {
           <ProgressBar />
           <SideBar />
           <section className="passengers-info_block" ref={cardRef}>
-            {count.length > 0
-              ? count.map((item) => (
-                  <BlockItem
-                    key={item}
-                    id={item}
-                    clickHandler={clickHandler}
-                    clickDelete={clickDelete}
-                    showInfo={showInfo}
-                  />
-                ))
-              : null}
-            <AddPassenger state={count} setState={setCount} />
+            {count.length > 0 ? (
+              count.map((item) => (
+                <BlockItem
+                  key={item}
+                  id={item}
+                  clickHandler={clickHandler}
+                  clickDelete={clickDelete}
+                  showInfo={showInfo}
+                />
+              ))
+            ) : (
+              <Info
+                type="info"
+                text="Вы не выбрали ни одного места в вагоне "
+                onClick={() =>
+                  navigate({
+                    pathname: `/fe-dev-diploma/seats/${params.id}`,
+                    search: location.search,
+                  })
+                }
+              />
+            )}
+            {count.length > 0 ? (
+              <AddPassenger state={count} setState={setCount} />
+            ) : null}
             <div className="passengers-info_section_control">
               {showError && (
                 <Info
-                
                   type="error"
                   text="Количество и типы пассажиров должны соответствовать количеству посадочных мест и типам билетов"
                   onClick={() => setShowError(false)}
                 />
               )}
-              <Button
+              {count.length > 0 ? (<Button
                 text="Далее"
                 type={totalCount === 0 ? "next-block" : " disabled next-block"}
                 disabled={!passengers.length ? true : false}
                 onClick={onClickHandler}
-              ></Button>
+              ></Button>):null}
             </div>
           </section>
         </div>

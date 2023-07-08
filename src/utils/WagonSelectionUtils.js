@@ -122,7 +122,6 @@ export const getSeatsArr = (class_type) => {
 };
 
 export const getClassName = (num, dataBase, state) => {
- 
   const item = dataBase.seats.find((item) => {
     return item.index === Number(num) && item.available === true;
   });
@@ -149,11 +148,8 @@ export const getClassName = (num, dataBase, state) => {
 };
 
 export const getDisabled = (num, dataBase, stateData, type) => {
-  //console.log(dataBase, 'disabled');
-console.log(stateData, 'stateData');
-//console.log(num, 'num', type, "type")
+
   let itemBase = dataBase.find((item) => {
-   
     return item.index === Number(num) && item.available === true;
   });
 
@@ -161,12 +157,10 @@ console.log(stateData, 'stateData');
 
   if (type.type === "adult") {
     itemState = stateData[1].seats.find((item) => {
-    
       return Number(item.seats) === num;
     });
   } else if (type.type === "child") {
     itemState = stateData[0].seats.find((item) => {
-  
       return Number(item.seats) === num;
     });
   } else if (type.type === "child-no-seats") {
@@ -174,21 +168,19 @@ console.log(stateData, 'stateData');
     itemState = allTypesArr.find((item) => {
       return Number(item.seats) === num;
     });
-    console.log(itemState,'itemState')
+    
     itemBase = false;
   }
-  console.log(itemBase, 'base', itemState, 'state');
- 
+
+
   return !itemBase || itemState ? true : false;
 };
 
 export const getTotalPrice = (arr) => {
-  console.log(arr, 'passArr')
-  let price = arr.map((item) => {
-    let priceItem = item.count * item.price;
-    return priceItem;
-  });
-  let result = price.reduce((sum, current) => sum + current, 0);
+  let result = arr
+    .map((item) => item.price)
+    .reduce((sum, current) => Number(sum) + Number(current), 0);
+
   return result;
 };
 
@@ -200,13 +192,14 @@ export const getValidDataPass = (data) => {
 };
 export const getDataPassTemplate = (data) => {
   const arr = getValidDataPass(data);
+ 
   let template = arr.map((item) => {
     let elem = {
       type: item.type,
       count: item.count,
-      price: item.count * item.price,
+      price: getTotalPrice(item.seats),
     };
- 
+
     if (elem.type === "adult") {
       elem.text = elem.count > 1 ? "Взрослых" : "Взрослый";
     } else if (elem.type === "child") {

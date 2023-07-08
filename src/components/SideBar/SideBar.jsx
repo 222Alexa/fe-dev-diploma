@@ -23,10 +23,10 @@ const SideBar = () => {
   const getLocation = () => {
     if (
       location.pathname === "/fe-dev-diploma/trains" ||
-      location.pathname === "/fe-dev-diploma/trains/"
+      location.pathname === "/fe-dev-diploma/trains/" 
     ) {
       return true;
-    } else if (location.pathname === `/fe-dev-diploma/trains/${params.id}`) {
+    } else if (location.pathname === `/fe-dev-diploma/seats/${params.id}`) {
       return true;
     } else {
       return false;

@@ -19,11 +19,11 @@ function App() {
         <Route path="/fe-dev-diploma/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="trains/" element={<SelectionTrain />} />
-          <Route path="trains/:id" element={<SelectionWagons />} />
-          <Route path="trains/:id/passengers" element={<PassengersInfo />} />
-          <Route path="personal_information" element={<PersonalData />} />
-          <Route path="screening" element={<Screening />} />
-          <Route path="order-result" element={<OrderResult/>} />
+          <Route path="seats/:id" element={<SelectionWagons />} />
+          <Route path="passengers/:id/" element={<PassengersInfo />} />
+          <Route path="personal_information/:id/" element={<PersonalData />} />
+          <Route path="screening/:id/" element={<Screening />} />
+          <Route path="order-result/:id/" element={<OrderResult/>} />
           <Route path="*" element={<NotFound />} />
         </Route>
       

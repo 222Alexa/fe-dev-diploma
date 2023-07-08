@@ -18,15 +18,15 @@ const ProgressBar = () => {
   /** */
   let step=1;
 
-  if (location.pathname === "/fe-dev-diploma/screening") {
+  if (location.pathname === `/fe-dev-diploma/screening/${params.id}`) {
     step = 4;
   } else if (
-    location.pathname === "/fe-dev-diploma/personal_information"
+    location.pathname === `/fe-dev-diploma/personal_information/${params.id}`
   ) {
     step = 3;
   } else if (
     location.pathname ===
-    `/fe-dev-diploma/trains/${params.id}/passengers`
+    `/fe-dev-diploma/passengers/${params.id}`
   ) {
     step = 2;
   }
